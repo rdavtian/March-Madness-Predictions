@@ -992,15 +992,15 @@ new_train1$Seed_Team2 <- train1$Seed_Team2
 new_train1$Round <- train1$Round
 
 # Use new_train1 instead of train1 for standardized versionn
-training_data <- train1[train1$Season %in% c(seq(2003,2018)),]
+training_data <- train1[train1$Season %in% c(seq(2003,2017)),]
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars]
 
 # Use new_train1 instead of train1 for standardized version
-testing_data <- train1[(train1$Season %in% c(2019)) & train1$Round > 0,]
+testing_data <- train1[(train1$Season %in% c(2018)) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars]
-logit <- run_penalized_logit(vars, alpha = 0.1, min = T) # alpha = 0.5, min = T
+logit <- run_penalized_logit(vars, alpha = 0.5, min = T) # alpha = 0.5, min = T
 
 answer <- logit[[2]]
 hist(answer$Pred_Prob)
@@ -1009,10 +1009,10 @@ cv.out <- logit[[1]]
 lambda_min <- cv.out$lambda.min
 lambda_1se <- cv.out$lambda.1se
 # Look at games for which I predicted incorrectly
-wrong <- testing_data[which(answer$True == answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
+wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
                       ifelse(wrong$Team1_Victory == 0 & wrong$Seed_Team1 < wrong$Seed_Team2, 1, 0))
-d <- answer[answer$True == answer$Pred_Outcome,]
+d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
@@ -1112,14 +1112,15 @@ head(model, 50); tail(model,15)
 model; exp(model$betas)
 
 GLMNET <- glmnet[[1]]
-test2 <- Bracket_Sim_GLMNET(2019, 500)
-bracket <- Normalize_Sim(test2, 500)
+test2 <- Bracket_Sim_GLMNET(2019, 1000)
+bracket <- Normalize_Sim(test2, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2019_GLMNET_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2019, 2019, vars, names = T); kaggle_glmnet
@@ -1172,14 +1173,15 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 rF <- rf[[1]]
-test2 <- Bracket_Sim_RF(2019, 500)
-bracket <- Normalize_Sim(test2, 500)
+test2 <- Bracket_Sim_RF(2019, 1000)
+bracket <- Normalize_Sim(test2, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2019_RF_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_rf <- kaggle_predictions(rf, 'rf', 2019, 2019, vars, names = T); kaggle_rf
@@ -1239,14 +1241,15 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 gbm <- GBM[[1]]
-test3 <- Bracket_Sim_GBM(2019, 500)
-bracket <- Normalize_Sim(test3, 500)
+test3 <- Bracket_Sim_GBM(2019, 1000)
+bracket <- Normalize_Sim(test3, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2019_GBM_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_gbm <- kaggle_predictions(gbm, 'gbm', 2015, 2019, vars, names = F); kaggle_gbm
@@ -1301,14 +1304,15 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 xgboost <- XGBoost[[1]]
-test4 <- Bracket_Sim_XGBoost(2019, 500)
-bracket <- Normalize_Sim(test4, 500)
+test4 <- Bracket_Sim_XGBoost(2019, 1000)
+bracket <- Normalize_Sim(test4, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2019_XGBOOST_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_xgboost <- kaggle_predictions(xgboost, 'xgboost', 2019, 2019, vars, min = F, names = T); 
@@ -1420,4 +1424,4 @@ kaggle_nn %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 model_list <- list(glmnet = GLMNET, rf = rF, gbm = gbm, xgboost = xgboost)
 resamples <- resamples(model_list)
 summary(resamples)
-dotplot(resamples, conf.level = 0.5, main = '3-Fold CV Error Caret Model Comparison')
+dotplot(resamples, conf.level = 0.75, main = '3-Fold CV Error Caret Model Comparison')
