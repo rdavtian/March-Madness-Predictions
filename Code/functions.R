@@ -40,25 +40,23 @@ get_columns = function(data_frame, list_of_vars, match_letter = "")
 }
 
 roundFinder <- function(region1, region2, seed1, seed2){
-  if(region1 == region2 && seed1 == seed2){return(0)} #This is for the 'First Four', the play-in games
+  if(region1 == region2 && seed1 == seed2){return(0)} 
   else if(region1 != region2){   
     if((region1 == 'W' && region2 == 'X')||(region1=='X' && region2=='W')|| (region1=='Y'&&region2=='Z')|| (region1=='Z'&&region2=='Y')){ 
-      return(5)     #If the two teams are from different regions, but both from either the left side or right side of the bracket (left side is W and X, right side is Y and Z), they will play each other in round 5, the semi final
+      return(5)     
     }
-    else return(6)  #If the two teams are from different regions and different sides of the bracket, they'll only play each other in the championship, round 6
+    else return(6)  
   }
-  else{  #Now it gets finnicky. Within each regional bracket, about half of the matchup rounds can be determined by simply adding the two teams' seeds together. The other half need to be called out individually.
+  else{  
     z <- as.character(as.numeric(seed1) + as.numeric(seed2))
-    #We also need to put the lower seed first, so we don't have to do twice as many individual callouts
     x <- as.character(min(c(as.numeric(seed1),as.numeric(seed2))))
     y <- as.character(max(c(as.numeric(seed1),as.numeric(seed2))))
-    #This first switch function checks the seed sum to see if it can identify the round
     w <- switch(z, '17'=1, '9'=2, '25'=2, '2'=4, '3'=4, '4'=4, '5'=3, '7'=4, '11'=4, '13'=3, 
                 '15'=4, '19'=4, '21'=3, '23'=4, '27'=4, '29'=3, '30'=4, '31'=4)      
     if(is.numeric(w)){
       return(w)
     }
-    else{ #If the first switch didn't find an answer, this one will. It calls out the remaining combinations and returns the correct round
+    else{ 
       y <- as.character(y) 
       return(switch(as.character(x), '1'=switch(y,'9'=2,'5'=3,'13'=3,'7'=4,'11'=4,'15'=4),
                     '2'=switch(y,'10'=2,'6'=3,'14'=3,'4'=4,'8'=4,'12'=4,'16'=4),
