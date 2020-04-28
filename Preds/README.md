@@ -21,7 +21,7 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 
 
 #2019 GLMNET Bracket Simulation Results
-http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness  Predictions/blob/master/Preds/Preds18/GLMNET/Bracket_Sim_Results.html
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds18/GLMNET/Bracket_Sim_Results.html
 
 
 #2019 RF Bracket Simulation Results
