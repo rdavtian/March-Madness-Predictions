@@ -7,7 +7,7 @@
 #https://www.test-guide.com/free-gre-practice-tests.html
 options(kableExtra.auto_format = FALSE)
 options(knitr.table.format = "html")
-setwd("C:/Users/rusla/OneDrive/MarchMadness/MarchMadness/New_Code")
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code")
 source('functions.R'); source('bracket_sim_functions.R')
 library(ggplot2)
 library(knitr)
@@ -30,7 +30,7 @@ require(nnet)
 library(keras)
 library(openxlsx)
 
-setwd("C:/Users/rusla/OneDrive/MarchMadness/MarchMadness/Stage1_2020")
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020")
 
 # Load Data
 Seasons <- read.csv("MSeasons.csv")
@@ -1046,7 +1046,7 @@ kable(bracket_min, row.names = F) %>%
   scroll_box(width = "100%", height = "520px")
 
 # Make Kaggle Predictions, trained with unstandardized data only
-setwd("C:/Users/rusla/OneDrive/MarchMadness/MarchMadness/Preds_2020")
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Preds")
 kaggle_logit_min <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = T, names = T); kaggle_logit_min
 kaggle_logit_1se <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = F, names = T); kaggle_logit_1se
 kaggle_logit_1se %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
