@@ -637,8 +637,8 @@ run_penalized_logit <- function(vars, alpha, min)
     lasso_prob <- predict(cv.out,newx = data.matrix(testing_continuous), 
                           s=lambda_1se, type= "response")
   }
-  lasso_prob <- ifelse(lasso_prob > 0.965, 0.99999, lasso_prob)
-  lasso_prob <- ifelse(lasso_prob < 0.035, 0.00001, lasso_prob)
+  lasso_prob <- ifelse(lasso_prob > 0.99, 0.99999, lasso_prob)
+  lasso_prob <- ifelse(lasso_prob < 0.01, 0.00001, lasso_prob)
   loss <- round(logloss(testing_response[,1],lasso_prob),4)
   print(paste("logloss:", loss))
   
@@ -684,8 +684,8 @@ run_glmnet <- function(vars, parametersGrid)
   glmnet_prob <- preds[, 2]
   
   preds_raw <- predict(glmnet, newdata = testing_continuous, type = 'raw')
-  glmnet_prob <- ifelse(glmnet_prob > 0.965, 0.99999, glmnet_prob)
-  glmnet_prob <- ifelse(glmnet_prob < 0.035, 0.00001, glmnet_prob)
+  glmnet_prob <- ifelse(glmnet_prob > 0.99, 0.99999, glmnet_prob)
+  glmnet_prob <- ifelse(glmnet_prob < 0.01, 0.00001, glmnet_prob)
   loss <- round(logloss(testing_response[,1],glmnet_prob),4)
   print(paste("logloss:", loss))
   
@@ -729,8 +729,8 @@ run_random_forest <- function(vars, ntrees)
   preds <- predict(rF, newdata = testing_continuous, type = "prob")
   rf_prob <- preds[, 2]
   preds_raw <- predict(rF, newdata = testing_continuous, type = 'raw')
-  rf_prob <- ifelse(rf_prob > 0.965, 0.99999, rf_prob)
-  rf_prob <- ifelse(rf_prob < 0.035, 0.00001, rf_prob)
+  rf_prob <- ifelse(rf_prob > 0.99, 0.99999, rf_prob)
+  rf_prob <- ifelse(rf_prob < 0.01, 0.00001, rf_prob)
   loss <- round(logloss(testing_response[,1],rf_prob),4)
   print(paste("logloss:", loss))
   
@@ -769,8 +769,8 @@ run_gbm <- function(vars, gbmGrid)
   gbm_prob <- preds[, 2]
   
   preds_raw <- predict(gbm, newdata = testing_continuous, type = 'raw')
-  gbm_prob <- ifelse(gbm_prob > 0.965, 0.99999, gbm_prob)
-  gbm_prob <- ifelse(gbm_prob < 0.035, 0.00001, gbm_prob)
+  gbm_prob <- ifelse(gbm_prob > 0.99, 0.99999, gbm_prob)
+  gbm_prob <- ifelse(gbm_prob < 0.01, 0.00001, gbm_prob)
   loss <- round(logloss(testing_response[,1],gbm_prob),4)
   print(paste("logloss:", loss))
   
@@ -815,8 +815,8 @@ run_xgboost <- function(vars, parametersGrid)
   xgboost_prob <- preds[, 2]
   
   preds_raw <- predict(xgboost, newdata = testing_continuous, type = 'raw')
-  xgboost_prob <- ifelse(xgboost_prob > 0.965, 0.99999, xgboost_prob)
-  xgboost_prob <- ifelse(xgboost_prob < 0.035, 0.00001, xgboost_prob)
+  xgboost_prob <- ifelse(xgboost_prob > 0.99, 0.99999, xgboost_prob)
+  xgboost_prob <- ifelse(xgboost_prob < 0.01, 0.00001, xgboost_prob)
   loss <- round(logloss(testing_response[,1],xgboost_prob),4)
   print(paste("logloss:", loss))
   
