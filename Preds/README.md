@@ -5,7 +5,7 @@ in front of url of the html file on github
 ## March Madness Tournament Simulation Results
 
 #2018 GLMNET Bracket Simulation Results
-http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness  Predictions/blob/master/Preds/Preds18/GLMNET/Bracket_Sim_Results.html
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds18/GLMNET/Bracket_Sim_Results.html
 
 
 #2018 RF Bracket Simulation Results
