@@ -1,14 +1,15 @@
+current_tourn_year <- 2019
 Bracket_Sim_Penalized = function(year, N, lambda)
 {
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
@@ -282,11 +283,11 @@ Bracket_Sim_GLMNET = function(year, N)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
@@ -567,11 +568,11 @@ Bracket_Sim_RF = function(year, N)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
@@ -852,11 +853,11 @@ Bracket_Sim_GBM = function(year, N)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
@@ -1137,11 +1138,11 @@ Bracket_Sim_XGBoost = function(year, N)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
@@ -1422,11 +1423,11 @@ Bracket_Sim_NN = function(year, N)
   regions = c("W","X","Y","Z")
   
   # Use train1 data set for known tournament results for training
-  if (year != 2019)
+  if (year != current_tourn_year)
   {
     bracket = train1[train1$Season == year,]
   }
-  if (year == 2019)
+  if (year == current_tourn_year)
   {
     # Use below for unknown predictions
     # Remove teams that lost play in game in 2018 tournament
