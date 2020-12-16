@@ -1091,7 +1091,7 @@ testing_continuous <- testing_data[, vars2]
 glmnetGrid <- expand.grid(alpha = seq(0, 1, 0.1),
   lambda = seq(0.0001, 1, length = 100))
 
-glmnet <- run_glmnet(vars, glmnetGrid, k_fold = 5)
+glmnet <- run_glmnet(vars, glmnetGrid, k_fold = 4)
 
 answer <- glmnet[[2]]
 hist(answer$Pred_Prob)
@@ -1163,7 +1163,7 @@ testing_data <- train1[train1$Season %in% c(2019) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-rf <- run_random_forest(vars, 2000)
+rf <- run_random_forest(vars, 500, k_fold = 4)
 
 answer <- rf[[2]]
 hist(answer$Pred_Prob)
@@ -1232,7 +1232,7 @@ gbmGrid <- expand.grid(n.trees=c(10,20,50,100,500,1000),
                        shrinkage=c(0.01,0.05,0.1,0.5),n.minobsinnode = c(3,5,10,20),
                        interaction.depth=c(1,3,5))
 
-GBM <- run_gbm(vars, gbmGrid)
+GBM <- run_gbm(vars, gbmGrid, k_fold = 4)
 answer <- GBM[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
@@ -1295,7 +1295,7 @@ testing_continuous <- testing_data[, vars2]
 parametersGrid <- expand.grid(eta = c(0.02), colsample_bytree=c(0.7), max_depth=c(3), gamma = c(1,10),
                               nrounds=c(50,100,150,200), min_child_weight=c(10,20,40), subsample = c(0.35,0.5))
 
-XGBoost <- run_xgboost(vars, parametersGrid)
+XGBoost <- run_xgboost(vars, parametersGrid, k_fold = 4)
 answer <- XGBoost[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
