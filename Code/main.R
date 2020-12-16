@@ -970,7 +970,7 @@ team1_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
                "Team1","Team2","Team1_Name","Team2_Name","Team1_Dist","Team2_Dist",
                "Seed_Team1", team1_cols_1,team1_cols_2,diff_cols1,diff_cols2,"Team1_PreSeason_Top25")
 # Remove Team1_Victory
-team1_cols = team1_cols[-49]
+team1_cols = team1_cols[team1_cols != 'Team1_Victory']
 
 # Team2 colnames
 team2_cols_1 = colnames(train1)[endsWith(x = colnames(train1), suffix = "Team2_Avg")]
