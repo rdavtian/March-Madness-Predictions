@@ -544,7 +544,9 @@ train1 <- train1 %>%
          adj_win_perc_diff = Team1_Adj_Win_Perc - Team2_Adj_Win_Perc,
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
          win_diff = Team1_Wins - Team2_Wins,
-         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses)
+         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
+           as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
 all_years_submission <- get_all_pairwise_matchups(2003, 2020)
@@ -838,7 +840,9 @@ kaggle1 <- kaggle1 %>%
          adj_win_perc_diff = Team1_Adj_Win_Perc - Team2_Adj_Win_Perc,
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
          win_diff = Team1_Wins - Team2_Wins,
-         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses)
+         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
+           as.numeric(as.character(Team1_PreSeason_Top25)))
 ##############################################################################################
 ####################################################################################
 # Visualization, Correlations
@@ -932,7 +936,7 @@ vars <- c("Seed_Diff","Score_diff","fgm_three_diff","ast_diff","offreb_diff","fg
           "num_poss_diff","ft_perc_diff","ftattempted_diff","def_rating_diff","off_rating_diff",
           "turnover_perc_diff","tie_diff","offreb_perc_diff","defreb_perc_diff","efg_perc_diff",
           "score_opp_diff","shoot_eff_diff","margin_adj_diff","net_eff_diff",
-          "reb_perc_diff","ast_ratio_diff")
+          "reb_perc_diff","ast_ratio_diff","preseason_top_25_diff")
 #"margin_adj_diff",
 vars <- c("margin_adj_diff","top_50_diff","rank_diff","Seed_Diff",
           "pie_diff","sos_diff","win_diff","ft_perc_diff","adj_win_diff",
@@ -940,8 +944,8 @@ vars <- c("margin_adj_diff","top_50_diff","rank_diff","Seed_Diff",
           "dist_diff","turnovers_diff","pfouls_diff","defreb_diff",
           "Team1_Power","Team2_Power","Team1_ConfChamp","Team2_ConfChamp",
           "reb_perc_diff","ast_ratio_diff","four_factor_diff","fga_three_diff",
-          "fgmade_diff","steals_diff","bad_losses_diff","Team1_PreSeason_Top25",
-          "Team2_PreSeason_Top25")
+          "fgmade_diff","steals_diff","bad_losses_diff","preseason_top_25_diff",
+          "Team1_PreSeason_Top25","Team2_PreSeason_Top25")
 vars <- c("sos_diff","pie_diff","bad_losses_diff","pfouls_diff","fga_three_diff",
           "dist_diff","ft_perc_diff","top_50_diff","adj_win_diff","Team1_Power",
           "four_factor_diff","blocks_diff","turnovers_diff","Score_diff",
@@ -970,7 +974,7 @@ team1_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
                "Team1","Team2","Team1_Name","Team2_Name","Team1_Dist","Team2_Dist",
                "Seed_Team1", team1_cols_1,team1_cols_2,diff_cols1,diff_cols2,"Team1_PreSeason_Top25")
 # Remove Team1_Victory
-team1_cols = team1_cols[-49]
+team1_cols = team1_cols[team1_cols != 'Team1_Victory']
 
 # Team2 colnames
 team2_cols_1 = colnames(train1)[endsWith(x = colnames(train1), suffix = "Team2_Avg")]
@@ -1000,7 +1004,7 @@ training_continuous <- training_data[, vars]
 testing_data <- train1[(train1$Season %in% c(2018)) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars]
-logit <- run_penalized_logit(vars, alpha = 0.5, min = T) # alpha = 0.5, min = T
+logit <- run_penalized_logit(vars, alpha = 0.5, min = T, k_fold = 5) # alpha = 0.5, min = T
 
 answer <- logit[[2]]
 hist(answer$Pred_Prob)
@@ -1087,7 +1091,7 @@ testing_continuous <- testing_data[, vars2]
 glmnetGrid <- expand.grid(alpha = seq(0, 1, 0.1),
   lambda = seq(0.0001, 1, length = 100))
 
-glmnet <- run_glmnet(vars, glmnetGrid)
+glmnet <- run_glmnet(vars, glmnetGrid, k_fold = 5)
 
 answer <- glmnet[[2]]
 hist(answer$Pred_Prob)
@@ -1112,8 +1116,8 @@ head(model, 50); tail(model,15)
 model; exp(model$betas)
 
 GLMNET <- glmnet[[1]]
-test2 <- Bracket_Sim_GLMNET(2019, 1000)
-bracket <- Normalize_Sim(test2, 1000)
+test2 <- Bracket_Sim_GLMNET(2019, 100)
+bracket <- Normalize_Sim(test2, 100)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),

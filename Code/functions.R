@@ -615,13 +615,13 @@ creating_slots_kaggle <- function()
   kaggle1$slot <- ifelse(kaggle1$Round == 6, "R6CH",kaggle1$slot)
 }
 
-run_penalized_logit <- function(vars, alpha, min)
+run_penalized_logit <- function(vars, alpha, min, k_fold)
 {
   print(paste("vars: ", paste(vars, collapse = ', ')))
   
   cv.out <- cv.glmnet(data.matrix(training_continuous), 
                       as.factor(data.matrix(training_response[,1])), alpha = alpha, 
-                      family = "binomial", type.measure = "class", nfolds = 5)
+                      family = "binomial", type.measure = "class", nfolds = k_fold)
   plot(cv.out)
   
   lambda_min <- cv.out$lambda.min
@@ -659,13 +659,13 @@ run_penalized_logit <- function(vars, alpha, min)
   return(list(cv.out, answer))
 }
 
-run_glmnet <- function(vars, parametersGrid)
+run_glmnet <- function(vars, parametersGrid, k_fold)
 {
   set.seed(42)
-  myFolds <- createFolds(training_continuous$Team1_Victory, k = 3)
+  myFolds <- createFolds(training_continuous$Team1_Victory, k = k_fold)
   print(paste("vars: ", paste(vars, collapse = ', ')))
   training_continuous$Team1_Victory <- ifelse(training_continuous$Team1_Victory == 1, "Win","Loss")
-  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss,
+  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss, number = k_fold,
                           index = myFolds, savePredictions = TRUE)
   glmnet <- train(as.formula(paste0("as.factor(Team1_Victory) ~ ", paste0(vars, collapse = " + "))), 
                   data = training_continuous, method = "glmnet", tuneGrid=parametersGrid, 
@@ -706,13 +706,13 @@ run_glmnet <- function(vars, parametersGrid)
   return(list(glmnet, answer))
 }
 
-run_random_forest <- function(vars, ntrees)
+run_random_forest <- function(vars, ntrees, k_fold)
 {
   set.seed(42)
-  myFolds <- createFolds(training_continuous$Team1_Victory, k = 3)
+  myFolds <- createFolds(training_continuous$Team1_Victory, k = k_fold)
   print(paste("vars: ", paste(vars, collapse = ', ')))
   training_continuous$Team1_Victory <- ifelse(training_continuous$Team1_Victory == 1, "Win","Loss")
-  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss,
+  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss, number = k_fold,
                           index = myFolds, savePredictions = TRUE)
   rF <- train(as.formula(paste0("as.factor(Team1_Victory) ~ ", paste0(vars, collapse = " + "))),
               ntree = ntrees, method = 'rf', metric="logLoss", trControl=control,
@@ -751,13 +751,13 @@ run_random_forest <- function(vars, ntrees)
   return(list(rF, answer))
 }
 
-run_gbm <- function(vars, gbmGrid)
+run_gbm <- function(vars, gbmGrid, k_fold)
 {
   set.seed(42)
-  myFolds <- createFolds(training_continuous$Team1_Victory, k = 3)
+  myFolds <- createFolds(training_continuous$Team1_Victory, k = k_fold)
   print(paste("vars: ", paste(vars, collapse = ', ')))
   training_continuous$Team1_Victory <- ifelse(training_continuous$Team1_Victory == 1, "Win","Loss")
-  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss,
+  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss, number = k_fold,
                           index = myFolds, savePredictions = TRUE)
   gbm <- train(as.formula(paste0("as.factor(Team1_Victory) ~ ", paste0(vars, collapse = " + "))),
                data = training_continuous, method="gbm", verbose=FALSE, tuneGrid = gbmGrid,
@@ -791,13 +791,13 @@ run_gbm <- function(vars, gbmGrid)
   return(list(gbm, answer))
 }
 
-run_xgboost <- function(vars, parametersGrid)
+run_xgboost <- function(vars, parametersGrid, k_fold)
 {
   set.seed(42)
-  myFolds <- createFolds(training_continuous$Team1_Victory, k = 3)
+  myFolds <- createFolds(training_continuous$Team1_Victory, k = k_fold)
   print(paste("vars: ", paste(vars, collapse = ', ')))
   training_continuous$Team1_Victory <- ifelse(training_continuous$Team1_Victory == 1, "Win","Loss")
-  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss,
+  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss, number = k_fold,
                           index = myFolds, savePredictions = TRUE)
   xgboost <- train(as.formula(paste0("as.factor(Team1_Victory) ~ ", paste0(vars, collapse = " + "))), 
                    data = training_continuous, method = "xgbTree", 
