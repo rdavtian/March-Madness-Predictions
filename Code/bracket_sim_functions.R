@@ -12,9 +12,8 @@ Bracket_Sim_Penalized = function(year, N, lambda)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
-    
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
     bracket = bracket[bracket$Team1_Name != "Arizona St" & bracket$Team2_Name != "Arizona St",]
     bracket = bracket[bracket$Team1_Name != "NC Central" & bracket$Team2_Name != "NC Central",]
@@ -290,7 +289,7 @@ Bracket_Sim_GLMNET = function(year, N)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
@@ -575,7 +574,7 @@ Bracket_Sim_RF = function(year, N)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
@@ -860,7 +859,7 @@ Bracket_Sim_GBM = function(year, N)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
@@ -1145,7 +1144,7 @@ Bracket_Sim_XGBoost = function(year, N)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
@@ -1430,7 +1429,7 @@ Bracket_Sim_NN = function(year, N)
   if (year == current_tourn_year)
   {
     # Use below for unknown predictions
-    # Remove teams that lost play in game in 2018 tournament
+    # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
     bracket = bracket[bracket$Team1_Name != "Temple" & bracket$Team2_Name != "Temple",]
