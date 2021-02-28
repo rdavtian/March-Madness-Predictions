@@ -635,8 +635,8 @@ run_penalized_logit <- function(vars, alpha, min, k_fold)
     lasso_prob <- predict(cv.out,newx = data.matrix(testing_continuous), 
                           s=lambda_1se, type= "response")
   }
-  lasso_prob <- ifelse(lasso_prob > 0.99, 0.99999, lasso_prob)
-  lasso_prob <- ifelse(lasso_prob < 0.01, 0.00001, lasso_prob)
+  lasso_prob <- ifelse(lasso_prob > 0.976, 0.99999, lasso_prob)
+  lasso_prob <- ifelse(lasso_prob < 0.024, 0.00001, lasso_prob)
   loss <- round(logloss(testing_response[,1],lasso_prob),4)
   print(paste("logloss:", loss))
   
@@ -843,12 +843,12 @@ run_nn <- function(vars, num_epochs)
   y_binary <- to_categorical(training_continuous$Team1_Victory)
   model <- keras::keras_model_sequential() 
   model %>% keras::layer_dense(units = 32, activation = "relu", input_shape = ncol(training_continuous)-1) %>%
-    keras::layer_dense(units = 32, activation = "relu") %>%
-    keras::layer_dense(units = 32, activation = "relu") %>%
-    keras::layer_dense(units = 32, activation = "relu") %>%
+    keras::layer_dense(units = 16, activation = "relu") %>%
+    keras::layer_dense(units = 8, activation = "relu") %>%
+    keras::layer_dense(units = 4, activation = "relu") %>%
     keras::layer_dense(units = ncol(y_binary), activation = "softmax")
   
-  compile(model, loss = "binary_crossentropy", optimizer = 'adam', metrics = "accuracy")
+  compile(model, loss = "binary_crossentropy", optimizer = 'adam', metrics = "binary_crossentropy")
   history <- fit(model,data.matrix(subset(training_continuous, select = c(-Team1_Victory))), 
                  y_binary, epochs = num_epochs, validation_split = 0.2)
   plot(history)

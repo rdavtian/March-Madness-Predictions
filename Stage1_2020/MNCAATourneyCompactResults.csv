@@ -1,4 +1,4 @@
-Season,Daynum,Wteam,Wscore,Lteam,Lscore,WLoc,NumOT
+Season,DayNum,WTeamID,WScore,LTeamID,LScore,WLoc,NumOT
 1985,136,1116,63,1234,54,N,0
 1985,136,1120,59,1345,58,N,0
 1985,136,1207,68,1250,43,N,0

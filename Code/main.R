@@ -1,15 +1,16 @@
-#https://www.varsitytutors.com/gre_math-practice-tests#diagnostic-tests-section
+# Informative Websites to visit
 #https://www.masseyratings.com/ranks?s=cb&sym=cmp&top=4
 #https://www.masseyratings.com/ranks?s=cb&dt=20200311
 #https://www.usatoday.com/sports/ncaab/polls/ap-poll/2019-2020/2020-03-09/
 #https://www.nbastuffer.com/nba-moneyball/
 #https://statathlon.com/four-factors-basketball-success/
-#https://www.test-guide.com/free-gre-practice-tests.html
+
+# Format options
 options(kableExtra.auto_format = FALSE)
 options(knitr.table.format = "html")
-setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code")
-source('functions.R'); source('bracket_sim_functions.R')
-library(ggplot2)
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code") # set working directory
+source('functions.R'); source('bracket_sim_functions.R') # load in functions files
+library(ggplot2) # load libraries needed
 library(knitr)
 library(kableExtra)
 library(magrittr)
@@ -58,31 +59,32 @@ Tourney_Seed_Round_Slots <- Tourney_Seed_Round_Slots %>%
   mutate(Region = as.character(substr(RegionSeed, 1, 1)),
          Seed = as.character(substr(RegionSeed, 2, 3)),
          GameSlot = as.character(GameSlot))
+
 # Calculate adjusted wins, adjusted losses, adjusted win %
 Reg_Season_Compact <- Reg_Season_Compact %>% 
   mutate(Wadj_wins = case_when(WLoc ==  'H' ~ 0.6, WLoc == 'N' ~ 1, 
                                TRUE ~ 1.6),
          Ladj_wins = case_when(WLoc ==  'H' ~ 0.6,WLoc == 'N' ~ 1, 
                                TRUE ~ 1.6),
-         Team1 = pmax(as.numeric(Wteam), as.numeric(Lteam)),
-         Team2 = pmin(as.numeric(Wteam), as.numeric(Lteam)),
-         Team1_Victory = case_when(Wteam == Team1 ~ 1,
+         Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team1_Victory = case_when(WTeamID == Team1 ~ 1,
                                    TRUE ~ 0))
 Win <- Reg_Season_Compact %>%
-  group_by(Season, Wteam) %>%
-  summarise(Adj_Wins = sum(Wadj_wins)) %>%
-  rename('Team' = Wteam)
+  group_by(Season, WTeamID) %>%
+  summarise(Adj_Wins = sum(Wadj_wins), .groups = "drop") %>%
+  rename('Team' = WTeamID)
 Lose <- Reg_Season_Compact %>% 
-  group_by(Season, Lteam) %>%
-  summarise(Adj_Losses = sum(Ladj_wins)) %>%
-  rename('Team' = Lteam)
+  group_by(Season, LTeamID) %>%
+  summarise(Adj_Losses = sum(Ladj_wins), .groups = "drop") %>%
+  rename('Team' = LTeamID)
 Adjusted_Standings <- Win %>% 
   full_join(Lose, by = c("Season","Team")) %>%
   filter(Season >= 2003) %>%
   tidyr::replace_na(list(Adj_Wins = 0, Adj_Losses = 0)) %>%
   mutate(Adj_Win_Perc = Adj_Wins / (Adj_Wins + Adj_Losses))
 
-# Extract regular season rank, wins, losses, win % 
+# Extract regular season rank, wins, losses, win %, read in excel worksheets
 sheetNames <- sheets(Standings)
 for(i in 1:length(sheetNames))
 {
@@ -115,26 +117,26 @@ Reg_Season_Compact <- Reg_Season_Compact %>%
 Reg_Season_Detailed <- Reg_Season_Detailed %>%
   mutate(WNum_Poss = (WFGA - WOR) + WTO + (0.44*WFTA),
          LNum_Poss = (LFGA - LOR) + LTO + (0.44*LFTA),
-         WOff_Rating = (Wscore / WNum_Poss) * 100,
-         LOff_Rating = (Lscore / LNum_Poss) * 100,
-         WDef_Rating = (Lscore / LNum_Poss) * 100,
-         LDef_Rating = (Wscore / WNum_Poss) * 100,
+         WOff_Rating = (WScore / WNum_Poss) * 100,
+         LOff_Rating = (LScore / LNum_Poss) * 100,
+         WDef_Rating = (LScore / LNum_Poss) * 100,
+         LDef_Rating = (WScore / WNum_Poss) * 100,
          WNet_Eff = WOff_Rating - LOff_Rating,
          LNet_Eff = LOff_Rating - WOff_Rating,
-         WMargin_Adj = 100*((Wscore - Lscore) / WNum_Poss),
-         LMargin_Adj = 100*((Lscore - Wscore) / LNum_Poss),
-         WShoot_Eff = 100*(Wscore / (WFGA + 0.44*WFTA)),
-         LShoot_Eff = 100*(Lscore / (LFGA + 0.44*LFTA)),
-         WScore_Opp = ((WFGA + 0.44*WFTA) / (Wscore)),
-         LScore_Opp = ((LFGA + 0.44*LFTA) / (Lscore)),
+         WMargin_Adj = 100*((WScore - LScore) / WNum_Poss),
+         LMargin_Adj = 100*((LScore - WScore) / LNum_Poss),
+         WShoot_Eff = 100*(WScore / (WFGA + 0.44*WFTA)),
+         LShoot_Eff = 100*(LScore / (LFGA + 0.44*LFTA)),
+         WScore_Opp = ((WFGA + 0.44*WFTA) / (WScore)),
+         LScore_Opp = ((LFGA + 0.44*LFTA) / (LScore)),
          WEfg_Pct = 100*(((WFGM - WFGM3) + (1.5*WFGM3)) / (WFGA)),
          LEfg_Pct = 100*(((LFGM - LFGM3) + (1.5*LFGM3)) / (LFGA)),
-         WPie = ((Wscore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) / 
-           ((Wscore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) + 
-           (Lscore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO))),
-         LPie = ((Lscore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO) / 
-                   ((Wscore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) + 
-                      (Lscore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO))),
+         WPie = ((WScore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) / 
+           ((WScore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) + 
+           (LScore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO))),
+         LPie = ((LScore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO) / 
+                   ((WScore + WFGM + WFTM - WFGA - WFTA + WDR + 0.5*WOR + WAst + WStl + WBlk - WPF - WTO) + 
+                      (LScore + LFGM + LFTM - LFGA - LFTA + LDR + 0.5*LOR + LAst + LStl + LBlk - LPF - LTO))),
          WTie = 100*(WPie / (WPie + LPie)),
          LTie = 100*(LPie / (LPie + WPie)),
          WOR_perc = 100*(WOR / (WOR + LDR)),
@@ -145,8 +147,8 @@ Reg_Season_Detailed <- Reg_Season_Detailed %>%
          LFT_Perc = 100*(LFTM / LFTA),
          WTO_Perc = 100*(WTO / WNum_Poss),
          LTO_Perc = 100*(LTO / LNum_Poss),
-         WTS_Perc = 100 * (Wscore / (2 * (WFGA + 0.44*WFTA))),
-         LTS_Perc = 100 * (Lscore / (2 * (LFGA + 0.44*LFTA))),
+         WTS_Perc = 100 * (WScore / (2 * (WFGA + 0.44*WFTA))),
+         LTS_Perc = 100 * (LScore / (2 * (LFGA + 0.44*LFTA))),
          W3PT_Perc = 100 * (WFGM3 / WFGA3),
          L3PT_Perc = 100 * (LFGM3 / LFGA3),
          WAstRatio = 100 * (WAst / (WFGA + (0.44 * WFTA) + WAst + WTO)),
@@ -158,11 +160,11 @@ Reg_Season_Detailed <- Reg_Season_Detailed %>%
          WBLK_Perc = 100*(WBlk / (LFGA - LFGA3)),
          LBLK_Perc = 100*(LBlk / (WFGA - WFGA3)),
          Wmargin = case_when(NumOT > 0 ~ as.numeric(1),
-                             Wscore - Lscore > 17 ~ as.numeric(17),
-                             TRUE ~ as.numeric(Wscore - Lscore)),
+                             WScore - LScore > 17 ~ as.numeric(17),
+                             TRUE ~ as.numeric(WScore - LScore)),
          Lmargin = case_when(NumOT > 0 ~ as.numeric(1),
-                             Lscore - Wscore < -17 ~ as.numeric(-17),
-                             TRUE ~ as.numeric(Lscore - Wscore)))
+                             LScore - WScore < -17 ~ as.numeric(-17),
+                             TRUE ~ as.numeric(LScore - WScore)))
 
 # Extract region played and seeds of team in tourney_seeds
 Tourney_Seeds <- Tourney_Seeds %>%
@@ -173,23 +175,23 @@ Tourney_Seeds <- Tourney_Seeds %>%
 # Clean Tourney_Compact data, convert winning, losing team into team 1 and team 2 with 
 # team 1 as the larger team id and team 2 as the smaller team id in a given matchup
 Tourney_Compact <- Tourney_Compact %>%
-  mutate(Team1 = pmax(as.numeric(Wteam), as.numeric(Lteam)),
-         Team2 = pmin(as.numeric(Wteam), as.numeric(Lteam)),
-         Team1_Victory = case_when(Wteam == Team1 ~ 1,
+  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team1_Victory = case_when(WTeamID == Team1 ~ 1,
                                    TRUE ~ 0))
 
-# Combine regular season deatiled stats for winning teams
-list_of_vars <- c("Season", "Daynum", "NumOT",
+# Combine regular season detailed stats for winning teams
+list_of_vars <- c("Season", "DayNum", "NumOT",
                  names(Reg_Season_Detailed[startsWith(names(Reg_Season_Detailed), "W")]))
 Winner_History <- get_columns(Reg_Season_Detailed, list_of_vars) %>% 
   dplyr::select(-WLoc) %>% mutate(Victory = 1)
 
-# Combine regular season deatiled stats for losing teams
-list_of_vars = c("Season", "Daynum", "NumOT",
+# Combine regular season detailed stats for losing teams
+list_of_vars = c("Season", "DayNum", "NumOT",
                  names(Reg_Season_Detailed[startsWith(names(Reg_Season_Detailed), "L")]))
 Loser_History <- get_columns(Reg_Season_Detailed, list_of_vars) %>% mutate(Victory = 0)
 
-# Rename columns so they match in order to combine into all observations into 1 data set
+# Rename columns so they match in order to combine all winner, loser observations into 1 data set
 names(Winner_History) = c("Season","Daynum","Team","Score","Numot","fgmade","fgattempt","fgm_three","fga_three",
                           "ftmade","ftattempted","offreb","defreb","ast","turnovers","steals","blocks",
                           "pfouls","num_poss","off_rating","def_rating","net_eff","margin_adj","shoot_eff",
@@ -212,7 +214,7 @@ Team_Avgs <- Team_History %>% group_by(Season, Team) %>% summarise_all(mean) %>%
 ######################################################################################################
 # Create training data set
 # Merge Team1 and Team2 Averages with Tourney_Compact by Season and Team ID
-train1 <- Tourney_Compact %>% dplyr::select(Season, Daynum, Team1, Team2, Team1_Victory) %>%
+train1 <- Tourney_Compact %>% dplyr::select(Season, DayNum, Team1, Team2, Team1_Victory) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
              suffix = c("_Team1_Avg","_Team2_Avg")) %>%
@@ -220,8 +222,8 @@ train1 <- Tourney_Compact %>% dplyr::select(Season, Daynum, Team1, Team2, Team1_
   
 # Merge seed information for each team1, team2 per season
 train1 <- train1 %>%
-  inner_join(Tourney_Seeds, by = c("Season","Team1" = "Team")) %>%
-  inner_join(Tourney_Seeds, by = c("Season", "Team2" = "Team"),
+  inner_join(Tourney_Seeds, by = c("Season","Team1" = "TeamID")) %>%
+  inner_join(Tourney_Seeds, by = c("Season", "Team2" = "TeamID"),
              suffix = c("_Team1","_Team2")) %>%
   mutate(Seed_Team1 = as.numeric(Seed_Team1),
          Seed_Team2 = as.numeric(Seed_Team2),
@@ -237,11 +239,11 @@ upsets <- rbind(upsets, subset(train1, train1$Seed_Diff < 0 & train1$Team1_Victo
 accuracy = 1 - (nrow(upsets) / nrow(train1)); accuracy
 
 # Plotting seed differences vs daynum
-ggplot(aes(x = upsets$Daynum, y = abs(upsets$Seed_Diff)), data =  upsets) +
-  geom_jitter(aes(colour = Daynum)) + geom_smooth(method = "lm")
+#ggplot(aes(x = upsets$DayNum, y = abs(upsets$Seed_Diff)), data =  upsets) +
+  #geom_jitter(aes(colour = DayNum)) + geom_smooth(method = "lm")
 #######################################################################################
-## Region Names
-# Team1
+## Get Region Names
+# Team 1
 W1 <- sqldf("SELECT train1.*, Seasons.Regionw AS Team1_Region_Name 
             FROM train1 JOIN Seasons ON train1.Season = Seasons.Season 
             AND train1.Region_Team1 = 'W'")
@@ -255,7 +257,7 @@ Z1 <- sqldf("SELECT train1.*, Seasons.Regionz AS Team1_Region_Name
             FROM train1 JOIN Seasons ON train1.Season = Seasons.Season 
             AND train1.Region_Team1 = 'Z'")
 train1 <- rbind(W1, X1, Y1, Z1)
-#team2
+#Team 2
 W2 = sqldf("SELECT train1.*, Seasons.Regionw AS Team2_Region_Name 
            FROM train1 JOIN Seasons ON train1.Season = Seasons.Season 
            AND train1.Region_Team2 = 'W'")
@@ -270,7 +272,7 @@ Z2 = sqldf("SELECT train1.*, Seasons.Regionz AS Team2_Region_Name
            AND train1.Region_Team2 = 'Z'")
 
 train1 <- rbind(W2, X2, Y2, Z2)
-train1 <- train1[order(train1$Season,train1$Daynum,train1$Team2,train1$Team1),]
+train1 <- train1[order(train1$Season,train1$DayNum,train1$Team2,train1$Team1),]
 
 # Edit region seed names
 for (i in 1:dim(train1)[1])
@@ -290,28 +292,28 @@ train1$slot <- creating_slots()
 
 # Add team1, team2 official school names
 train1 <- train1 %>%
-  inner_join(Teams[,c('Team_Id','Team_Name')], by = c("Team1" = "Team_Id")) %>%
-  inner_join(Teams[,c('Team_Id','Team_Name')], by = c("Team2" = "Team_Id")) %>%
-  rename("Team1_Name" = Team_Name.x, "Team2_Name" = Team_Name.y)
+  inner_join(Teams[,c('TeamID','TeamName')], by = c("Team1" = "TeamID")) %>%
+  inner_join(Teams[,c('TeamID','TeamName')], by = c("Team2" = "TeamID")) %>%
+  rename("Team1_Name" = TeamName.x, "Team2_Name" = TeamName.y)
 
 # Team1, team2 conference names
 train1 <- train1 %>%
-  inner_join(ConfNames, by = c("Season","Team1" = "Team_Id")) %>%
-  inner_join(ConfNames, by = c("Season","Team2" = "Team_Id")) %>%
+  inner_join(ConfNames, by = c("Season","Team1" = "TeamID")) %>%
+  inner_join(ConfNames, by = c("Season","Team2" = "TeamID")) %>%
   rename("Team1_Conf" = ConfAbbrev.x, "Team2_Conf" = ConfAbbrev.y)
 
 # Get alternative city ids available since 2010 only
 Game_Cities <- Game_Cities %>% filter(CRType == "NCAA") 
 Game_Cities <- Game_Cities %>%
-  mutate(Team1 = pmax(as.numeric(Wteam), as.numeric(Lteam)),
-         Team2 = pmin(as.numeric(Wteam), as.numeric(Lteam))) %>%
-  dplyr::select(-Wteam, -Lteam, -CRType)
+  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID))) %>%
+  dplyr::select(-WTeamID, -LTeamID, -CRType)
 train1 <- train1 %>%
-  left_join(Game_Cities, by = c("Season","Daynum","Team1","Team2"))
+  left_join(Game_Cities, by = c("Season","DayNum","Team1","Team2"))
 
 # Merge alt city, alt lat, alt lng, altitudes data
 train1 <- train1 %>%
-  left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = "CityId")
+  left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = c("CityID" = "CityId"))
 
 # Add host city and locations to each tournament match in training data 
 Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
@@ -350,20 +352,20 @@ train1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
 
 # Identify conference champions
 ConfTournament <- ConfTournament %>%
-  mutate(Team1 = pmax(as.numeric(Wteam_ConfT), as.numeric(Lteam_ConfT)),
-         Team2 = pmin(as.numeric(Wteam_ConfT), as.numeric(Lteam_ConfT)),
-         Team1_Victory = case_when(Team1 == Wteam_ConfT ~ 1, TRUE ~ 0),
-         Team2_Victory = case_when(Team2 == Wteam_ConfT ~ 1, TRUE ~ 0)) 
+  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
+         Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
 
 team1 <- ConfTournament %>% 
   group_by(Season, ConfAbbrev, Team1) %>%
   summarise(total_wins_team1 = sum(Team1_Victory),
-            total_losses_team1 = sum(Team2_Victory))  %>%
+            total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
   rename("Team" = Team1)
 team2 <- ConfTournament %>% 
   group_by(Season, ConfAbbrev, Team2) %>%
   summarise(total_wins_team2 = sum(Team2_Victory),
-            total_losses_team2 = sum(Team1_Victory))  %>%
+            total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
   rename("Team" = Team2)
 
 team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
@@ -399,11 +401,11 @@ train1$Team2_Penalize = as.factor(ifelse(train1$Seed_Team2 >= 10, 1, 0))
 # Take into account for num tournament games for each team prior to current tournament
 team1 <- Tourney_Compact %>% 
   group_by(Team1, Season) %>%
-  summarise(total_games_team1 = n())  %>%
+  summarise(total_games_team1 = n(), .groups = "drop")  %>%
   rename("Team" = Team1)
 team2 <- Tourney_Compact %>% 
   group_by(Team2, Season) %>%
-  summarise(total_games_team2 = n())  %>%
+  summarise(total_games_team2 = n(),.groups = "drop")  %>%
   rename("Team" = Team2)
 
 team_games <- team1 %>% full_join(team2, by = c("Season","Team")) %>% 
@@ -446,16 +448,16 @@ train1 <- train1 %>%
          'Team2_Adj_Wins' = Adj_Wins.y,'Team2_Adj_Losses' = Adj_Losses.y,
          'Team2_Adj_Win_Perc' = Adj_Win_Perc.y)
 
-# Create SOS 
+# Create SOS (strength of schedule)
 Team1_SOS <- Reg_Season_Compact %>%
   group_by(Season, Team1) %>%
   summarise(Team1_Num_Games = n(), 
-            Team1_SOS = mean(Team2_Win_Perc, na.rm = T)) %>%
+            Team1_SOS = mean(Team2_Win_Perc, na.rm = T), .groups = "drop") %>%
   rename('Team' = 'Team1')
 Team2_SOS <- Reg_Season_Compact %>%
   group_by(Season, Team2) %>%
   summarise(Team2_Num_Games = n(), 
-            Team2_SOS = mean(Team1_Win_Perc, na.rm = T)) %>%
+            Team2_SOS = mean(Team1_Win_Perc, na.rm = T), .groups = "drop") %>%
   rename('Team' = 'Team2')
 SOS <- Team1_SOS %>% 
   full_join(Team2_SOS, by = c("Season","Team")) %>%
@@ -470,16 +472,16 @@ train1 <- train1 %>%
   inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
   rename('Team1_SOS' = SOS.x, 'Team2_SOS' = SOS.y)
 
-# Top 50 Wins
+# Create Number of Top 50 Wins Variable
 Team1_Top_Wins <- Reg_Season_Compact %>%
   filter(Team2_Rank <= 50 & Team1_Victory == 1) %>%
   group_by(Season, Team1) %>%
-  summarise(Team1_Top_50_Wins = n()) %>%
+  summarise(Team1_Top_50_Wins = n(),.groups = "drop") %>%
   rename('Team' = Team1)
 Team2_Top_Wins <- Reg_Season_Compact %>%
   filter(Team1_Rank <= 50 & Team1_Victory == 0) %>%
   group_by(Season, Team2) %>%
-  summarise(Team2_Top_50_Wins = n()) %>%
+  summarise(Team2_Top_50_Wins = n(), .groups = "drop") %>%
   rename('Team' = Team2)
 Top_50_Wins <- Team1_Top_Wins %>% 
   full_join(Team2_Top_Wins, by = c("Season","Team")) %>% 
@@ -493,18 +495,18 @@ train1 <- train1 %>%
   rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
   tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
 
-# Bad Losses
+# Identify number of Bad Losses for teams that to lower ranked teams 
 Team1_Bad_Losses <- Reg_Season_Compact %>%
   filter(Team2_Rank - Team1_Rank > 1, 
          Team1_Victory == 0) %>%
   group_by(Season, Team1) %>%
-  summarise(Team1_Bad_Losses = n()) %>%
+  summarise(Team1_Bad_Losses = n(), .groups = "drop") %>%
   rename('Team' = Team1)
 Team2_Bad_Losses <- Reg_Season_Compact %>%
   filter(Team1_Rank - Team2_Rank > 1, 
          Team1_Victory == 1) %>%
   group_by(Season, Team2) %>%
-  summarise(Team2_Bad_Losses = n()) %>%
+  summarise(Team2_Bad_Losses = n(), .groups = "drop") %>%
   rename('Team' = Team2)
 Bad_Losses <- Team1_Bad_Losses %>% 
   full_join(Team2_Bad_Losses, by = c("Season","Team")) %>% 
@@ -518,16 +520,15 @@ train1 <- train1 %>%
   rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
   tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
 
-# Power Conference
+# Power Conference (1/0) dummy variable for whether or not team is a power conference team
 train1 <- train1 %>%
-  mutate(Team1_Power = case_when(Team1_Conf %in% c('big_twelve','big_ten','acc','sec','pac_twelve','big_east','pac_ten') ~ 1,
+  mutate(Team1_Power = case_when(Team1_Conf %in% c('big_twelve','big_ten','acc','sec','big_east') ~ 1,
                                  TRUE ~ 0),
-         Team2_Power = case_when(Team2_Conf %in% c('big_twelve','big_ten','acc','sec','pac_twelve','big_east','pac_ten') ~ 1,
+         Team2_Power = case_when(Team2_Conf %in% c('big_twelve','big_ten','acc','sec','big_east') ~ 1,
                                  TRUE ~ 0),
          Team1_Power = as.factor(Team1_Power), Team2_Power = as.factor(Team2_Power))
 # Create differences of all averaged stats between both teams
 # (team1 - team2)
-colnames(train1)
 for (i in (seq(6, 40, 1)))
 {
   train1[,128 + i] <- train1[i] - train1[i+35]
@@ -545,6 +546,7 @@ train1 <- train1 %>%
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
          win_diff = Team1_Wins - Team2_Wins,
          bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)),
          preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
            as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
@@ -558,8 +560,8 @@ kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
 
 # Merge seed information for each team1, team2 per season
 kaggle1 <- kaggle1 %>%
-  inner_join(Tourney_Seeds, by = c("Season","Team1" = "Team")) %>%
-  inner_join(Tourney_Seeds, by = c("Season", "Team2" = "Team"),
+  inner_join(Tourney_Seeds, by = c("Season","Team1" = "TeamID")) %>%
+  inner_join(Tourney_Seeds, by = c("Season", "Team2" = "TeamID"),
              suffix = c("_Team1","_Team2")) %>%
   mutate(Seed_Team1 = as.numeric(Seed_Team1),
          Seed_Team2 = as.numeric(Seed_Team2),
@@ -570,8 +572,8 @@ kaggle1$Round <- unlist(mapply(roundFinder,kaggle1$Region_Team1,
                               kaggle1$Seed_Team1,
                               kaggle1$Seed_Team2, SIMPLIFY = TRUE), use.names = FALSE)
 #######################################################################################
-## Region Names
-# Team1
+## Get Region Names
+# Team 1
 W1 <- sqldf("SELECT kaggle1.*, Seasons.Regionw AS Team1_Region_Name 
             FROM kaggle1 JOIN Seasons ON kaggle1.Season = Seasons.Season 
             AND kaggle1.Region_Team1 = 'W'")
@@ -585,7 +587,7 @@ Z1 <- sqldf("SELECT kaggle1.*, Seasons.Regionz AS Team1_Region_Name
             FROM kaggle1 JOIN Seasons ON kaggle1.Season = Seasons.Season 
             AND kaggle1.Region_Team1 = 'Z'")
 kaggle1 <- rbind(W1, X1, Y1, Z1)
-#team2
+#Team 2
 W2 <- sqldf("SELECT kaggle1.*, Seasons.Regionw AS Team2_Region_Name 
            FROM kaggle1 JOIN Seasons ON kaggle1.Season = Seasons.Season 
            AND kaggle1.Region_Team2 = 'W'")
@@ -628,14 +630,14 @@ kaggle1$LateDaynum[is.na(kaggle1$LateDaynum)] <- 135
 #################################################################################
 # Add team1, team2 official school names
 kaggle1 <- kaggle1 %>%
-  inner_join(Teams[,c('Team_Id','Team_Name')], by = c("Team1" = "Team_Id")) %>%
-  inner_join(Teams[,c('Team_Id','Team_Name')], by = c("Team2" = "Team_Id")) %>%
-  rename("Team1_Name" = Team_Name.x, "Team2_Name" = Team_Name.y)
+  inner_join(Teams[,c('TeamID','TeamName')], by = c("Team1" = "TeamID")) %>%
+  inner_join(Teams[,c('TeamID','TeamName')], by = c("Team2" = "TeamID")) %>%
+  rename("Team1_Name" = TeamName.x, "Team2_Name" = TeamName.y)
 
 # Team1, team2 conference names
 kaggle1 <- kaggle1 %>%
-  inner_join(ConfNames, by = c("Season","Team1" = "Team_Id")) %>%
-  inner_join(ConfNames, by = c("Season","Team2" = "Team_Id")) %>%
+  inner_join(ConfNames, by = c("Season","Team1" = "TeamID")) %>%
+  inner_join(ConfNames, by = c("Season","Team2" = "TeamID")) %>%
   rename("Team1_Conf" = ConfAbbrev.x, "Team2_Conf" = ConfAbbrev.y)
 
 # Get alternative city ids available since 2010 only
@@ -644,7 +646,7 @@ kaggle1 <- kaggle1 %>%
 
 # Merge alt city, alt lat, alt lng, altitudes data
 kaggle1 <- kaggle1 %>%
-  left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = "CityId")
+  left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = c("CityID" = "CityId"))
 
 # Add host city and locations to each tournament match in training data 
 Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
@@ -684,20 +686,20 @@ kaggle1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
 
 # Identify conference champions
 ConfTournament <- ConfTournament %>%
-  mutate(Team1 = pmax(as.numeric(Wteam_ConfT), as.numeric(Lteam_ConfT)),
-         Team2 = pmin(as.numeric(Wteam_ConfT), as.numeric(Lteam_ConfT)),
-         Team1_Victory = case_when(Team1 == Wteam_ConfT ~ 1, TRUE ~ 0),
-         Team2_Victory = case_when(Team2 == Wteam_ConfT ~ 1, TRUE ~ 0)) 
+  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
+         Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
 
 team1 <- ConfTournament %>% 
   group_by(Season, ConfAbbrev, Team1) %>%
   summarise(total_wins_team1 = sum(Team1_Victory),
-            total_losses_team1 = sum(Team2_Victory))  %>%
+            total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
   rename("Team" = Team1)
 team2 <- ConfTournament %>% 
   group_by(Season, ConfAbbrev, Team2) %>%
   summarise(total_wins_team2 = sum(Team2_Victory),
-            total_losses_team2 = sum(Team1_Victory))  %>%
+            total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
   rename("Team" = Team2)
 
 team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
@@ -732,11 +734,11 @@ kaggle1$Team2_Penalize = as.factor(ifelse(kaggle1$Seed_Team2 >= 10, 1, 0))
 # Take into account for number of tournament games for each team
 team1 <- Tourney_Compact %>% 
   group_by(Team1, Season) %>%
-  summarise(total_games_team1 = n())  %>%
+  summarise(total_games_team1 = n(), .groups = "drop")  %>%
   rename("Team" = Team1)
 team2 <- Tourney_Compact %>% 
   group_by(Team2, Season) %>%
-  summarise(total_games_team2 = n())  %>%
+  summarise(total_games_team2 = n(), .groups = "drop")  %>%
   rename("Team" = Team2)
 
 team_games <- team1 %>% full_join(team2, by = c("Season","Team")) %>% 
@@ -779,7 +781,7 @@ kaggle1 <- kaggle1 %>%
          'Team2_Adj_Wins' = Adj_Wins.y,'Team2_Adj_Losses' = Adj_Losses.y,
          'Team2_Adj_Win_Perc' = Adj_Win_Perc.y)
 
-# Create SOS 
+# Create SOS (strength of schedule)
 kaggle1 <- kaggle1 %>% 
   inner_join(SOS, by = c("Season","Team1" = "Team")) %>%
   inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
@@ -792,14 +794,14 @@ kaggle1 <- kaggle1 %>%
   rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
   tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
 
-# Bad Losses
+# Create Number of Bad Losses where a team lost to a lower ranked team
 kaggle1 <- kaggle1 %>% 
   left_join(Bad_Losses, by = c("Season","Team1" = "Team")) %>%
   left_join(Bad_Losses, by = c("Season","Team2" = "Team")) %>%
   rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
   tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
 
-# Power Conference
+# Power Conference (0/1) dummy variable for whether team is from power conference
 kaggle1 <- kaggle1 %>%
   mutate(Team1_Power = case_when(Team1_Conf %in% c('big_twelve','big_ten','acc','sec','pac_twelve','big_east','pac_ten') ~ 1,
                                  TRUE ~ 0),
@@ -807,6 +809,7 @@ kaggle1 <- kaggle1 %>%
                                  TRUE ~ 0),
          Team1_Power = as.factor(Team1_Power), Team2_Power = as.factor(Team2_Power))
 
+# Set NA's equal to 0 & order data set by season, round, regions, and matchup like a normal bracket
 kaggle1$Team1_Num_Games <- ifelse(is.na(kaggle1$Team1_Num_Games) == T, 0, kaggle1$Team1_Num_Games)
 kaggle1$Team2_Num_Games <- ifelse(is.na(kaggle1$Team2_Num_Games) == T, 0, kaggle1$Team2_Num_Games)
 kaggle1 <- kaggle1[order(kaggle1$Season, kaggle1$Round, kaggle1$Team1_Region_Name, kaggle1$Team2_Region_Name, 
@@ -824,7 +827,6 @@ kaggle1$Team1_Name <- as.character(kaggle1$Team1_Name)
 kaggle1$Team2_Name <- as.character(kaggle1$Team2_Name)
 
 # Create differences of all averaged stats between both teams (team1 - team2)
-colnames(kaggle1)
 for (i in (seq(5, 39, 1)))
 {
   kaggle1[,130 + i] <- kaggle1[i] - kaggle1[i+35]
@@ -841,12 +843,12 @@ kaggle1 <- kaggle1 %>%
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
          win_diff = Team1_Wins - Team2_Wins,
          bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)),
          preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
            as.numeric(as.character(Team1_PreSeason_Top25)))
 ##############################################################################################
 ####################################################################################
 # Visualization, Correlations
-colnames(train1)
 correlation_plot(data = train1, x_var = "Seed_Diff", y_var = "Team1_Victory", 
                  x_coord = 5, y_coord = 0.5, binary = T)
 correlation_plot(data = train1, x_var = "rank_diff", y_var = "Team1_Victory", 
@@ -915,7 +917,7 @@ correlation_plot(data = train1, x_var = "Team2_Dist", y_var = "Team1_Victory",
                  x_coord = 1000, y_coord = 0.3, binary = T)
 correlation_plot(data = train1, x_var = "steals_diff", y_var = "Team1_Victory", 
                  x_coord = 0, y_coord = 0.3, binary = T)
-correlation_plot(data = train1, x_var = "3pt_perc_diff", y_var = "Team1_Victory", 
+correlation_plot(data = train1, x_var = "three_pt_perc_diff", y_var = "Team1_Victory", 
                  x_coord = 5, y_coord = 0.5, binary = T)
 correlation_plot(data = train1, x_var = "ft_perc_diff", y_var = "Team1_Victory", 
                  x_coord = 5, y_coord = 0.5, binary = T)
@@ -928,36 +930,18 @@ correlation_plot(data = train1, x_var = "num_poss_diff", y_var = "Team1_Victory"
 correlation_plot(data = train1, x_var = "fga_three_diff", y_var = "Team1_Victory", 
                  x_coord = 0, y_coord = 0.5, binary = T)
 ########################################################################################
-# Vif
-vars <- c("Seed_Diff","Score_diff","fgm_three_diff","ast_diff","offreb_diff","fga_three_diff",
-          "turnovers_diff","rank_diff","sos_diff","dist_diff","true_shooting_perc_diff",
-          "Team1_ConfChamp","Team2_ConfChamp","top_50_diff","blocks_diff",
-          "adj_win_perc_diff","win_diff","Team1_Power","Team2_Power","defreb_diff",
-          "num_poss_diff","ft_perc_diff","ftattempted_diff","def_rating_diff","off_rating_diff",
-          "turnover_perc_diff","tie_diff","offreb_perc_diff","defreb_perc_diff","efg_perc_diff",
-          "score_opp_diff","shoot_eff_diff","margin_adj_diff","net_eff_diff",
-          "reb_perc_diff","ast_ratio_diff","preseason_top_25_diff")
-#"margin_adj_diff",
-vars <- c("margin_adj_diff","top_50_diff","rank_diff","Seed_Diff",
-          "pie_diff","sos_diff","win_diff","ft_perc_diff","adj_win_diff",
-          "adj_win_perc_diff","Score_diff","blocks_diff","offreb_perc_diff",
-          "dist_diff","turnovers_diff","pfouls_diff","defreb_diff",
-          "Team1_Power","Team2_Power","Team1_ConfChamp","Team2_ConfChamp",
-          "reb_perc_diff","ast_ratio_diff","four_factor_diff","fga_three_diff",
-          "fgmade_diff","steals_diff","bad_losses_diff","preseason_top_25_diff",
-          "Team1_PreSeason_Top25","Team2_PreSeason_Top25")
-vars <- c("sos_diff","pie_diff","bad_losses_diff","pfouls_diff","fga_three_diff",
-          "dist_diff","ft_perc_diff","top_50_diff","adj_win_diff","Team1_Power",
-          "four_factor_diff","blocks_diff","turnovers_diff","Score_diff",
-          "reb_perc_diff","ast_ratio_diff","steals_diff","offreb_perc_diff",
-          "Team2_Power","rank_diff","Seed_Diff","Team1_ConfChamp","Team2_ConfChamp")
+# Set variable names used in modeling into a variable
 
-values <- as.data.frame(train1[, vars])
-usdm::vif(values)
+vars <- c("sos_diff","pie_diff","bad_losses_diff","pfouls_diff","fga_three_diff",
+          "dist_diff","ft_perc_diff","top_50_diff","adj_win_diff","four_factor_diff",
+          "blocks_diff","turnovers_diff","Score_diff","Team1_Power","Team2_Power",
+          "reb_perc_diff","ast_ratio_diff","steals_diff","offreb_perc_diff",
+          "rank_diff","Seed_Diff","Team1_ConfChamp","Team2_ConfChamp")
 
 # Modeling
 # Fix for Round 0
-train1$Daynum <- ifelse(train1$Round == 0, 134, train1$Daynum)
+# Input remaining missing values with column mean
+train1$DayNum <- ifelse(train1$Round == 0, 134, train1$DayNum)
 train1 <- train1[order(train1$Season, train1$Round, train1$Team1_Region_Name, train1$Team2_Region_Name, 
                        match(train1$Seed_Team1, matchups)),]
 train1 <- tidyr::replace_na(train1, 
@@ -965,6 +949,7 @@ train1 <- tidyr::replace_na(train1,
 kaggle1 <- tidyr::replace_na(kaggle1, 
            as.list(colMeans(kaggle1[,c("ft_perc_Team1_Avg","ft_perc_Team2_Avg","ft_perc_diff")],na.rm=T)))
 #########################################################################################
+# Identify all columns for team1 and for team2 to use in bracket simulation
 # Team1 colnames
 diff_cols1 = colnames(train1)[endsWith(x = colnames(train1), suffix = "Diff")]
 diff_cols2 = colnames(train1)[endsWith(x = colnames(train1), suffix = "diff")]
@@ -996,15 +981,15 @@ new_train1$Seed_Team2 <- train1$Seed_Team2
 new_train1$Round <- train1$Round
 
 # Use new_train1 instead of train1 for standardized versionn
-training_data <- train1[train1$Season %in% c(seq(2003,2017)),]
+training_data <- train1[train1$Season %in% c(seq(2003,2018)),]
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars]
 
 # Use new_train1 instead of train1 for standardized version
-testing_data <- train1[(train1$Season %in% c(2018)) & train1$Round > 0,]
+testing_data <- train1[(train1$Season %in% c(2019)) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars]
-logit <- run_penalized_logit(vars, alpha = 0.5, min = T, k_fold = 5) # alpha = 0.5, min = T
+logit <- run_penalized_logit(vars, alpha = 0.01, min = T, k_fold = 3) # alpha = 0.5, min = T
 
 answer <- logit[[2]]
 hist(answer$Pred_Prob)
@@ -1012,6 +997,7 @@ mean(answer$Pred_Prob)
 cv.out <- logit[[1]]
 lambda_min <- cv.out$lambda.min
 lambda_1se <- cv.out$lambda.1se
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1020,10 +1006,10 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
+# store and exponentiate out betas to look coefficient estimates in terms of odds
 results <- tidy_coef(logit[[1]], min = T, glmnet = F)
 results <- results[results[,2] != 0,]
 variables <- results[,order("estimate")]
-
 betas <- sort(results[,2], decreasing = T)
 model <- as.data.frame(cbind(betas, variables))
 model[,"betas"] <- as.numeric(as.character(model[,"betas"]))
@@ -1031,7 +1017,8 @@ model[,"variables"] <- as.character(model[, "variables"])
 head(model, 50); tail(model,15)
 model; exp(model$betas)
 
-test_1se <- Bracket_Sim_Penalized(2012, 100, lambda = lambda_1se)
+# run bracket simulation
+test_1se <- Bracket_Sim_Penalized(2019, 100, lambda = lambda_1se)
 bracket_1se <- Normalize_Sim(test_1se, 100)
 colnames(bracket_1se)[1:4] = c("Season","Region","Seed","Team"); bracket_1se
 kable(bracket_1se, row.names = F) %>%
@@ -1040,8 +1027,8 @@ kable(bracket_1se, row.names = F) %>%
   footnote(symbol = "Based on 500 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px")
 
-test_min <- Bracket_Sim_Penalized(2019, 500, lambda = lambda_min)
-bracket_min <- Normalize_Sim(test_min, 500)
+test_min <- Bracket_Sim_Penalized(2019, 100, lambda = lambda_min)
+bracket_min <- Normalize_Sim(test_min, 100)
 colnames(bracket_min)[1:4] = c("Season","Region","Seed","Team"); bracket_min
 kable(bracket_min, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
@@ -1051,7 +1038,7 @@ kable(bracket_min, row.names = F) %>%
 
 # Make Kaggle Predictions, trained with unstandardized data only
 setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Preds")
-kaggle_logit_min <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = T, names = T); kaggle_logit_min
+kaggle_logit_min <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = T, names = F)
 kaggle_logit_1se <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = F, names = T); kaggle_logit_1se
 kaggle_logit_1se %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                           Team2_Name %in% c('UC Irvine','Kansas St')
@@ -1078,7 +1065,7 @@ kaggle_logit_1se %>% filter(Team1_Name %in% c('Auburn','Kansas'),
                      Team2_Name %in% c('Auburn','Kansas')
 )
 ################################################################
-# GLMNET
+# GLMNET, carets version of lasso/ridge/elastic net
 vars2 <- c(vars, "Team1_Victory")
 training_data <- train1[train1$Season %in% c(seq(2003,2018)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
@@ -1091,11 +1078,12 @@ testing_continuous <- testing_data[, vars2]
 glmnetGrid <- expand.grid(alpha = seq(0, 1, 0.1),
   lambda = seq(0.0001, 1, length = 100))
 
-glmnet <- run_glmnet(vars, glmnetGrid, k_fold = 4)
+glmnet <- run_glmnet(vars, glmnetGrid, k_fold = 3)
 
 answer <- glmnet[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1127,7 +1115,7 @@ kable(bracket, row.names = F) %>%
   save_kable(file = paste0("2019_GLMNET_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
-kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2019, 2019, vars, names = T); kaggle_glmnet
+kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2015, 2019, vars, names = F); kaggle_glmnet
 kaggle_glmnet %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                      Team2_Name %in% c('UC Irvine','Kansas St')
 ) 
@@ -1163,11 +1151,12 @@ testing_data <- train1[train1$Season %in% c(2019) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-rf <- run_random_forest(vars, 500, k_fold = 4)
+rf <- run_random_forest(vars, 500, k_fold = 3)
 
 answer <- rf[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1224,18 +1213,15 @@ testing_data <- train1[train1$Season %in% c(2019) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-#gbmGrid <- expand.grid(interaction.depth = c(1,2,3), 
-                        #n.trees = c(40,50,75,100), 
-                        #shrinkage = seq(0.1, 1, 0.4),
-                        #n.minobsinnode = c(10,20))
 gbmGrid <- expand.grid(n.trees=c(10,20,50,100,500,1000),
                        shrinkage=c(0.01,0.05,0.1,0.5),n.minobsinnode = c(3,5,10,20),
                        interaction.depth=c(1,3,5))
 
-GBM <- run_gbm(vars, gbmGrid, k_fold = 4)
+GBM <- run_gbm(vars, gbmGrid, k_fold = 3)
 answer <- GBM[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1295,10 +1281,11 @@ testing_continuous <- testing_data[, vars2]
 parametersGrid <- expand.grid(eta = c(0.02), colsample_bytree=c(0.7), max_depth=c(3), gamma = c(1,10),
                               nrounds=c(50,100,150,200), min_child_weight=c(10,20,40), subsample = c(0.35,0.5))
 
-XGBoost <- run_xgboost(vars, parametersGrid, k_fold = 4)
+XGBoost <- run_xgboost(vars, parametersGrid, k_fold = 3)
 answer <- XGBoost[[2]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1319,7 +1306,7 @@ kable(bracket, row.names = F) %>%
   save_kable(file = paste0("2019_XGBOOST_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
-kaggle_xgboost <- kaggle_predictions(xgboost, 'xgboost', 2019, 2019, vars, min = F, names = T); 
+kaggle_xgboost <- kaggle_predictions(xgboost, 'xgboost', 2015, 2019, vars, min = F, names = F); 
 kaggle_xgboost %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                           Team2_Name %in% c('UC Irvine','Kansas St')
                           ) 
@@ -1346,12 +1333,6 @@ kaggle_xgboost %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 )
 #####################################################################################
 # NN
-vars <- c("margin_adj_diff","top_50_diff","Seed_Diff","rank_diff",
-          "pie_diff","sos_diff","win_diff","ft_perc_diff",
-          "adj_win_perc_diff","Score_diff","blocks_diff","offreb_perc_diff",
-          "dist_diff","turnovers_diff","pfouls_diff","defreb_diff",
-          "Team1_Power","Team2_Power","Team1_ConfChamp","Team2_ConfChamp",
-          "Team1_PreSeason_Top25","Team2_PreSeason_Top25")
 vars2 <- c(vars, "Team1_Victory")
 
 # Standardize, if wanted
@@ -1375,12 +1356,13 @@ testing_data <- train1[train1$Season %in% c(2019) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-nn <- run_nn(vars2, num_epochs = 50)
+nn <- run_nn(vars2, num_epochs = 100)
 nn[[2]]
 
 answer <- nn[[3]]
 hist(answer$Pred_Prob)
 mean(answer$Pred_Prob)
+
 # Look at games for which I predicted incorrectly
 wrong <- testing_data[which(answer$True != answer$Pred_Outcome),c("Season","Team1_Name","Team2_Name","Seed_Team1","Seed_Team2","Round","Team1_Victory")]
 wrong$upset <- ifelse(wrong$Team1_Victory == 1 & wrong$Seed_Team1 > wrong$Seed_Team2, 1, 
@@ -1399,7 +1381,7 @@ kable(bracket, row.names = F) %>%
   footnote(symbol = "Based on 500 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px")
 # Make Kaggle Predictions, trained with unstandardized data only
-kaggle_nn <- kaggle_predictions(NN, 'nn', 2019, 2019, vars, min = F, names = T); 
+kaggle_nn <- kaggle_predictions(NN, 'nn', 2015, 2019, vars, min = F, names = F); 
 kaggle_nn %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                           Team2_Name %in% c('UC Irvine','Kansas St')
 ) 
@@ -1425,6 +1407,7 @@ kaggle_nn %>% filter(Team1_Name %in% c('Auburn','Kansas'),
                           Team2_Name %in% c('Auburn','Kansas')
 )
 ###########################################################################
+# compare all caret models 
 model_list <- list(glmnet = GLMNET, rf = rF, gbm = gbm, xgboost = xgboost)
 resamples <- resamples(model_list)
 summary(resamples)
