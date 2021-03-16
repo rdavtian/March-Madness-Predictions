@@ -42,7 +42,7 @@ Tourney_Detailed <- read.csv("MNCAATourneyDetailedResults.csv")
 Tourney_Compact <- read.csv("MNCAATourneyCompactResults.csv")
 Tourney_Seeds <- read.csv("MNCAATourneySeeds.csv")
 Tourney_Slots = read.csv("MNCAATourneySlots.csv")
-Submission <- read.csv("SampleSubmissionStage2.csv")
+Submission <- read.csv("MSampleSubmissionStage2.csv")
 Teams_Location = read.csv("Teams_Location.csv")
 Tourney_Hosts = read.csv("TourneyHosts.csv")
 Pomeroy = read.csv("KenPom.csv")
@@ -981,7 +981,7 @@ new_train1$Seed_Team2 <- train1$Seed_Team2
 new_train1$Round <- train1$Round
 
 # Use new_train1 instead of train1 for standardized versionn
-training_data <- train1[train1$Season %in% c(seq(2003,2018)),]
+training_data <- train1[train1$Season %in% c(seq(2003,2019)),]
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars]
 
@@ -1018,23 +1018,25 @@ head(model, 50); tail(model,15)
 model; exp(model$betas)
 
 # run bracket simulation
-test_1se <- Bracket_Sim_Penalized(2019, 100, lambda = lambda_1se)
-bracket_1se <- Normalize_Sim(test_1se, 100)
+test_1se <- Bracket_Sim_Penalized(2021, 1000, lambda = lambda_1se)
+bracket_1se <- Normalize_Sim(test_1se, 1000)
 colnames(bracket_1se)[1:4] = c("Season","Region","Seed","Team"); bracket_1se
 kable(bracket_1se, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2021_GLMNET_1se_Bracket_Simulation.html"))
 
-test_min <- Bracket_Sim_Penalized(2019, 100, lambda = lambda_min)
-bracket_min <- Normalize_Sim(test_min, 100)
+test_min <- Bracket_Sim_Penalized(2021, 1000, lambda = lambda_min)
+bracket_min <- Normalize_Sim(test_min, 1000)
 colnames(bracket_min)[1:4] = c("Season","Region","Seed","Team"); bracket_min
 kable(bracket_min, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 500 Tournament Simulations") %>%
-  scroll_box(width = "100%", height = "520px")
+  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  scroll_box(width = "100%", height = "520px") %>%
+  save_kable(file = paste0("2021_GLMNET_min_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Preds")
@@ -1067,7 +1069,7 @@ kaggle_logit_1se %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 ################################################################
 # GLMNET, carets version of lasso/ridge/elastic net
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2018)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2019)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -1104,15 +1106,15 @@ head(model, 50); tail(model,15)
 model; exp(model$betas)
 
 GLMNET <- glmnet[[1]]
-test2 <- Bracket_Sim_GLMNET(2019, 100)
-bracket <- Normalize_Sim(test2, 100)
+test2 <- Bracket_Sim_GLMNET(2021, 1000)
+bracket <- Normalize_Sim(test2, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2019_GLMNET_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_GLMNET_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2015, 2019, vars, names = F); kaggle_glmnet
@@ -1205,7 +1207,7 @@ kaggle_rf %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 ##################################################################################################
 # Gradient Boosted Model
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2013,2018)),]
+training_data <- train1[train1$Season %in% c(seq(2013,2019)),]
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -1231,8 +1233,8 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 gbm <- GBM[[1]]
-test3 <- Bracket_Sim_GBM(2019, 1000)
-bracket <- Normalize_Sim(test3, 1000)
+test3 <- Bracket_Sim_GBM(2021, 20)
+bracket <- Normalize_Sim(test3, 20)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
