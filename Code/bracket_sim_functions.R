@@ -40,7 +40,7 @@ Bracket_Sim_Penalized = function(year, N, lambda)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team1")], by.x = "Team_Id",
@@ -319,7 +319,7 @@ Bracket_Sim_GLMNET = function(year, N)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team2")], by.x = "Team_Id",
@@ -604,7 +604,7 @@ Bracket_Sim_RF = function(year, N)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team2")], by.x = "Team_Id",
@@ -889,7 +889,7 @@ Bracket_Sim_GBM = function(year, N)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team2")], by.x = "Team_Id",
@@ -1174,7 +1174,7 @@ Bracket_Sim_XGBoost = function(year, N)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team2")], by.x = "Team_Id",
@@ -1459,7 +1459,7 @@ Bracket_Sim_NN = function(year, N)
   Round1_Team2 = Round1[, team2_cols]
   
   results$Team_Id = unique(c(sort(unique(Round1_Team1$Team1)),sort(unique(Round1_Team2$Team2))))
-  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "Team_Id")
+  results = merge(results[,-2], Teams[,-c(3,4)], by.x = "Team_Id", by.y = "TeamID")
   results1 = merge(results, Round1[, c("Team1","Seed_Team1","Team1_Region_Name","Region_Team1")], by.x = "Team_Id",
                    by.y = "Team1")
   results2 = merge(results, Round1[, c("Team2","Seed_Team2","Team2_Region_Name","Region_Team2")], by.x = "Team_Id",

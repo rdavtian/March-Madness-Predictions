@@ -351,7 +351,7 @@ get_all_pairwise_matchups <- function(start_year, end_year)
     #}
     if (k == 2021)
     {
-      current_year <- read.csv("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020/SampleSubmissionStage2.csv")
+      current_year <- read.csv("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020/MSampleSubmissionStage2.csv")
       current_year <- current_year %>%
         mutate(Season = as.numeric(substr(ID, 1, 4)),
                Team1 = as.numeric(substr(ID, 11, 14)),
