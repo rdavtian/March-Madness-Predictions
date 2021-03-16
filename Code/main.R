@@ -93,7 +93,7 @@ for(i in 1:length(sheetNames))
 Standings <- rbind(rank03,rank04,rank05,rank06,rank07,
                    rank08,rank09,rank10,rank11,rank12,
                    rank13,rank14,rank15,rank16,rank17,
-                   rank18, rank19)
+                   rank18,rank19,rank21)
 Standings <- Standings %>%
   tidyr::separate(col = 'W-L', into = c("Wins", "Losses"), sep = "-") %>%
   mutate(Rank = as.numeric(Rank), 
@@ -551,7 +551,7 @@ train1 <- train1 %>%
            as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
-all_years_submission <- get_all_pairwise_matchups(2003, 2020)
+all_years_submission <- get_all_pairwise_matchups(2003, 2021)
 kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
