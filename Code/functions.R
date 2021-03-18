@@ -913,9 +913,9 @@ kaggle_predictions <- function(model_output, model_type, start_year, end_year, v
     kaggle_preds <- kaggle_preds %>% 
       mutate(Team1 = as.numeric(substr(ID, 6, 9)),
              Team2 = as.numeric(substr(ID, 11, 14))) %>%
-      left_join(Teams[, c('Team_Id','Team_Name')], by = c("Team1" = "Team_Id")) %>%
-      left_join(Teams[, c('Team_Id','Team_Name')], by = c("Team2" = "Team_Id")) %>%
-      rename(Team1_Name = 'Team_Name.x', Team2_Name = 'Team_Name.y')
+      left_join(Teams[, c('TeamID','TeamName')], by = c("Team1" = "TeamID")) %>%
+      left_join(Teams[, c('TeamID','TeamName')], by = c("Team2" = "TeamID")) %>%
+      rename(Team1_Name = 'TeamName.x', Team2_Name = 'TeamName.y')
   }
   return(kaggle_preds %>% arrange(ID))
 }
