@@ -1026,7 +1026,7 @@ kable(bracket_1se, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2021_GLMNET_1se_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_GLMNET_Conservative_Bracket_Simulation.html"))
 
 test_min <- Bracket_Sim_Penalized(2021, 1000, lambda = lambda_min)
 bracket_min <- Normalize_Sim(test_min, 1000)
@@ -1036,26 +1036,26 @@ kable(bracket_min, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2021_GLMNET_min_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_GLMNET_Aggressive_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Preds")
-kaggle_logit_min <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = T, names = F)
-kaggle_logit_1se <- kaggle_predictions(logit, 'logit', 2019, 2019, vars, min = F, names = T); kaggle_logit_1se
+kaggle_logit_min <- kaggle_predictions(logit, 'logit', 2021, 2021, vars, min = T, names = T)
+kaggle_logit_1se <- kaggle_predictions(logit, 'logit', 2021, 2021, vars, min = F, names = T)
 kaggle_logit_1se %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                           Team2_Name %in% c('UC Irvine','Kansas St')
 ) 
-kaggle_logit_min %>% filter(Team1_Name %in% c('Wisconsin','Oregon'),
-                          Team2_Name %in% c('Wisconsin','Oregon')
+kaggle_logit_min %>% filter(Team1_Name %in% c('Houston','Houston'),
+                          Team2_Name %in% c('Houston','Gonzaga')
 ) 
-kaggle_logit_min %>% filter(Team1_Name %in% c('Marquette','Murray St'),
-                          Team2_Name %in% c('Marquette','Murray St')
+kaggle_logit_1se %>% filter(Team1_Name %in% c('Utah St','Texas Tech'),
+                          Team2_Name %in% c('Texas Tech','Utah St')
 ) 
-kaggle_logit_min %>% filter(Team1_Name %in% c('VCU','UCF'),
-                          Team2_Name %in% c('VCU','UCF')
+kaggle_logit_1se %>% filter(Team1_Name %in% c('Drake','USC'),
+                          Team2_Name %in% c('USC','Drake')
 ) 
-kaggle_logit_1se %>% filter(Team1_Name %in% c('Texas Tech','Virginia'),
-                          Team2_Name %in% c('Texas Tech','Virginia')
+kaggle_logit_min %>% filter(Team1_Name %in% c('Ohio','Virginia'),
+                          Team2_Name %in% c('Virginia','Ohio')
 ) 
 kaggle_logit_min %>% filter(Team1_Name %in% c('Texas Tech','Gonzaga'),
                           Team2_Name %in% c('Texas Tech','Gonzaga')
@@ -1114,18 +1114,18 @@ kable(bracket, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2021_GLMNET_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_GLMNET_Normal_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
-kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2015, 2019, vars, names = F); kaggle_glmnet
-kaggle_glmnet %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
-                     Team2_Name %in% c('UC Irvine','Kansas St')
+kaggle_glmnet <- kaggle_predictions(GLMNET, 'glmnet', 2021, 2021, vars, names = T); kaggle_glmnet
+kaggle_glmnet %>% filter(Team1_Name %in% c('Houston','Gonzaga'),
+                     Team2_Name %in% c('Houston','Gonzaga')
 ) 
-kaggle_glmnet %>% filter(Team1_Name %in% c('Wisconsin','Oregon'),
-                     Team2_Name %in% c('Wisconsin','Oregon')
+kaggle_glmnet %>% filter(Team1_Name %in% c('Houston','Gonzaga'),
+                     Team2_Name %in% c('Gonzaga','Houston')
 ) 
-kaggle_glmnet %>% filter(Team1_Name %in% c('Marquette','Murray St'),
-                     Team2_Name %in% c('Marquette','Murray St')
+kaggle_glmnet %>% filter(Team1_Name %in% c('Ohio','Virginia'),
+                     Team2_Name %in% c('Virginia','Ohio')
 ) 
 kaggle_glmnet %>% filter(Team1_Name %in% c('VCU','UCF'),
                      Team2_Name %in% c('VCU','UCF')
@@ -1145,7 +1145,7 @@ kaggle_glmnet %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 ##################################################################################################
 # Random Forest
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2018)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2019)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -1168,7 +1168,7 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 rF <- rf[[1]]
-test2 <- Bracket_Sim_RF(2019, 1000)
+test2 <- Bracket_Sim_RF(2021, 1000)
 bracket <- Normalize_Sim(test2, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
@@ -1176,7 +1176,7 @@ kable(bracket, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2019_RF_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_RF_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_rf <- kaggle_predictions(rf, 'rf', 2019, 2019, vars, names = T); kaggle_rf
@@ -1233,15 +1233,15 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 gbm <- GBM[[1]]
-test3 <- Bracket_Sim_GBM(2021, 20)
-bracket <- Normalize_Sim(test3, 20)
+test3 <- Bracket_Sim_GBM(2021, 1000)
+bracket <- Normalize_Sim(test3, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2019_GBM_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_GBM_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_gbm <- kaggle_predictions(gbm, 'gbm', 2015, 2019, vars, names = F); kaggle_gbm
@@ -1272,7 +1272,7 @@ kaggle_gbm %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 #####################################################################################
 # XGBoost
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2018)),]
+training_data <- train1[train1$Season %in% c(seq(2003,2019)),]
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -1297,7 +1297,7 @@ cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
 xgboost <- XGBoost[[1]]
-test4 <- Bracket_Sim_XGBoost(2019, 1000)
+test4 <- Bracket_Sim_XGBoost(2021, 1000)
 bracket <- Normalize_Sim(test4, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
@@ -1305,7 +1305,7 @@ kable(bracket, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2019_XGBOOST_Bracket_Simulation.html"))
+  save_kable(file = paste0("2021_XGBOOST_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_xgboost <- kaggle_predictions(xgboost, 'xgboost', 2015, 2019, vars, min = F, names = F); 
