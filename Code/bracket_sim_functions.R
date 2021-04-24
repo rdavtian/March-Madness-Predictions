@@ -14,9 +14,9 @@ Bracket_Sim_Penalized = function(year, N, lambda)
     # Use below for unknown predictions
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
@@ -292,9 +292,9 @@ Bracket_Sim_GLMNET = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
@@ -577,9 +577,9 @@ Bracket_Sim_RF = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
@@ -862,9 +862,9 @@ Bracket_Sim_GBM = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
@@ -1147,9 +1147,9 @@ Bracket_Sim_XGBoost = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
@@ -1432,9 +1432,9 @@ Bracket_Sim_NN = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Norfolk St" & bracket$Team2_Name != "Norfolk St",]
-    bracket = bracket[bracket$Team1_Name != "Drake" & bracket$Team2_Name != "Drake",]
-    bracket = bracket[bracket$Team1_Name != "UCLA" & bracket$Team2_Name != "UCLA",]
+    bracket = bracket[bracket$Team1_Name != "Appalachian St" & bracket$Team2_Name != "Appalachian St",]
+    bracket = bracket[bracket$Team1_Name != "Wichita St" & bracket$Team2_Name != "Wichita St",]
+    bracket = bracket[bracket$Team1_Name != "Michigan St" & bracket$Team2_Name != "Michigan St",]
     bracket = bracket[bracket$Team1_Name != "Mt St Mary's" & bracket$Team2_Name != "Mt St Mary's",]
   }  
   
