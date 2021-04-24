@@ -47,4 +47,4 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds21/Bracket_Sim_Results.html
 
 2021 GLMNET XGBOOST Bracket Simulation Results
-http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds21/Bracket_Sim_Results.html
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds21/2021_XGBOOST_Bracket_Simulation.html
