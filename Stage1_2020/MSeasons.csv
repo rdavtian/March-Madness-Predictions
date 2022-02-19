@@ -1,38 +1,39 @@
 Season,DayZero,RegionW,RegionX,RegionY,RegionZ
-1985,10/29/1984,East,West,Midwest,Southeast
-1986,10/28/1985,East,Midwest,Southeast,West
-1987,10/27/1986,East,Southeast,Midwest,West
-1988,11/2/1987,East,Midwest,Southeast,West
-1989,10/31/1988,East,West,Midwest,Southeast
-1990,10/30/1989,East,Midwest,Southeast,West
-1991,10/29/1990,East,Southeast,Midwest,West
-1992,11/4/1991,East,West,Midwest,Southeast
-1993,11/2/1992,East,Midwest,Southeast,West
-1994,11/1/1993,East,Southeast,Midwest,West
-1995,10/31/1994,East,West,Midwest,Southeast
-1996,10/30/1995,East,Midwest,Southeast,West
-1997,10/28/1996,East,Southeast,Midwest,West
-1998,10/27/1997,East,West,Midwest,South
-1999,10/26/1998,East,Midwest,South,West
-2000,11/1/1999,East,South,Midwest,West
-2001,10/30/2000,East,West,Midwest,South
-2002,10/29/2001,East,Midwest,South,West
-2003,11/4/2002,East,South,Midwest,West
-2004,11/3/2003,Atlanta,Phoenix,EastRutherford,StLouis
-2005,11/1/2004,Albuquerque,Chicago,Austin,Syracuse
-2006,10/31/2005,Atlanta,Oakland,Minneapolis,WashingtonDC
-2007,10/30/2006,East,South,Midwest,West
-2008,11/5/2007,East,Midwest,South,West
-2009,11/3/2008,East,South,Midwest,West
-2010,11/2/2009,East,South,Midwest,West
-2011,11/1/2010,East,West,Southeast,Southwest
-2012,10/31/2011,East,Midwest,South,West
-2013,11/5/2012,East,South,Midwest,West
-2014,11/4/2013,East,South,Midwest,West
-2015,11/3/2014,East,South,Midwest,West
-2016,11/2/2015,East,Midwest,South,West
-2017,10/31/2016,East,West,Midwest,South
-2018,10/30/2017,East,Midwest,South,West
-2019,11/5/2018,East,West,Midwest,South
-2020,11/4/2019,NA1,NA2,NA3,NA4
-2021,11/2/2020,East,West,Midwest,South
+1985,1984-10-29 00:00:00,East,West,Midwest,Southeast
+1986,1985-10-28 00:00:00,East,Midwest,Southeast,West
+1987,1986-10-27 00:00:00,East,Southeast,Midwest,West
+1988,1987-11-02 00:00:00,East,Midwest,Southeast,West
+1989,1988-10-31 00:00:00,East,West,Midwest,Southeast
+1990,1989-10-30 00:00:00,East,Midwest,Southeast,West
+1991,1990-10-29 00:00:00,East,Southeast,Midwest,West
+1992,1991-11-04 00:00:00,East,West,Midwest,Southeast
+1993,1992-11-02 00:00:00,East,Midwest,Southeast,West
+1994,1993-11-01 00:00:00,East,Southeast,Midwest,West
+1995,1994-10-31 00:00:00,East,West,Midwest,Southeast
+1996,1995-10-30 00:00:00,East,Midwest,Southeast,West
+1997,1996-10-28 00:00:00,East,Southeast,Midwest,West
+1998,1997-10-27 00:00:00,East,West,Midwest,South
+1999,1998-10-26 00:00:00,East,Midwest,South,West
+2000,1999-11-01 00:00:00,East,South,Midwest,West
+2001,2000-10-30 00:00:00,East,West,Midwest,South
+2002,2001-10-29 00:00:00,East,Midwest,South,West
+2003,2002-11-04 00:00:00,East,South,Midwest,West
+2004,2003-11-03 00:00:00,Atlanta,Phoenix,EastRutherford,StLouis
+2005,2004-11-01 00:00:00,Albuquerque,Chicago,Austin,Syracuse
+2006,2005-10-31 00:00:00,Atlanta,Oakland,Minneapolis,WashingtonDC
+2007,2006-10-30 00:00:00,East,South,Midwest,West
+2008,2007-11-05 00:00:00,East,Midwest,South,West
+2009,2008-11-03 00:00:00,East,South,Midwest,West
+2010,2009-11-02 00:00:00,East,South,Midwest,West
+2011,2010-11-01 00:00:00,East,West,Southeast,Southwest
+2012,2011-10-31 00:00:00,East,Midwest,South,West
+2013,2012-11-05 00:00:00,East,South,Midwest,West
+2014,2013-11-04 00:00:00,East,South,Midwest,West
+2015,2014-11-03 00:00:00,East,South,Midwest,West
+2016,2015-11-02 00:00:00,East,Midwest,South,West
+2017,2016-10-31 00:00:00,East,West,Midwest,South
+2018,2017-10-30 00:00:00,East,Midwest,South,West
+2019,2018-11-05 00:00:00,East,West,Midwest,South
+2020,2019-11-04 00:00:00,NA1,NA2,NA3,NA4
+2021,2020-11-02 00:00:00,East,West,Midwest,South
+2022,2021-11-01 00:00:00,TBD,TBD,TBD,TBD

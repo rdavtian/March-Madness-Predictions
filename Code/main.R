@@ -1069,11 +1069,11 @@ kaggle_logit_1se %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 ################################################################
 # GLMNET, carets version of lasso/ridge/elastic net
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2016)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2019)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
-testing_data <- train1[train1$Season %in% c(2017,2018,2019) & train1$Round > 0,] 
+testing_data <- train1[train1$Season %in% c(2021) & train1$Round > 0,] 
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
@@ -1145,11 +1145,11 @@ kaggle_glmnet %>% filter(Team1_Name %in% c('Auburn','Kansas'),
 ##################################################################################################
 # Random Forest
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2019)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2015)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
-testing_data <- train1[train1$Season %in% c(2019) & train1$Round > 0,] 
+testing_data <- train1[train1$Season %in% c(2016,2017,2018,2019,2021) & train1$Round > 0,] 
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
@@ -1179,7 +1179,7 @@ kable(bracket, row.names = F) %>%
   save_kable(file = paste0("2021_RF_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
-kaggle_rf <- kaggle_predictions(rf, 'rf', 2021, 2021, vars, names = T); kaggle_rf
+kaggle_rf <- kaggle_predictions(rf, 'rf', 2016, 2021, vars, names = T) %>% distinct(); kaggle_rf
 kaggle_rf %>% filter(Team1_Name %in% c('UC Irvine','Kansas St'),
                           Team2_Name %in% c('UC Irvine','Kansas St')
 ) 

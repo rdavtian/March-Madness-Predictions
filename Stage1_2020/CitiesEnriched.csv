@@ -433,8 +433,8 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4455,West Orange,NJ,40.79871,-74.23904,156,Eastern Daylight Time,-4
 4456,White Plains,NY,41.033985,-73.762909,65,Eastern Daylight Time,-4
 4457,Winter Garden,FL,28.542144,-81.597044,38,Eastern Daylight Time,-4
-4458,Homewood,AL,,,,,
-4459,Isla Vista,CA,,,,,
+4458,Homewood,AL,33.47177,-86.80082,667,Central Daylight Time,-5
+4459,Isla Vista,CA,34.41333,-119.86097,46,Pacific Daylight Time,-7
 4460,Mansfield,CT,,,,,
 4461,Montville,CT,,,,,
 4462,North Andover,MA,,,,,
@@ -454,3 +454,10 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4476,Saint George,UT,,,,,
 4477,Stephenville,TX,,,,,
 4478,La Jolla,CA,,,,,
+4479,Alcorn State,MS,,,,,
+4480,Belmont Park,NY,,,,,
+4481,San Juan Capistrano,CA,,,,,
+4482,St. Paul,MN,,,,,
+4483,Canyon,TX,,,,,
+4484,Naples,FL,,,,,
+4485,Santa Cruz,CA,,,,,
