@@ -356,7 +356,7 @@ Bracket_Sim_GLMNET = function(year, N)
       
       Game1 = cbind(Team1, Team2)
       #print(c(Game1$Team1_Name, Game1$Team2_Name, Game1$Round2,i))
-      Game1$Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round1_Team1[i+1,]
@@ -364,7 +364,7 @@ Bracket_Sim_GLMNET = function(year, N)
       
       Game2 = cbind(Team3, Team4)
       #print(c(Game2$Team1_Name, Game2$Team2_Name, Game2$Round2,i+1))
-      Game2$Team1_Win_Prob_Game2 = predict(GLMNET,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       # Call logistic regression model for predicting team 1 victory for game 2
       # Store Probabilty p for team 1 winning and 1 - p for team 2 winning
@@ -399,14 +399,14 @@ Bracket_Sim_GLMNET = function(year, N)
       Team2 = Round2_Team2[i,]
       Game1 = cbind(Team1, Team2)
       #print(c(Game1$Team1_Name, Game1$Team2_Name, Game1$Round2,i))
-      Game1$Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round2_Team1[i+1,]
       Team4 = Round2_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
       #print(c(Game2$Team1_Name, Game2$Team2_Name, Game2$Round2,i+1))
-      Game2$Team1_Win_Prob_Game2 = predict(GLMNET,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -438,13 +438,13 @@ Bracket_Sim_GLMNET = function(year, N)
       Team1 = Round3_Team1[i,]
       Team2 = Round3_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round3_Team1[i+1,]
       Team4 = Round3_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(GLMNET,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]], newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -477,13 +477,13 @@ Bracket_Sim_GLMNET = function(year, N)
       Team1 = Round4_Team1[i,]
       Team2 = Round4_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round4_Team1[i+1,]
       Team4 = Round4_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(GLMNET,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -517,13 +517,13 @@ Bracket_Sim_GLMNET = function(year, N)
       Team1 = Round5_Team1[i,]
       Team2 = Round5_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round5_Team1[i+1,]
       Team4 = Round5_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(GLMNET,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -544,7 +544,7 @@ Bracket_Sim_GLMNET = function(year, N)
       Round6 = rbind(Round6, c)
     }
     
-    Team1_Win_Prob_Game1 = predict(GLMNET,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+    Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
     random = runif(1,0,1)
     if (Team1_Win_Prob_Game1 <= random)
     {
@@ -641,7 +641,7 @@ Bracket_Sim_RF = function(year, N)
       
       Game1 = cbind(Team1, Team2)
       #print(c(Game1$Team1_Name, Game1$Team2_Name, Game1$Round2,i))
-      Game1$Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round1_Team1[i+1,]
@@ -649,7 +649,7 @@ Bracket_Sim_RF = function(year, N)
       
       Game2 = cbind(Team3, Team4)
       #print(c(Game2$Team1_Name, Game2$Team2_Name, Game2$Round2,i+1))
-      Game2$Team1_Win_Prob_Game2 = predict(rF,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       # Call logistic regression model for predicting team 1 victory for game 2
       # Store Probabilty p for team 1 winning and 1 - p for team 2 winning
@@ -684,14 +684,14 @@ Bracket_Sim_RF = function(year, N)
       Team2 = Round2_Team2[i,]
       Game1 = cbind(Team1, Team2)
       #print(c(Game1$Team1_Name, Game1$Team2_Name, Game1$Round2,i))
-      Game1$Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round2_Team1[i+1,]
       Team4 = Round2_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
       #print(c(Game2$Team1_Name, Game2$Team2_Name, Game2$Round2,i+1))
-      Game2$Team1_Win_Prob_Game2 = predict(rF,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -723,13 +723,13 @@ Bracket_Sim_RF = function(year, N)
       Team1 = Round3_Team1[i,]
       Team2 = Round3_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round3_Team1[i+1,]
       Team4 = Round3_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(rF,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -762,13 +762,13 @@ Bracket_Sim_RF = function(year, N)
       Team1 = Round4_Team1[i,]
       Team2 = Round4_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round4_Team1[i+1,]
       Team4 = Round4_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(rF,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -802,13 +802,13 @@ Bracket_Sim_RF = function(year, N)
       Team1 = Round5_Team1[i,]
       Team2 = Round5_Team2[i,]
       Game1 = cbind(Team1, Team2)
-      Game1$Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+      Game1$Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
       Game1$Random = runif(1,0,1)
       
       Team3 = Round5_Team1[i+1,]
       Team4 = Round5_Team2[i+1,]
       Game2 = cbind(Team3, Team4)
-      Game2$Team1_Win_Prob_Game2 = predict(rF,newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
+      Game2$Team1_Win_Prob_Game2 = predict(mod[[1]],newdata = Game2[, c(colnames(training_continuous))], type= "prob")[2]
       Game2$Random = runif(1,0,1)
       
       if (Game1$Team1_Win_Prob_Game1 >= Game1$Random & Game2$Team1_Win_Prob_Game2 >= Game2$Random) {
@@ -829,7 +829,7 @@ Bracket_Sim_RF = function(year, N)
       Round6 = rbind(Round6, c)
     }
     
-    Team1_Win_Prob_Game1 = predict(rF,newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
+    Team1_Win_Prob_Game1 = predict(mod[[1]],newdata = Game1[, c(colnames(training_continuous))], type= "prob")[2]
     random = runif(1,0,1)
     if (Team1_Win_Prob_Game1 <= random)
     {

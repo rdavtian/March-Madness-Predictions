@@ -807,7 +807,6 @@ run_xgboost <- function(vars, parametersGrid, k_fold)
                    data = training_continuous, method = "xgbTree", 
                    metric="logLoss", trControl=control, tuneLength = 3) #tuneGrid=parametersGrid)
   
-  #print(plot(xgboost))
   imp2 <- varImp(xgboost)
   print(barchart(sort(rowMeans(imp2$importance), decreasing = T), 
            main = "XGBoost Variable Importance", xlab = "Average Level of Importance",
@@ -839,6 +838,70 @@ run_xgboost <- function(vars, parametersGrid, k_fold)
   print(paste("accuracy:", acc))
   
   return(list(xgboost, answer))
+}
+
+run_model <- function(vars, model_type, tuneLength, k_fold, plot = FALSE)
+{
+  set.seed(0)
+  myFolds <- createFolds(training_continuous$Team1_Victory, k = k_fold)
+  print(paste("vars: ", paste(vars, collapse = ', ')))
+  training_continuous$Team1_Victory <- ifelse(training_continuous$Team1_Victory == 1, "Win","Loss")
+  control <- trainControl(classProbs=TRUE, summaryFunction=mnLogLoss, number = k_fold,
+                          index = myFolds, savePredictions = TRUE)
+  model <- train(as.formula(paste0("as.factor(Team1_Victory) ~ ", paste0(vars, collapse = " + "))), 
+                 data = training_continuous, method = model_type, 
+                 metric="logLoss", trControl=control, tuneLength = tuneLength)
+  if ((model_type != 'gbm') & (plot == TRUE))
+  {
+    imp2 <- varImp(model)
+    print(barchart(sort(rowMeans(imp2$importance), decreasing = T), main = paste0(model_type, " Variable Importance"), xlab = "Average Level of Importance", ylab = "Variables"))
+  }
+  if (model_type == 'gbm')
+  {
+    var_imp <- summary(model)[2]
+    labels <- row.names(var_imp)
+    var_imp <- var_imp[1:10,]
+    labels <- labels[1:10]
+    df <- data.frame(labels, var_imp)
+    print(ggplot(df, aes(x = reorder(labels, -var_imp), y = var_imp)) +
+      geom_bar(stat = "identity", fill = "black") +
+      ggtitle(paste0("GBM Var Imp Predicting Team 1 Victory")) + 
+      coord_flip() + scale_y_continuous(name="Variable Important (0-100)") +
+      scale_x_discrete(name="") + 
+      theme(plot.title=element_text(hjust=0.5,vjust=0,size=13,face = 'bold'), 
+            plot.subtitle=element_text(face="bold", hjust= 0.5, vjust= .09, colour="#3C3C3C", size = 10)) +
+      theme(axis.text.x=element_text(vjust = .5, size=11,colour="#535353",face="bold")) +
+      theme(axis.text.y=element_text(size=11,colour="#535353",face="bold")) +
+      theme(axis.title.y=element_text(size=11,colour="#535353",face="bold",vjust=1.5)) +
+      theme(axis.title.x=element_text(size=11,colour="#535353",face="bold",vjust=0)) +
+      theme(panel.grid.major.y = element_line(color = "#bad2d4", size = .5)) +
+      theme(panel.grid.major.x = element_line(color = "#bdd2d4", size = .5)))
+  }
+  preds <- predict(model, newdata = testing_continuous, type = "prob")
+  preds_prob <- preds[, 2]
+  preds_raw <- predict(model, newdata = testing_continuous, type = 'raw')
+  preds_prob <- ifelse(preds_prob > 0.95, 0.95, preds_prob)
+  preds_prob <- ifelse(preds_prob < 0.05, 0.05, preds_prob)
+  loss <- round(logloss(testing_response[,1], preds_prob),4)
+  print(paste("logloss:", loss))
+  
+  pred_outcome <- ifelse(preds_prob >= 0.5, 1, 0)
+  answer <- as.data.frame(cbind(testing_response, preds_prob, pred_outcome))
+  colnames(answer) <- c("True","Season","Pred_Prob","Pred_Outcome")
+  
+  count = 0
+  for (i in 1:length(preds_prob))
+  {
+    if (answer$True[i] == answer$Pred_Outcome[i])
+    {
+      count = count + 1
+    }
+  }
+  # Prediction accuracy
+  acc <- round(count / dim(answer)[1],4)
+  print(paste("accuracy:", acc))
+  
+  return(list(model, answer))
 }
 
 run_nn <- function(vars, num_epochs)
@@ -902,7 +965,7 @@ kaggle_predictions <- function(model_output, model_type, start_year, end_year, v
     kaggle_preds <- model_output %>% keras::predict_proba(data.matrix(kaggle_test[,vars]))
     kaggle_preds <- kaggle_preds[,2]
   } else {
-    kaggle_preds <- predict(model_output, newdata = kaggle_test[,vars], type = "prob")[,1]
+    kaggle_preds <- predict(model_output[[1]], newdata = kaggle_test[,vars], type = "prob")[,1]
   }
   ID <- kaggle_test %>% dplyr::select(id)
   kaggle_preds <- cbind(ID, kaggle_preds)
