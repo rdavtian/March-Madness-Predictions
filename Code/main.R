@@ -46,9 +46,9 @@ Tourney_Slots = read.csv("MNCAATourneySlots.csv")
 Submission <- read.csv("MSampleSubmissionStage2.csv")
 Teams_Location = read.csv("Teams_Location.csv")
 Tourney_Hosts = read.csv("TourneyHosts.csv")
-Pomeroy = read.csv("KenPom.csv")
+#Pomeroy = read.csv("KenPom.csv")
 Coaches = read.csv("MTeamCoaches.csv")
-Standings <- loadWorkbook('Teams_03_21_Rankings.xlsx')
+Standings <- loadWorkbook('Teams_03_22_Rankings.xlsx')
 Game_Cities = read.csv("MGameCities.csv")
 Cities_Enriched = read.csv("CitiesEnriched.csv")
 ConfTournament = read.csv("MConferenceTourneyGames.csv")
@@ -94,7 +94,7 @@ for(i in 1:length(sheetNames))
 Standings <- rbind(rank03,rank04,rank05,rank06,rank07,
                    rank08,rank09,rank10,rank11,rank12,
                    rank13,rank14,rank15,rank16,rank17,
-                   rank18,rank19,rank21)
+                   rank18,rank19,rank21,rank22)
 Standings <- Standings %>%
   tidyr::separate(col = 'W-L', into = c("Wins", "Losses"), sep = "-") %>%
   mutate(Rank = as.numeric(Rank), 
@@ -552,7 +552,7 @@ train1 <- train1 %>%
            as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
-all_years_submission <- get_all_pairwise_matchups(2003, 2021)
+all_years_submission <- get_all_pairwise_matchups(2003, 2022)
 kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
@@ -971,7 +971,7 @@ team2_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
 #############################################################################
 # Machine Learning
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2019)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2021)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -979,7 +979,7 @@ testing_data <- train1[train1$Season %in% c(2021) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "rf", 4, 3, TRUE)
+mod <- run_model(vars, "glmnet", tuneLength = 6, k_fold = 3, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -993,15 +993,15 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_RF(2021, 200)
-bracket <- Normalize_Sim(test2, 200)
+test2 <- Bracket_Sim_XGBoost(2022, 1000)
+bracket <- Normalize_Sim(test2, 1000)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 1000 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2021_GLMNET_Normal_Bracket_Simulation.html"))
+  save_kable(file = paste0("2022_XGBoost_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_preds_16 <- kaggle_predictions(mod, 'xgbTree', 2016, 2016, vars, names = T)
@@ -1013,31 +1013,62 @@ kaggle_preds_21 <- kaggle_predictions(mod, 'xgbTree', 2021, 2021, vars, names = 
 kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
                       kaggle_preds_19, kaggle_preds_21) %>% 
   dplyr::select(ID, Pred)
-write.csv(kaggle_preds, "stage1_preds_22.csv", row.names = F)
 
-kaggle_preds %>% filter(Team1_Name %in% c('West Virginia','Morehead St'),
-                     Team2_Name %in% c('Morehead St','West Virginia')
+################################################################################
+kaggle_preds <- kaggle_predictions(mod, 'glmnet', 2022, 2022, vars, names = T)
+write.csv(kaggle_preds, "glmnet_2022_preds.csv", row.names = F)
+
+######################################################################################
+kaggle_preds %>% filter(Team1_Name %in% c('Gonzaga','Texas Tech'), #Tech, Gonzaga, Tech, Gonzaga
+                     Team2_Name %in% c('Texas Tech','Gonzaga')
 ) 
-kaggle_preds %>% filter(Team1_Name %in% c('Villanova','Winthrop'),
-                     Team2_Name %in% c('Winthrop','Villanova')
+kaggle_preds %>% filter(Team1_Name %in% c('Baylor','Kentucky'), #Kentucky, Kentucky, Kentucky, Kentucky
+                     Team2_Name %in% c('Kentucky','Baylor')
 ) 
-kaggle_preds %>% filter(Team1_Name %in% c('Florida','Virginia Tech'),
-                     Team2_Name %in% c('Virginia Tech','Florida')
+kaggle_preds %>% filter(Team1_Name %in% c('Arizona','Tennessee'), #Tennessee, Tennessee, Tennessee, Arizona
+                     Team2_Name %in% c('Tennessee','Arizona')
 ) 
-kaggle_preds %>% filter(Team1_Name %in% c('VCU','Oregon '),
-                     Team2_Name %in% c('Oregon','VCU')
-) 
-kaggle_preds %>% filter(Team1_Name %in% c('Oregon St','Tennessee'),
-                     Team2_Name %in% c('Tennessee','Oregon St')
-) 
-kaggle_preds %>% filter(Team1_Name %in% c('Liberty','Oklahoma St'),
-                     Team2_Name %in% c('Oklahoma St','Liberty')
-) 
-kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Michigan'),
-                     Team2_Name %in% c('Texas Tech','Michigan')
-) 
-kaggle_preds %>% filter(Team1_Name %in% c('Auburn','Kansas'),
+kaggle_preds %>% filter(Team1_Name %in% c('Kansas','Auburn'), #Kansas, Kansas, Kansas, Kansas
                      Team2_Name %in% c('Auburn','Kansas')
+) 
+kaggle_preds %>% filter(Team1_Name %in% c('Tennessee','Kansas'), #Kansas, Tennessee, Kansas, Tenn
+                     Team2_Name %in% c('Kansas','Tennessee')
+) 
+kaggle_preds %>% filter(Team1_Name %in% c('Tennessee','Gonzaga'), #Tennessee, Tennessee, Ten, Ten
+                     Team2_Name %in% c('Gonzaga','Tennessee')
+) 
+kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Duke'),  #Tech, Tech, Tech, Tech
+                     Team2_Name %in% c('Duke','Texas Tech')
+) 
+kaggle_preds %>% filter(Team1_Name %in% c('Gonzaga','Baylor'), # Baylor, Gonzaga, Baylor, Gonzaga
+                     Team2_Name %in% c('Baylor','Gonzaga')
+)
+kaggle_preds %>% filter(Team1_Name %in% c('Gonzaga','Kentucky'), #Kentucky, Kentucky, Kentucky, Kent
+                        Team2_Name %in% c('Kentucky','Gonzaga')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Gonzaga','Kentucky'), #Kentucky, Kentucky, Kentucky, Kent
+                        Team2_Name %in% c('Kentucky','Gonzaga')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Baylor'), #Baylor,  Baylor, Baylor, Baylor
+                        Team2_Name %in% c('Baylor','Texas Tech')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Baylor'), #Baylor,  Baylor, Baylor, Baylor
+                        Team2_Name %in% c('Baylor','Texas Tech')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Tennessee','Kentucky'), #Tenn, Tenn, Kent, Tenn
+                        Team2_Name %in% c('Kentucky','Tennessee')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Kentucky'), # Tech, Kent, Kent
+                        Team2_Name %in% c('Kentucky','Texas Tech')
+)
+
+kaggle_preds %>% filter(Team1_Name %in% c('Texas Tech','Tennessee'), # Tenn, Tenn, Tenn
+                        Team2_Name %in% c('Tennessee','Texas Tech')
 )
 
 #####################################################################################
