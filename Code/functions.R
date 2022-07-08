@@ -349,7 +349,7 @@ get_all_pairwise_matchups <- function(start_year, end_year)
     #{
       #next
     #}
-    if (k == 2021)
+    if (k == 2022)
     {
       current_year <- read.csv("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020/MSampleSubmissionStage2.csv")
       current_year <- current_year %>%
