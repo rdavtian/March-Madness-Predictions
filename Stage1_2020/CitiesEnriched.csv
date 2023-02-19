@@ -435,9 +435,9 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4457,Winter Garden,FL,28.542144,-81.597044,38,Eastern Daylight Time,-4
 4458,Homewood,AL,33.47177,-86.80082,667,Central Daylight Time,-5
 4459,Isla Vista,CA,34.41333,-119.86097,46,Pacific Daylight Time,-7
-4460,Mansfield,CT,,,,,
-4461,Montville,CT,,,,,
-4462,North Andover,MA,,,,,
+4460,Mansfield,CT,41.793125,-72.255272,195,Eastern Daylight Time,-4
+4461,Montville,CT,41.4639922,-72.1556189,335,Eastern Daylight Time,-4
+4462,North Andover,MA,42.698586,-71.131844,23,Eastern Daylight Time,-4
 4463,Columbia,MO,,,,,
 4464,Lawrence Township,NJ,,,,,
 4465,Olean,NY,,,,,
@@ -461,3 +461,12 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4483,Canyon,TX,,,,,
 4484,Naples,FL,,,,,
 4485,Santa Cruz,CA,,,,,
+4486,Henderson,NV,,,,,
+4487,Pensacola,FL,,,,,
+4488,Commerce,TX,,,,,
+4489,Dublin,IR,,,,,
+4490,Easton,MA,,,,,
+4491,Laval,QC,,,,,
+4492,London,GB,,,,,
+4493,Union,NJ,,,,,
+4494,Kihei,HI,,,,,
