@@ -1,4 +1,4 @@
-current_tourn_year <- 2022
+current_tourn_year <- 2023
 Bracket_Sim_Penalized = function(year, N, lambda)
 {
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)

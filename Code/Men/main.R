@@ -5,11 +5,17 @@
 #https://www.nbastuffer.com/nba-moneyball/
 #https://statathlon.com/four-factors-basketball-success/
 #https://www.teamrankings.com/ncaa-basketball/ranking/predictive-by-other?date=2021-03-14
+#adrian@swishanalytics.com
+
+#MTeamLocations.csv (edit)
+#MTourneyHosts.csv (edit)
+#Teams_03_22_Rankings.xlsx (edit)
+#CitiesEnriched.csv (edit)
 
 # Format options
 options(kableExtra.auto_format = FALSE)
 options(knitr.table.format = "html")
-setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code") # set working directory
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code/Men") # set working directory
 source('functions.R'); source('bracket_sim_functions.R') # load in functions files
 library(ggplot2) # load libraries needed
 library(knitr)
@@ -32,7 +38,7 @@ require(nnet)
 library(keras)
 library(openxlsx)
 
-setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020")
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Data")
 
 # Load Data
 Seasons <- read.csv("MSeasons.csv")
@@ -43,12 +49,12 @@ Tourney_Detailed <- read.csv("MNCAATourneyDetailedResults.csv")
 Tourney_Compact <- read.csv("MNCAATourneyCompactResults.csv")
 Tourney_Seeds <- read.csv("MNCAATourneySeeds.csv")
 Tourney_Slots = read.csv("MNCAATourneySlots.csv")
-Submission <- read.csv("MSampleSubmissionStage2.csv")
-Teams_Location = read.csv("Teams_Location.csv")
-Tourney_Hosts = read.csv("TourneyHosts.csv")
+Submission <- read.csv("SampleSubmission2023.csv")
+Teams_Location = read.csv("MTeamLocations.csv")
+Tourney_Hosts = read.csv("MTourneyHosts.csv")
 #Pomeroy = read.csv("KenPom.csv")
 Coaches = read.csv("MTeamCoaches.csv")
-Standings <- loadWorkbook('Teams_03_22_Rankings.xlsx')
+Standings <- loadWorkbook('MTeams_03_23_Rankings.xlsx')
 Game_Cities = read.csv("MGameCities.csv")
 Cities_Enriched = read.csv("CitiesEnriched.csv")
 ConfTournament = read.csv("MConferenceTourneyGames.csv")
@@ -317,6 +323,7 @@ train1 <- train1 %>%
   left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = c("CityID" = "CityId"))
 
 # Add host city and locations to each tournament match in training data 
+#### FIX
 Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
 train1 <- train1 %>%
   inner_join(Tourney_Hosts[, c("Season","Slot","Host","lat","lng","Round","Team1","Team2")],
@@ -552,7 +559,7 @@ train1 <- train1 %>%
            as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
-all_years_submission <- get_all_pairwise_matchups(2003, 2022)
+all_years_submission <- get_all_pairwise_matchups(2003, 2023)
 kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
@@ -993,8 +1000,8 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_XGBoost(2022, 1000)
-bracket <- Normalize_Sim(test2, 1000)
+test2 <- Bracket_Sim_XGBoost(2022, 10)
+bracket <- Normalize_Sim(test2, 10)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
