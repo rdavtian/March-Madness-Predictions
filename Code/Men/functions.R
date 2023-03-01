@@ -1,4 +1,5 @@
 matchups <- c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
+
 normFunc <- function(x){
   (x-mean(x, na.rm = T))/sd(x, na.rm = T)
 }
@@ -349,9 +350,9 @@ get_all_pairwise_matchups <- function(start_year, end_year)
     #{
       #next
     #}
-    if (k == 2022)
+    if (k == 2023)
     {
-      current_year <- read.csv("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Stage1_2020/MSampleSubmissionStage2.csv")
+      current_year <- read.csv("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Data/SampleSubmission2023.csv")
       current_year <- current_year %>%
         mutate(Season = as.numeric(substr(ID, 1, 4)),
                Team1 = as.numeric(substr(ID, 11, 14)),
