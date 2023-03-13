@@ -53,14 +53,3 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
-2022 GLMNET Bracket Simulation Results
-https://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds22/2022_GLMNET_Bracket_Simulation.html
-
-2022 RF Bracket Simulation Results
-https://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds22/2022_RF_Bracket_Simulation.html
-
-2022 GBM Bracket Simulation Results
-https://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds22/2022_GBM_Bracket_Simulation.html
-
-2022 XGBOOST Bracket Simulation Results
-http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds22/2022_XGBoost_Bracket_Simulation.html
