@@ -1147,10 +1147,10 @@ Bracket_Sim_XGBoost = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
-    bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Wake Forest" & bracket$Team2_Name != "Wake Forest",]
+    bracket = bracket[bracket$Team1_Name != "Wisconsin" & bracket$Team2_Name != "Wisconsin",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "Utah" & bracket$Team2_Name != "Utahi",]
   }  
   
   # Add seed and region 
