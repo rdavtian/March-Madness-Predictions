@@ -441,32 +441,32 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4463,Columbia,MO,38.951561,-92.328636,231,Central Daylight Time,-5
 4464,Lawrence Township,NJ,40.2778055,-74.7294313,25,Eastern Daylight Time,-4
 4465,Olean,NY,42.083637,-78.429924,560,Eastern Daylight Time,-4
-4466,Fairborn,OH,,,,,
-4467,Bryn Mawr,PA,,,,,
-4468,Moon,PA,,,,,
-4469,South Kingstown,RI,,,,,
-4470,Springfield,OH,,,,,
-4471,Midland,TX,,,,,
-4472,Riviera Maya,MX,,,,,
-4473,St. James,JA,,,,,
-4474,Victoria,BC,,,,,
-4475,Wilmington,DE,,,,,
-4476,Saint George,UT,,,,,
-4477,Stephenville,TX,,,,,
+4466,Fairborn,OH,39.8208925,-84.0193789,257.7079163,Eastern Daylight Time,-4
+4467,Bryn Mawr,PA,40.0230237,-75.3151772,82.36032104,Eastern Daylight Time,-4
+4468,Moon,PA,40.5169767,-80.2213477,295.3599243,Eastern Daylight Time,-4
+4469,South Kingstown,RI,41.4475686,-71.524667,18.08333397,Eastern Daylight Time,-4
+4470,Springfield,OH,39.9242266,-83.8088171,314.0195923,Eastern Daylight Time,-4
+4471,Midland,TX,31.9973456,-102.0779146,852.2229614,Central Daylight Time,-5
+4472,Riviera Maya,MX,20.5536295,-87.1670412,-0.883529007,Eastern Daylight Time,-4
+4473,St. James,JA,18.3923184,-77.8595963,326.9865417,Eastern Daylight Time,-4
+4474,Victoria,BC,48.4284207,-123.3656444,9.394356728,Pacific Daylight Time,-4
+4475,Wilmington,DE,39.744655,-75.5483909,27.38946915,Eastern Daylight Time,-4
+4476,Saint George,UT,37.0965278,-113.5684164,828.8851929,Mountain Daylight Time,-6
+4477,Stephenville,TX,32.2206958,-98.2022633,401.7384033,Central Daylight Time,-5
 4478,La Jolla,CA,32.842674,-117.257767,32,Pacific Daylight Time,-7
-4479,Alcorn State,MS,,,,,
-4480,Belmont Park,NY,,,,,
+4479,Alcorn State,MS,31.877778,-91.139167,66.69493866,Central Daylight Time,-5
+4480,Belmont Park,NY,40.7139588,-73.7233584,15.44137096,Eastern Daylight Time,-4
 4481,San Juan Capistrano,CA,33.501694,-117.662552,37,Pacific Daylight Time,-7
-4482,St. Paul,MN,,,,,
-4483,Canyon,TX,,,,,
-4484,Naples,FL,,,,,
+4482,St. Paul,MN,44.9537029,-93.0899578,292.5924683,Central Daylight Time,-5
+4483,Canyon,TX,34.9803342,-101.9188024,1094.623657,Central Daylight Time,-5
+4484,Naples,FL,26.1420358,-81.7948103,0.220061973,Eastern Daylight Time,-4
 4485,Santa Cruz,CA,36.974117,-122.030792,11,Pacific Daylight Time,-7
-4486,Henderson,NV,,,,,
-4487,Pensacola,FL,,,,,
-4488,Commerce,TX,,,,,
-4489,Dublin,IR,,,,,
-4490,Easton,MA,,,,,
-4491,Laval,QC,,,,,
-4492,London,GB,,,,,
-4493,Union,NJ,,,,,
-4494,Kihei,HI,,,,,
+4486,Henderson,NV,36.0395247,-114.9817213,585.914917,Pacific Daylight Time,-7
+4487,Pensacola,FL,30.421309,-87.2169149,3.656653166,Eastern Daylight Time,-4
+4488,Commerce,TX,33.2470567,-95.8999656,153.3553619,Central Daylight Time,-5
+4489,Dublin,IR,53.3498053,-6.2603097,6.391397476,Greenwich Mean Time,0
+4490,Easton,MA,42.0245442,-71.1286594,34.63722992,Eastern Daylight Time,-4
+4491,Laval,QC,45.6066487,-73.712409,38.82111359,Eastern Daylight Time,-4
+4492,London,GB,51.5072178,-0.1275862,7.32265377,Greenwich Mean Time,0
+4493,Union,NJ,40.6975898,-74.2631635,28.86938858,Eastern Daylight Time,-4
+4494,Kihei,HI,20.7399409,-156.4541873,10.25002289,Hawaii-Aleutian Standard Time,-10
