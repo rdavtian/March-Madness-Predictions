@@ -1,0 +1,472 @@
+CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHours
+4001,Abilene,TX,32.4487364,-99.7331439,520.9115601,Central Daylight Time,-5
+4002,Akron,OH,41.0814447,-81.5190053,292.6947632,Eastern Daylight Time,-4
+4003,Albany,NY,42.6525793,-73.7562317,42.68008041,Eastern Daylight Time,-4
+4004,Albuquerque,NM,35.0843859,-106.650422,1509.999268,Mountain Daylight Time,-6
+4005,Allentown,PA,40.6022939,-75.4714098,111.1497421,Eastern Daylight Time,-4
+4006,Ames,IA,42.0307812,-93.6319131,274.2550659,Central Daylight Time,-5
+4007,Amherst,MA,42.3732216,-72.5198537,95.78414917,Eastern Daylight Time,-4
+4008,Anaheim,CA,33.8365932,-117.9143012,47.6085968,Pacific Daylight Time,-7
+4009,Anchorage,AK,61.2180556,-149.9002778,33.19641113,Alaska Daylight Time,-8
+4010,Ann Arbor,MI,42.2808256,-83.7430378,263.4928284,Eastern Daylight Time,-4
+4011,Annapolis,MD,38.9784453,-76.4921829,13.4458847,Eastern Daylight Time,-4
+4012,Arlington,TX,32.735687,-97.1080656,184.3147583,Central Daylight Time,-5
+4013,Asheville,NC,35.5950581,-82.5514869,676.4351807,Eastern Daylight Time,-4
+4014,Athens,GA,33.9519347,-83.357567,213.8323517,Eastern Daylight Time,-4
+4015,Athens,OH,39.3292396,-82.1012554,219.3882599,Eastern Daylight Time,-4
+4016,Atlanta,GA,33.7489954,-84.3879824,320.0387878,Eastern Daylight Time,-4
+4017,Atlantic City,NJ,39.3642834,-74.4229266,3.922453642,Eastern Daylight Time,-4
+4018,Auburn,AL,32.6098566,-85.4807825,215.4762726,Central Daylight Time,-5
+4019,Auburn Hills,MI,42.6875323,-83.2341028,292.1078796,Eastern Daylight Time,-4
+4020,Austin,TX,30.267153,-97.7430608,149.1394653,Central Daylight Time,-5
+4021,Bakersfield,CA,35.3732921,-119.0187125,122.5372314,Pacific Daylight Time,-7
+4022,Baltimore,MD,39.2903848,-76.6121893,10.96754742,Eastern Daylight Time,-4
+4023,Bangor,ME,44.8016128,-68.7712257,5.729408264,Eastern Daylight Time,-4
+4024,Baton Rouge,LA,30.4514677,-91.1871466,16.00102425,Central Daylight Time,-5
+4025,Bayamon,PR,18.389396,-66.1653224,30.27177429,Atlantic Standard Time,-4
+4026,Beaumont,TX,30.080174,-94.1265562,5.101345539,Central Daylight Time,-5
+4027,Berkeley,CA,37.8715926,-122.272747,51.61442184,Pacific Daylight Time,-7
+4028,Bethlehem,PA,40.6259316,-75.3704579,110.9742737,Eastern Daylight Time,-4
+4029,Billings,MT,45.7832856,-108.5006904,951.3828735,Mountain Daylight Time,-6
+4030,Birmingham,AL,33.5185892,-86.8103567,183.2224579,Central Daylight Time,-5
+4031,Blacksburg,VA,37.2295733,-80.4139393,633.4209595,Eastern Daylight Time,-4
+4032,Bloomington,IN,39.165325,-86.5263857,233.728775,Eastern Daylight Time,-4
+4033,Boca Raton,FL,26.3683064,-80.1289321,6.029303551,Eastern Daylight Time,-4
+4034,Boiling Springs,NC,35.254292,-81.6670407,269.4201355,Eastern Daylight Time,-4
+4035,Boise,ID,43.6150186,-116.2023137,822.3980713,Mountain Daylight Time,-6
+4036,Boone,NC,36.216795,-81.6745517,980.9765625,Eastern Daylight Time,-4
+4037,Borinquen,PR,18.220833,-66.590149,454.5361328,Atlantic Standard Time,-4
+4038,Bossier City,LA,32.5159852,-93.7321228,53.01473999,Central Daylight Time,-5
+4039,Boston,MA,42.3600825,-71.0588801,10.44776249,Eastern Daylight Time,-4
+4040,Boulder,CO,40.0149856,-105.2705456,1623.977417,Mountain Daylight Time,-6
+4041,Bowling Green,KY,36.9685219,-86.4808043,159.3538666,Central Daylight Time,-5
+4042,Bowling Green,OH,41.3747744,-83.6513229,210.7506256,Eastern Daylight Time,-4
+4043,Bozeman,MT,45.6769979,-111.0429339,1473.494629,Mountain Daylight Time,-6
+4044,Bridgeport,CT,41.1792258,-73.1894384,6.862918377,Eastern Daylight Time,-4
+4045,Bronx,NY,40.8447819,-73.8648268,15.11357307,Eastern Daylight Time,-4
+4046,Brookings,SD,44.3113573,-96.7983877,493.9803162,Central Daylight Time,-5
+4047,Brooklyn,NY,40.6781784,-73.9441579,18.872715,Eastern Daylight Time,-4
+4048,Brooklyn Heights,NY,40.6959294,-73.9955523,24.84157562,Eastern Daylight Time,-4
+4049,Buffalo,NY,42.8864468,-78.8783689,182.8298187,Eastern Daylight Time,-4
+4050,Buies Creek,NC,35.4132168,-78.7355728,63.27493286,Eastern Daylight Time,-4
+4051,Burlington,VT,44.4758825,-73.212072,59.67926025,Eastern Daylight Time,-4
+4052,Cambridge,MA,42.3736158,-71.1097335,6.376087189,Eastern Daylight Time,-4
+4053,Cancun,MX,21.161908,-86.8515279,12.89237785,Central Standard Time,-6
+4054,Cape Girardeau,MO,37.3058839,-89.5181476,107.4340057,Central Daylight Time,-5
+4055,Carbondale,IL,37.7272727,-89.2167501,126.3381577,Central Daylight Time,-5
+4056,Casper,WY,42.8500769,-106.3251749,1561.945313,Mountain Daylight Time,-6
+4057,Cedar City,UT,37.6774769,-113.0618931,1782.50293,Mountain Daylight Time,-6
+4058,Cedar Falls,IA,42.5348993,-92.4453161,263.3987122,Central Daylight Time,-5
+4059,Cedar Park,TX,30.505198,-97.8202888,276.2288513,Central Daylight Time,-5
+4060,Champaign,IL,40.1164204,-88.2433829,224.3040619,Central Daylight Time,-5
+4061,Chapel Hill,NC,35.9131996,-79.0558445,148.5522461,Eastern Daylight Time,-4
+4062,Charleston,IL,39.4961458,-88.1761521,204.0607758,Central Daylight Time,-5
+4063,Charleston,NC,32.7764749,-79.9310512,3.889002323,Eastern Daylight Time,-4
+4064,Charleston,SC,32.7764749,-79.9310512,3.889002323,Eastern Daylight Time,-4
+4065,Charleston,WV,38.3498195,-81.6326234,181.6091461,Eastern Daylight Time,-4
+4066,Charlotte,NC,35.2270869,-80.8431267,232.5149994,Eastern Daylight Time,-4
+4067,Charlottesville,VA,38.0293059,-78.4766781,143.3647614,Eastern Daylight Time,-4
+4068,Chattanooga,TN,35.0456297,-85.3096801,206.325058,Eastern Daylight Time,-4
+4069,Cheney,WA,47.4873895,-117.5757622,718.7050171,Pacific Daylight Time,-7
+4070,Chestnut Hill,MA,42.3303798,-71.166187,59.72336197,Eastern Daylight Time,-4
+4071,Chicago,IL,41.8781136,-87.6297982,181.5143738,Central Daylight Time,-5
+4072,Cincinnati,OH,39.1031182,-84.5120196,167.9832916,Eastern Daylight Time,-4
+4073,Clarksville,TN,36.5297706,-87.3594528,146.1344452,Central Daylight Time,-5
+4074,Clemson,SC,34.6834382,-82.8373654,221.9318542,Eastern Daylight Time,-4
+4075,Cleveland,OH,41.49932,-81.6943605,199.8629608,Eastern Daylight Time,-4
+4076,Clinton,SC,34.4726276,-81.8806562,205.6438293,Eastern Daylight Time,-4
+4077,College Park,MD,38.9896967,-76.93776,22.96251678,Eastern Daylight Time,-4
+4078,College Station,TX,30.627977,-96.3344068,104.1191559,Central Daylight Time,-5
+4079,Columbia,SC,34.0007104,-81.0348144,90.61096954,Eastern Daylight Time,-4
+4080,Columbus,OH,39.9611755,-82.9987942,237.6291656,Eastern Daylight Time,-4
+4081,Conway,AR,35.0886963,-92.4421011,93.80566406,Central Daylight Time,-5
+4082,Conway,SC,33.8360034,-79.0478143,9.806335449,Eastern Daylight Time,-4
+4083,Cookeville,TN,36.162839,-85.5016423,336.2949219,Central Daylight Time,-5
+4084,Coral Gables,FL,25.7491968,-80.2635411,2.952972412,Eastern Daylight Time,-4
+4085,Corpus Christi,TX,27.8005828,-97.396381,2.022631407,Central Daylight Time,-5
+4086,Corvallis,OR,44.5645659,-123.2620435,69.5535965,Pacific Daylight Time,-7
+4087,Cullowhee,NC,35.3137111,-83.1765333,645.9476929,Eastern Daylight Time,-4
+4088,Dallas,TX,32.7766642,-96.7969879,137.5745239,Central Daylight Time,-5
+4089,Davidson,NC,35.4993031,-80.8486846,249.6730957,Eastern Daylight Time,-4
+4090,Davis,CA,38.5449065,-121.7405167,15.5554142,Pacific Daylight Time,-7
+4091,Dayton,OH,39.7589478,-84.1916069,225.5588531,Eastern Daylight Time,-4
+4092,Daytona Beach,FL,29.2108147,-81.0228331,4.296838284,Eastern Daylight Time,-4
+4093,DeKalb,IL,41.9294736,-88.7503647,267.0382385,Central Daylight Time,-5
+4094,DeLand,FL,29.028318,-81.3031179,11.36989594,Eastern Daylight Time,-4
+4095,Denton,TX,33.2148412,-97.1330683,199.3862457,Central Daylight Time,-5
+4096,Denver,CO,39.7392358,-104.990251,1596.672974,Mountain Daylight Time,-6
+4097,Des Moines,IA,41.5868353,-93.6249593,248.3847046,Central Daylight Time,-5
+4098,Detroit,MI,42.331427,-83.0457538,182.3301697,Eastern Daylight Time,-4
+4099,Dover,DE,39.158168,-75.5243682,8.82130146,Eastern Daylight Time,-4
+4100,Duluth,GA,34.0028786,-84.1446376,334.259552,Eastern Daylight Time,-4
+4101,Durham,NC,35.9940329,-78.898619,120.9079361,Eastern Daylight Time,-4
+4102,Durham,NH,43.1339545,-70.9264393,13.36411381,Eastern Daylight Time,-4
+4103,East Lansing,MI,42.7369792,-84.4838654,261.5490417,Eastern Daylight Time,-4
+4104,East Rutherford,NJ,40.833989,-74.0970865,24.81060791,Eastern Daylight Time,-4
+4105,Easton,PA,40.688432,-75.2207323,100.5874634,Eastern Daylight Time,-4
+4106,Edinburg,TX,26.3017374,-98.1633432,28.75908661,Central Daylight Time,-5
+4107,Edwardsville,IL,38.8114364,-89.953157,165.8483734,Central Daylight Time,-5
+4108,El Paso,TX,31.7618778,-106.4850217,1132.736206,Mountain Daylight Time,-6
+4109,Elon,NC,36.0982762,-79.5115433,210.5898895,Eastern Daylight Time,-4
+4110,Emmitsburg,MD,39.7045417,-77.3269307,135.5787201,Eastern Daylight Time,-4
+4111,Estero,FL,26.438136,-81.8067523,3.624743462,Eastern Daylight Time,-4
+4112,Eugene,OR,44.0520691,-123.0867536,131.0602112,Pacific Daylight Time,-7
+4113,Evanston,IL,42.0450722,-87.6876969,184.2229767,Central Daylight Time,-5
+4114,Evansville,IN,37.9715592,-87.5710898,118.261261,Central Daylight Time,-5
+4115,Fairfax,VA,38.8462236,-77.3063733,131.4553528,Eastern Daylight Time,-4
+4116,Fairfield,CT,41.1408363,-73.2612615,5.032363892,Eastern Daylight Time,-4
+4117,Fargo,ND,46.8771863,-96.7898034,275.0908203,Central Daylight Time,-5
+4118,Farmville,VA,37.3020965,-78.3919401,95.98730469,Eastern Daylight Time,-4
+4119,Fayetteville,AR,36.082156,-94.1718542,392.1496582,Central Daylight Time,-5
+4120,Flagstaff,AZ,35.1982836,-111.651302,2103.939453,Mountain Standard Time,-7
+4121,Fort Collins,CO,40.5852602,-105.084423,1525.087402,Mountain Daylight Time,-6
+4122,Fort Hood,TX,31.1950013,-97.7413143,240.9790955,Central Daylight Time,-5
+4123,Fort Myers,FL,26.640628,-81.8723084,3.245586395,Eastern Daylight Time,-4
+4124,Fort Wayne,IN,41.079273,-85.1393513,233.6640472,Eastern Daylight Time,-4
+4125,Fort Worth,TX,32.7554883,-97.3307658,188.2588348,Central Daylight Time,-5
+4126,Fresno,CA,36.7377981,-119.7871247,89.88378906,Pacific Daylight Time,-7
+4127,Fullerton,CA,33.8703645,-117.9242123,48.48118973,Pacific Daylight Time,-7
+4128,Gainesville,FL,29.6516344,-82.3248262,55.27118683,Eastern Daylight Time,-4
+4129,Garland,TX,32.912624,-96.6388833,170.0466919,Central Daylight Time,-5
+4130,Glendale,AZ,33.5386523,-112.1859866,350.8721619,Mountain Standard Time,-7
+4131,Glens Falls,NY,43.3095164,-73.6440058,104.6608963,Eastern Daylight Time,-4
+4132,Grambling,LA,32.5276503,-92.7140402,92.74832153,Central Daylight Time,-5
+4133,Grand Forks,ND,47.9252568,-97.0328547,252.9663086,Central Daylight Time,-5
+4134,Greeley,CO,40.4233142,-104.7091322,1424.012451,Mountain Daylight Time,-6
+4135,Green Bay,WI,44.5133188,-88.0132958,179.3947906,Central Daylight Time,-5
+4136,Greensboro,NC,36.0726354,-79.7919754,251.0852509,Eastern Daylight Time,-4
+4137,Greenville,MS,33.399661,-91.0377029,38.09271622,Central Daylight Time,-5
+4138,Greenville,NC,35.612661,-77.3663538,17.48263931,Eastern Daylight Time,-4
+4139,Greenville,SC,34.8526176,-82.3940104,298.6752014,Eastern Daylight Time,-4
+4140,Greenwood,MS,33.5162315,-90.1795281,41.40946198,Central Daylight Time,-5
+4141,Gulfport,MS,30.3674198,-89.0928155,6.206067562,Central Daylight Time,-5
+4142,Hackensack,NJ,40.8859325,-74.0434736,6.160773754,Eastern Daylight Time,-4
+4143,Hamden,CT,41.3838782,-72.9026064,21.5301075,Eastern Daylight Time,-4
+4144,Hamilton,NY,42.8270136,-75.5446238,343.2666626,Eastern Daylight Time,-4
+4145,Hammond,LA,30.5043583,-90.4611995,13.06888676,Central Daylight Time,-5
+4146,Hampton,VA,37.0298687,-76.3452218,1.979974031,Eastern Daylight Time,-4
+4147,Hanover,NH,43.7022451,-72.2895526,163.7394409,Eastern Daylight Time,-4
+4148,Harrisonburg,VA,38.4495688,-78.8689155,408.2718811,Eastern Daylight Time,-4
+4149,Hartford,CT,41.7658043,-72.6733723,16.69234276,Eastern Daylight Time,-4
+4150,Hattiesburg,MS,31.3271189,-89.2903392,49.91648102,Central Daylight Time,-5
+4151,Hempstead,NY,40.7062128,-73.6187397,17.0453701,Eastern Daylight Time,-4
+4152,High Point,NC,35.9556923,-80.0053176,281.1091919,Eastern Daylight Time,-4
+4153,Highland Heights,KY,39.0331169,-84.4518854,258.4728699,Eastern Daylight Time,-4
+4154,Hoffman Estates,IL,42.0629915,-88.1227199,241.2194672,Central Daylight Time,-5
+4155,Honolulu,HI,21.3069444,-157.8583333,5.220214844,Hawaii-Aleutian Standard Time,-10
+4156,Hot Springs,AR,34.5037004,-93.0551795,178.2125397,Central Daylight Time,-5
+4157,Houston,TX,29.7604267,-95.3698028,14.56698132,Central Daylight Time,-5
+4158,Huntington,WV,38.4192496,-82.445154,172.4207153,Eastern Daylight Time,-4
+4159,Huntsville,AL,34.7303688,-86.5861037,194.7049561,Central Daylight Time,-5
+4160,Huntsville,TX,30.7235263,-95.5507771,112.2242813,Central Daylight Time,-5
+4161,Indianapolis,IN,39.768403,-86.158068,222.7997284,Eastern Daylight Time,-4
+4162,Iowa City,IA,41.6611277,-91.5301683,203.3193665,Central Daylight Time,-5
+4163,Irvine,CA,33.6845673,-117.8265049,11.57025719,Pacific Daylight Time,-7
+4164,Ithaca,NY,42.4439614,-76.5018807,122.3350143,Eastern Daylight Time,-4
+4165,Itta Bena,MS,33.49512,-90.3198067,41.43102646,Central Daylight Time,-5
+4166,Jackson,MS,32.2987573,-90.1848103,85.94734192,Central Daylight Time,-5
+4167,Jacksonville,AL,33.8137125,-85.7613536,217.0318451,Central Daylight Time,-5
+4168,Jacksonville,FL,30.3321838,-81.655651,4.78456068,Eastern Daylight Time,-4
+4169,Jersey City,NJ,40.7177545,-74.0431435,2.335977554,Eastern Daylight Time,-4
+4170,Johnson City,TN,36.3134397,-82.3534727,497.0695801,Eastern Daylight Time,-4
+4171,Johnstown,PA,40.3267407,-78.9219698,355.1664124,Eastern Daylight Time,-4
+4172,Jonesboro,AR,35.8422967,-90.704279,98.13755035,Central Daylight Time,-5
+4173,Kalamazoo,MI,42.2917069,-85.5872286,239.3311768,Eastern Daylight Time,-4
+4174,Kansas City,MO,39.0997265,-94.5785667,273.5455017,Central Daylight Time,-5
+4175,Katy,TX,29.7857853,-95.8243956,42.47363663,Central Daylight Time,-5
+4176,Kennesaw,GA,34.0234337,-84.6154897,331.5713806,Eastern Daylight Time,-4
+4177,Kent,OH,41.1536674,-81.3578859,324.250061,Eastern Daylight Time,-4
+4178,Kent,WA,47.3809335,-122.2348432,11.98078442,Pacific Daylight Time,-7
+4179,Kingston,RI,41.4803791,-71.5225598,75.05209351,Eastern Daylight Time,-4
+4180,Knoxville,TN,35.9606384,-83.9207392,274.2864075,Eastern Daylight Time,-4
+4181,Lafayette,LA,30.2240897,-92.0198427,11.10337543,Central Daylight Time,-5
+4182,Lahaina,HI,20.8783333,-156.6825,0.747169554,Hawaii-Aleutian Standard Time,-10
+4183,Lake Buena Vista,FL,28.3695351,-81.5261474,30.38841629,Eastern Daylight Time,-4
+4184,Lake Charles,LA,30.2265949,-93.2173758,4.352334499,Central Daylight Time,-5
+4185,Lakeland,FL,28.0394654,-81.9498042,59.4571991,Eastern Daylight Time,-4
+4186,Laramie,WY,41.3113669,-105.5911007,2184.62793,Mountain Daylight Time,-6
+4187,Las Cruces,NM,32.3199396,-106.7636538,1217.035522,Mountain Daylight Time,-6
+4188,Las Vegas,NV,36.1699412,-115.1398296,611.3375244,Pacific Daylight Time,-7
+4189,Lawrence,KS,38.9716689,-95.2352501,263.9754639,Central Daylight Time,-5
+4190,Lawrenceville,NJ,40.3016375,-74.7361013,57.21894455,Eastern Daylight Time,-4
+4191,Lewisburg,PA,40.9645293,-76.8844101,143.1148224,Eastern Daylight Time,-4
+4192,Lewiston,NY,43.1919494,-78.9853813,105.734436,Eastern Daylight Time,-4
+4193,Lexington,KY,38.0405837,-84.5037164,291.1369324,Eastern Daylight Time,-4
+4194,Lexington,VA,37.7840208,-79.4428157,320.1503296,Eastern Daylight Time,-4
+4195,Lincoln,NE,40.813616,-96.7025955,355.971344,Central Daylight Time,-5
+4196,Little Rock,AR,34.7464809,-92.2895948,102.1804123,Central Daylight Time,-5
+4197,Logan,UT,41.7369803,-111.8338359,1379.981812,Mountain Daylight Time,-6
+4198,Long Beach,CA,33.7700504,-118.1937395,9.874851227,Pacific Daylight Time,-7
+4199,Loretto,PA,40.5031263,-78.630296,591.2216187,Eastern Daylight Time,-4
+4200,Lorman,MS,31.8204396,-91.0501057,66.88982391,Central Daylight Time,-5
+4201,Los Angeles,CA,34.0522342,-118.2436849,86.84709167,Pacific Daylight Time,-7
+4202,Loudonville,NY,42.7048009,-73.7548424,106.2772675,Eastern Daylight Time,-4
+4203,Louisville,KY,38.2526647,-85.7584557,140.6603088,Eastern Daylight Time,-4
+4204,Lowell,MA,42.6334247,-71.3161718,35.6570549,Eastern Daylight Time,-4
+4205,Lubbock,TX,33.5778631,-101.8551665,975.9893799,Central Daylight Time,-5
+4206,Lynchburg,VA,37.4137536,-79.1422464,195.8340912,Eastern Daylight Time,-4
+4207,Macomb,IL,40.4592076,-90.6717971,214.4173737,Central Daylight Time,-5
+4208,Macon,GA,32.8406946,-83.6324022,113.2749863,Eastern Daylight Time,-4
+4209,Madison,WI,43.0730517,-89.4012302,266.2826538,Central Daylight Time,-5
+4210,Malibu,CA,34.0259216,-118.7797571,36.9681778,Pacific Daylight Time,-7
+4211,Manhattan,KS,39.1836082,-96.5716694,311.8172913,Central Daylight Time,-5
+4212,Martin,TN,36.3433965,-88.8503379,124.5428848,Central Daylight Time,-5
+4213,Memphis,TN,35.1495343,-90.0489801,79.1960144,Central Daylight Time,-5
+4214,Miami,FL,25.7616798,-80.1917902,0.536887228,Eastern Daylight Time,-4
+4215,Milwaukee,WI,43.0389025,-87.9064736,187.2318573,Central Daylight Time,-5
+4216,Minneapolis,MN,44.977753,-93.2650108,254.7844543,Central Daylight Time,-5
+4217,Missoula,MT,46.8721284,-113.9940314,976.9442139,Mountain Daylight Time,-6
+4218,Mobile,AL,30.6953657,-88.0398912,1.415021658,Central Daylight Time,-5
+4219,Monroe,LA,32.5093109,-92.1193012,23.22146988,Central Daylight Time,-5
+4220,Montgomery,AL,32.3792233,-86.3077368,55.44139862,Central Daylight Time,-5
+4221,Moon Township,PA,40.5169767,-80.2213477,347.6758728,Eastern Daylight Time,-4
+4222,Moraga,CA,37.8349263,-122.1296871,149.2892609,Pacific Daylight Time,-7
+4223,Morehead,KY,38.1839705,-83.4326841,224.0564117,Eastern Daylight Time,-4
+4224,Morgantown,WV,39.629526,-79.9558968,270.966095,Eastern Daylight Time,-4
+4225,Moscow,ID,46.7323875,-117.000165,787.0984497,Pacific Daylight Time,-7
+4226,Mt. Pleasant,MI,43.5978075,-84.7675139,234.9934387,Eastern Daylight Time,-4
+4227,Muncie,IN,40.1933767,-85.3863599,289.8502197,Eastern Daylight Time,-4
+4228,Murfreesboro,TN,35.8456213,-86.39027,186.3271484,Central Daylight Time,-5
+4229,Murray,KY,36.6103334,-88.314761,165.1516418,Central Daylight Time,-5
+4230,Myrtle Beach,SC,33.6890603,-78.8866943,8.438035011,Eastern Daylight Time,-4
+4231,Nacogdoches,TX,31.6035129,-94.6554874,91.31220245,Central Daylight Time,-5
+4232,Nampa,ID,43.5788175,-116.55978,757.5085449,Mountain Daylight Time,-6
+4233,Nashville,TN,36.1626638,-86.7816016,152.9394073,Central Daylight Time,-5
+4234,Natchitoches,LA,31.7607195,-93.0862749,36.47224426,Central Daylight Time,-5
+4235,New Britain,CT,41.6612104,-72.7795419,51.09162521,Eastern Daylight Time,-4
+4236,New Haven,CT,41.308274,-72.9278835,12.35730648,Eastern Daylight Time,-4
+4237,New Orleans,LA,29.9510658,-90.0715323,0.521789134,Central Daylight Time,-5
+4238,New Rochelle,NY,40.9114882,-73.7823549,27.33980751,Eastern Daylight Time,-4
+4239,New York,NY,40.7127753,-74.0059728,13.36520863,Eastern Daylight Time,-4
+4240,Newark,DE,39.6837226,-75.7496572,38.2330246,Eastern Daylight Time,-4
+4241,Newark,NJ,40.735657,-74.1723667,9.807595253,Eastern Daylight Time,-4
+4242,Niagara Falls,NY,43.0962143,-79.0377388,176.6798248,Eastern Daylight Time,-4
+4243,Niceville,FL,30.5168639,-86.482172,12.20206928,Central Daylight Time,-5
+4244,Norfolk,VA,36.8507689,-76.2858726,4.641374111,Eastern Daylight Time,-4
+4245,Normal,AL,34.7838409,-86.5722237,220.4321899,Central Daylight Time,-5
+4246,Normal,IL,40.5142026,-88.9906312,245.8200226,Central Daylight Time,-5
+4247,Norman,OK,35.2225668,-97.4394777,357.8013611,Central Daylight Time,-5
+4248,North Little Rock,AR,34.769536,-92.2670941,83.15779877,Central Daylight Time,-5
+4249,Northridge,CA,34.2381251,-118.530123,263.8038025,Pacific Daylight Time,-7
+4250,Notre Dame,IN,41.7055716,-86.2353388,220.7359161,Eastern Daylight Time,-4
+4251,Oakland,CA,37.8043637,-122.2711137,13.02748013,Pacific Daylight Time,-7
+4252,Oakland City,IN,38.3386591,-87.3450132,139.9906006,Central Daylight Time,-5
+4253,Ogden,UT,41.223,-111.9738304,1312.046875,Mountain Daylight Time,-6
+4254,Oklahoma City,OK,35.4675602,-97.5164276,366,Central Daylight Time,-5
+4255,Omaha,NE,41.2565369,-95.9345034,315.6446228,Central Daylight Time,-5
+4256,Orangeburg,SC,33.4918203,-80.8556476,73.92286682,Eastern Daylight Time,-4
+4257,Orem,UT,40.2968979,-111.6946475,1453.875854,Mountain Daylight Time,-6
+4258,Orlando,FL,28.5383355,-81.3792365,31.28126144,Eastern Daylight Time,-4
+4259,Orono,ME,44.8831125,-68.6719411,38.10168457,Eastern Daylight Time,-4
+4260,Oxford,MS,34.3664951,-89.5192484,156.1234436,Central Daylight Time,-5
+4261,Oxford,OH,39.5069974,-84.745231,280.8930054,Eastern Daylight Time,-4
+4262,Paradise,NV,36.0971945,-115.1466648,626.1868896,Pacific Daylight Time,-7
+4263,Paradise Island,BA,25.0821287,-77.3134431,9.704257965,Eastern Daylight Time,-4
+4264,Pearl Harbor-Hickam,HI,21.348698,-157.9440178,7.947715282,Hawaii-Aleutian Standard Time,-10
+4265,Peoria,IL,40.6936488,-89.5889864,153.0057526,Central Daylight Time,-5
+4266,Philadelphia,PA,39.9525839,-75.1652215,14.32654095,Eastern Daylight Time,-4
+4267,Phoenix,AZ,33.4483771,-112.0740373,331.5245056,Mountain Standard Time,-7
+4268,Pine Bluff,AR,34.2284312,-92.0031955,68.72623444,Central Daylight Time,-5
+4269,Piscataway,NJ,40.554887,-74.4642861,19.98725891,Eastern Daylight Time,-4
+4270,Pittsburgh,PA,40.4406248,-79.9958864,233.2363739,Eastern Daylight Time,-4
+4271,Playa del Carmen,MX,20.6295586,-87.0738851,10.47855949,Central Standard Time,-6
+4272,Pocatello,ID,42.8621042,-112.4506191,1360.286377,Mountain Daylight Time,-6
+4273,Portland,ME,43.6590993,-70.2568189,19.09879875,Eastern Daylight Time,-4
+4274,Portland,OR,45.5122308,-122.6587185,16.83182335,Pacific Daylight Time,-7
+4275,Poughkeepsie,NY,41.7003713,-73.9209701,61.59982681,Eastern Daylight Time,-4
+4276,Prairie View,TX,30.0932737,-95.9877339,83.11751556,Central Daylight Time,-5
+4277,Presbyterian,SC,34.9584318,-81.8934452,227.6482391,Eastern Daylight Time,-4
+4278,Prescott Valley,AZ,34.6100243,-112.315721,1528.524902,Mountain Standard Time,-7
+4279,Princess Anne,MD,38.2028993,-75.692427,4.806944847,Eastern Daylight Time,-4
+4280,Princeton,NJ,40.3572976,-74.6672226,41.39227295,Eastern Daylight Time,-4
+4281,Providence,RI,41.8239891,-71.4128343,2.790159702,Eastern Daylight Time,-4
+4282,Provo,UT,40.2338438,-111.6585337,1386.558228,Mountain Daylight Time,-6
+4283,Puerto Vallarta,MX,20.653407,-105.2253316,7.704025745,Central Standard Time,-6
+4284,Pullman,WA,46.7297771,-117.1817377,715.9334717,Pacific Daylight Time,-7
+4285,Queens,NY,40.7282239,-73.7948516,18.1076889,Eastern Daylight Time,-4
+4286,Radford,VA,37.1317924,-80.5764477,567.3776855,Eastern Daylight Time,-4
+4287,Raleigh,NC,35.7795897,-78.6381787,105.6290054,Eastern Daylight Time,-4
+4288,Ramstein-Miesenbach,GY,49.44995,7.5654,250.7034149,Central European Standard Time,1
+4289,Rapid City,SD,44.0805434,-103.2310149,987.7908325,Mountain Daylight Time,-6
+4290,Reno,NV,39.5296329,-119.8138027,1371.919312,Pacific Daylight Time,-7
+4291,Richmond,KY,37.7478572,-84.2946539,289.6481018,Eastern Daylight Time,-4
+4292,Richmond,VA,37.5407246,-77.4360481,51.94340515,Eastern Daylight Time,-4
+4293,Riverdale,NY,40.8940853,-73.9109977,50.2954216,Eastern Daylight Time,-4
+4294,Riverside,CA,33.9806005,-117.3754942,258.8373718,Pacific Daylight Time,-7
+4295,Rochester,MI,42.680588,-83.1338214,230.1312256,Eastern Daylight Time,-4
+4296,Rochester,NY,43.1565779,-77.6088465,159.2595978,Eastern Daylight Time,-4
+4297,Rock Hill,SC,34.9248667,-81.0250784,206.3642731,Eastern Daylight Time,-4
+4298,Rosemont,IL,41.9867507,-87.8721602,198.4229736,Central Daylight Time,-5
+4299,Ruston,LA,32.5232053,-92.637927,101.3185883,Central Daylight Time,-5
+4300,Sacramento,CA,38.5815719,-121.4943996,8.194785118,Pacific Daylight Time,-7
+4301,Salt Lake City,UT,40.7607793,-111.8910474,1300.004517,Mountain Daylight Time,-6
+4302,San Antonio,TX,29.4241219,-98.4936282,197.5839844,Central Daylight Time,-5
+4303,San Diego,CA,32.715738,-117.1610838,15.22497749,Pacific Daylight Time,-7
+4304,San Francisco,CA,37.7749295,-122.4194155,15.55781937,Pacific Daylight Time,-7
+4305,San Jose,CA,37.3382082,-121.8863286,24.55533409,Pacific Daylight Time,-7
+4307,San Juan,PR,18.4655394,-66.1057355,2.999906778,Atlantic Standard Time,-4
+4308,San Luis Obispo,CA,35.2827524,-120.6596156,69.10917664,Pacific Daylight Time,-7
+4309,San Marcos,TX,29.8832749,-97.9413941,189.8126221,Central Daylight Time,-5
+4310,Santa Barbara,CA,34.4208305,-119.6981901,11.89020061,Pacific Daylight Time,-7
+4311,Santa Clara,CA,37.3541079,-121.9552356,22.02380753,Pacific Daylight Time,-7
+4312,Savannah,GA,32.0808989,-81.091203,13.97358322,Eastern Daylight Time,-4
+4313,Seattle,WA,47.6062095,-122.3320708,56.08481598,Pacific Daylight Time,-7
+4314,Shanghai,CH,31.2303904,121.4737021,15.85985374,China Standard Time,8
+4315,Shreveport,LA,32.5251516,-93.7501789,47.26740265,Central Daylight Time,-5
+4316,Sioux Falls,SD,43.5473028,-96.728333,430.595459,Central Daylight Time,-5
+4317,Smithfield,RI,41.9220496,-71.5495101,78.31209564,Eastern Daylight Time,-4
+4318,South Bend,IN,41.6763545,-86.2519898,215.9745636,Eastern Daylight Time,-4
+4319,South Korea,SK,35.907757,127.766922,561.034668,Korean Standard Time,9
+4320,South Orange,NJ,40.7489277,-74.2609903,42.45837021,Eastern Daylight Time,-4
+4321,South Padre Island,TX,26.1118401,-97.1681257,1.122702479,Central Daylight Time,-5
+4322,Southaven,MS,34.9918587,-90.0022958,101.7129669,Central Daylight Time,-5
+4323,Spartanburg,SC,34.9495672,-81.9320482,245.4862976,Eastern Daylight Time,-4
+4324,Spokane,WA,47.6587802,-117.4260465,571.0994873,Pacific Daylight Time,-7
+4325,Springfield,IL,39.7817213,-89.6501481,183.1135864,Central Daylight Time,-5
+4326,Springfield,MA,42.1014831,-72.589811,20.62252998,Eastern Daylight Time,-4
+4327,Springfield,MO,37.2089572,-93.2922989,398.271637,Central Daylight Time,-5
+4328,St. Bonaventure,NY,42.0803426,-78.4750213,435.2680969,Eastern Daylight Time,-4
+4329,St. Louis,MO,38.6270025,-90.1994042,140.9563293,Central Daylight Time,-5
+4330,St. Thomas,VI,18.3380965,-64.8940946,49.19923401,Atlantic Standard Time,-4
+4331,Stanford,CA,37.424106,-122.1660756,29.29935455,Pacific Daylight Time,-7
+4332,Starkville,MS,33.4503998,-88.8183872,102.3075638,Central Daylight Time,-5
+4333,Staten Island,NY,40.5795317,-74.1502007,31.73577309,Eastern Daylight Time,-4
+4334,Statesboro,GA,32.4487876,-81.7831674,77.67086792,Eastern Daylight Time,-4
+4335,Stillwater,OK,36.1156071,-97.0583681,273.3434753,Central Daylight Time,-5
+4336,Stockton,CA,37.9577016,-121.2907796,4.496073246,Pacific Daylight Time,-7
+4337,Stony Brook,NY,40.9256538,-73.1409429,26.97613716,Eastern Daylight Time,-4
+4338,Storrs,CT,41.8084314,-72.2495231,181.9477539,Eastern Daylight Time,-4
+4339,Sunrise,FL,26.1669711,-80.256595,2.483451128,Eastern Daylight Time,-4
+4340,Syracuse,NY,43.0481221,-76.1474244,121.3621368,Eastern Daylight Time,-4
+4341,Tallahassee,FL,30.4382559,-84.2807329,62.17602158,Eastern Daylight Time,-4
+4342,Tampa,FL,27.950575,-82.4571776,6.090157509,Eastern Daylight Time,-4
+4343,Tempe,AZ,33.4255104,-111.9400054,354.3406982,Mountain Standard Time,-7
+4344,Terre Haute,IN,39.4667034,-87.4139092,152.7464294,Eastern Daylight Time,-4
+4345,Thibodaux,LA,29.7957633,-90.822871,3.829963923,Central Daylight Time,-5
+4346,Toledo,OH,41.6528052,-83.5378674,178.5460358,Eastern Daylight Time,-4
+4347,Tortola,VI,18.4334704,-64.6332782,292.7323914,Atlantic Standard Time,-4
+4348,Towson,MD,39.4014955,-76.6019125,141.2901459,Eastern Daylight Time,-4
+4349,Troy,AL,31.8087678,-85.969951,163.9822693,Central Daylight Time,-5
+4350,Tucson,AZ,32.2226066,-110.9747108,724.8308716,Mountain Standard Time,-7
+4351,Tulsa,OK,36.1539816,-95.992775,219.3077087,Central Daylight Time,-5
+4352,Tupelo,MS,34.2576066,-88.7033859,84.05651093,Central Daylight Time,-5
+4353,Tuscaloosa,AL,33.2098407,-87.5691735,69.08901215,Central Daylight Time,-5
+4354,Uncasville,CT,41.4316905,-72.1100945,24.8078537,Eastern Daylight Time,-4
+4355,University Park,PA,40.8147955,-77.8653126,349.1013184,Eastern Daylight Time,-4
+4356,USAF Academy,CO,38.9983094,-104.8613176,2108.500488,Mountain Daylight Time,-6
+4357,Valparaiso,IN,41.4730948,-87.0611412,242.7269287,Central Daylight Time,-5
+4358,Vancouver,BC,49.2827291,-123.1207375,31.52193451,Pacific Daylight Time,-7
+4359,Vermillion,SD,42.7794417,-96.9292104,372.484375,Central Daylight Time,-5
+4360,Vestal,NY,42.0855898,-76.053575,252.19841,Eastern Daylight Time,-4
+4361,Villanova,PA,40.0375832,-75.3491813,121.602478,Eastern Daylight Time,-4
+4362,Waco,TX,31.549333,-97.1466695,143.4179993,Central Daylight Time,-5
+4363,Washington,DC,38.9071923,-77.0368707,22.01889229,Eastern Daylight Time,-4
+4364,West Hartford,CT,41.7620842,-72.7420151,38.78234482,Eastern Daylight Time,-4
+4365,West Lafayette,IN,40.4258686,-86.9080655,185.9382782,Eastern Daylight Time,-4
+4366,West Long Branch,NJ,40.2903891,-74.0176381,7.187990665,Eastern Daylight Time,-4
+4367,West Point,NY,41.3914827,-73.9559721,47.15736008,Eastern Daylight Time,-4
+4368,Wichita,KS,37.6871761,-97.330053,399.955658,Central Daylight Time,-5
+4369,Williamsburg,VA,37.2707022,-76.7074571,25.96640587,Eastern Daylight Time,-4
+4370,Wilmington,NC,34.2103894,-77.8868117,12.58986759,Eastern Daylight Time,-4
+4371,Winston-Salem,NC,36.0998596,-80.244216,278.0033569,Eastern Daylight Time,-4
+4372,Worcester,MA,42.2625932,-71.8022934,147.031601,Eastern Daylight Time,-4
+4373,Youngstown,OH,41.0997803,-80.6495194,261.4975586,Eastern Daylight Time,-4
+4374,Ypsilanti,MI,42.2411499,-83.6129939,221.1799316,Eastern Daylight Time,-4
+4376,Biloxi,MS,30.3960318,-88.8853078,6.167840958,Central Daylight Time,-5
+4382,Freeport,BA,26.5416093,-78.6455475,5.805194378,Eastern Daylight Time,-4
+4383,Guaynabo,PR,18.3615548,-66.1110682,38.98093796,Atlantic Standard Time,-4
+4385,Laie,HI,21.6482858,-157.9225549,1.517265439,Hawaii-Aleutian Standard Time,-10
+4387,Moline,IL,41.5067003,-90.5151342,176.5871429,Central Daylight Time,-5
+4389,New York City,NY,40.7127753,-74.0059728,13.36520863,Eastern Daylight Time,-4
+4390,North Charleston,SC,32.8546197,-79.9748103,5.40067482,Eastern Daylight Time,-4
+4391,Ocala,FL,29.1871986,-82.1400923,21.13623238,Eastern Daylight Time,-4
+4392,Panama City,FL,30.1588129,-85.6602058,7.70750761,Central Daylight Time,-5
+4396,St. Charles,MO,38.7881062,-90.4974359,174.8659668,Central Daylight Time,-5
+4399,Trujillo Alto,PR,18.3563169,-66.0033838,18.93695259,Atlantic Standard Time,-4
+4402,Upper Marlboro,MD,38.8159473,-76.7496909,8.071707726,Eastern Daylight Time,-4
+4403,Wailuku,HI,20.8911111,-156.5047222,76.25061035,Hawaii-Aleutian Standard Time,-10
+4404,Winter Park,FL,28.5999998,-81.3392352,29.53255081,Eastern Daylight Time,-4
+4406,Garden City,NY,40.7267682,-73.6342954,27.02047157,Eastern Daylight Time,-4
+4407,Great Falls,MT,47.5052849,-111.3007715,1015.653198,Mountain Daylight Time,-6
+4408,Reading,PA,40.3356483,-75.9268747,78.0268631,Eastern Daylight Time,-4
+4409,Uniondale,NY,40.7003793,-73.5929056,16.29815292,Eastern Daylight Time,-4
+4410,Belfast,IR,54.597285,-5.93012,3.780737638,Greenwich Mean Time,0
+4412,Montego Bay,JA,18.4762228,-77.8938895,122.6492996,Eastern Standard Time,-5
+4413,Nassau,BA,25.0479835,-77.355413,6.237915516,Eastern Daylight Time,-4
+4414,Frisco,TX,33.1506744,-96.8236116,213.8687439,Central Daylight Time,-5
+4415,Grand Cayman,CI,19.3221698,-81.2408689,5.949333668,Eastern Standard Time,-5
+4416,Miami Shores,FL,25.8631515,-80.1928253,2.349578381,Eastern Daylight Time,-4
+4417,Midland,MI,43.6155825,-84.2472116,191.6049805,Eastern Daylight Time,-4
+4421,Alexandria,LA,31.3112936,-92.4451371,23.29683113,Central Daylight Time,-5
+4422,Bimini,BA,41.085639,-74.147225,90.57415771,Eastern Daylight Time,-4
+4423,Bloomington,IL,40.4842027,-88.9936873,242.6186829,Central Daylight Time,-5
+4424,Carolina,PR,18.3803255,-65.9626213,20.90231323,Atlantic Standard Time,-4
+4425,Clarksdale,MS,34.2001086,-90.5709323,53.78055191,Central Daylight Time,-5
+4426,Cupertino,CA,37.3229978,-122.0321823,72.46079254,Pacific Daylight Time,-7
+4427,Davie,FL,26.0764783,-80.2521157,1.952768207,Eastern Daylight Time,-4
+4428,East Peoria,IL,40.666149,-89.5800978,140.561264,Central Daylight Time,-5
+4429,Fort Lauderdale,FL,26.1224386,-80.1373174,1.475898504,Eastern Daylight Time,-4
+4430,Fort Mill,SC,35.0073697,-80.9450759,189.5145569,Eastern Daylight Time,-4
+4431,Grand Rapids,MI,42.9633599,-85.6680863,194.924469,Eastern Daylight Time,-4
+4432,Hilo,HI,19.7241106,-155.0868193,6.28553915,Hawaii-Aleutian Standard Time,-10
+4433,Houma,LA,29.5957696,-90.7195348,2.774774551,Central Daylight Time,-5
+4434,Jennings,LA,30.2224284,-92.657085,8.032985687,Central Daylight Time,-5
+4435,Kennewick,WA,46.2086683,-119.119948,114.6648865,Pacific Daylight Time,-7
+4436,Livonia,MI,42.36837,-83.3527097,194.4599152,Eastern Daylight Time,-4
+4437,Lucaya,BA,26.5096,78.6417,154.6949005,India Standard Time,5.5
+4438,Melbourne,FL,28.0836269,-80.6081089,6.213834763,Eastern Daylight Time,-4
+4439,Moorehead,MS,33.4501195,-90.5056427,36.35701752,Central Daylight Time,-5
+4440,Mt. Pleasant,SC,32.8323225,-79.8284258,6.02774334,Eastern Daylight Time,-4
+4441,Niagara University,NY,43.1365152,-79.0353197,180.5630493,Eastern Daylight Time,-4
+4442,Toronto,ON,43.653226,-79.3831843,91.72267914,Eastern Daylight Time,-4
+4443,West Palm Beach,FL,26.7153424,-80.0533746,3.819226027,Eastern Daylight Time,-4
+4445,Georgetown,KY,38.2098,-84.5588,258,Eastern Daylight Time,-4
+4446,Seaside,CA,36.6149,-121.8221,10,Pacific Daylight Time,-7
+4447,Kissimmee,FL,28.292,-81.4076,15,Eastern Daylight Time,-4
+4448,Oakland,MI,42.5922,-83.3362,285.902,Eastern Daylight Time,-4
+4449,St. Petersburg,FL,27.7676,82.6403,13.4,Eastern Daylight Time,-4
+4450,Berea,KY,37.56869,-84.29632,314,Central Daylight Time,-5
+4451,Chatham,ON,42.404804,-82.19104,180,Eastern Daylight Time,-4
+4452,Kahului,HI,20.88953,-156.47432,13,Hawaii-Aleutian Standard Time,-10
+4453,La Crosse,WI,43.801357,-91.239578,204,Central Daylight Time,-5
+4454,Maui,HI,20.7983626,-156.33192,663,Hawaii-Aleutian Standard Time,-10
+4455,West Orange,NJ,40.79871,-74.23904,156,Eastern Daylight Time,-4
+4456,White Plains,NY,41.033985,-73.762909,65,Eastern Daylight Time,-4
+4457,Winter Garden,FL,28.542144,-81.597044,38,Eastern Daylight Time,-4
+4458,Homewood,AL,33.47177,-86.80082,667,Central Daylight Time,-5
+4459,Isla Vista,CA,34.41333,-119.86097,46,Pacific Daylight Time,-7
+4460,Mansfield,CT,41.793125,-72.255272,195,Eastern Daylight Time,-4
+4461,Montville,CT,41.4639922,-72.1556189,335,Eastern Daylight Time,-4
+4462,North Andover,MA,42.698586,-71.131844,23,Eastern Daylight Time,-4
+4463,Columbia,MO,,,,,
+4464,Lawrence Township,NJ,,,,,
+4465,Olean,NY,,,,,
+4466,Fairborn,OH,,,,,
+4467,Bryn Mawr,PA,,,,,
+4468,Moon,PA,,,,,
+4469,South Kingstown,RI,,,,,
+4470,Springfield,OH,,,,,
+4471,Midland,TX,,,,,
+4472,Riviera Maya,MX,,,,,
+4473,St. James,JA,,,,,
+4474,Victoria,BC,,,,,
+4475,Wilmington,DE,,,,,
+4476,Saint George,UT,,,,,
+4477,Stephenville,TX,,,,,
+4478,La Jolla,CA,,,,,
+4479,Alcorn State,MS,,,,,
+4480,Belmont Park,NY,,,,,
+4481,San Juan Capistrano,CA,,,,,
+4482,St. Paul,MN,,,,,
+4483,Canyon,TX,,,,,
+4484,Naples,FL,,,,,
+4485,Santa Cruz,CA,,,,,
+4486,Henderson,NV,,,,,
+4487,Pensacola,FL,,,,,
+4488,Commerce,TX,,,,,
+4489,Dublin,IR,,,,,
+4490,Easton,MA,,,,,
+4491,Laval,QC,,,,,
+4492,London,GB,,,,,
+4493,Union,NJ,,,,,
+4494,Kihei,HI,,,,,
