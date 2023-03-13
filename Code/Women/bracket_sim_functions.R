@@ -1,8 +1,8 @@
-current_tourn_year <- 2022
+current_tourn_year <- 2023
 Bracket_Sim_Penalized = function(year, N, lambda)
 {
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)
@@ -279,7 +279,7 @@ Bracket_Sim_GLMNET = function(year, N)
 {
   training_continuous <- training_continuous %>% dplyr::select(-Team1_Victory)
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)
@@ -564,7 +564,7 @@ Bracket_Sim_RF = function(year, N)
 {
   training_continuous <- training_continuous %>% dplyr::select(-Team1_Victory)
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)
@@ -849,7 +849,7 @@ Bracket_Sim_GBM = function(year, N)
 {
   training_continuous <- training_continuous %>% dplyr::select(-Team1_Victory)
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)
@@ -1134,7 +1134,7 @@ Bracket_Sim_XGBoost = function(year, N)
 {
   training_continuous <- training_continuous %>% dplyr::select(-Team1_Victory)
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)
@@ -1419,7 +1419,7 @@ Bracket_Sim_NN = function(year, N)
 {
   training_continuous <- training_continuous %>% dplyr::select(-Team1_Victory)
   matchups = c(1,16,8,9,5,12,4,13,6,11,3,14,7,10,2,15)
-  regions = c("X","W","Z","Y")
+  regions = c("Y","Z","X","W")
   
   # Use train1 data set for known tournament results for training
   if (year != current_tourn_year)

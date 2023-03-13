@@ -5,7 +5,7 @@
 #https://www.nbastuffer.com/nba-moneyball/
 #https://statathlon.com/four-factors-basketball-success/
 #https://www.teamrankings.com/ncaa-basketball/ranking/predictive-by-other?date=2021-03-14
-
+#richard mcelreath bayesian
 
 #MTeamLocations.csv (edit)
 #MTourneyHosts.csv (edit)
@@ -15,7 +15,7 @@
 # Format options
 options(kableExtra.auto_format = FALSE)
 options(knitr.table.format = "html")
-setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code/Men") # set working directory
+setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Code/Women") # set working directory
 source('functions.R'); source('bracket_sim_functions.R') # load in functions files
 library(ggplot2) # load libraries needed
 library(knitr)
@@ -41,31 +41,33 @@ library(openxlsx)
 setwd("C:/Users/rusla/OneDrive/MarchMadness/March-Madness-Predictions/Data")
 
 # Load Data
-Seasons <- read.csv("MSeasons.csv")
-Reg_Season_Detailed <- read.csv("MRegularSeasonDetailedResults.csv")
-Reg_Season_Compact <- read.csv("MRegularSeasonCompactResults.csv")
-Teams <- read.csv("MTeams.csv")
-Tourney_Detailed <- read.csv("MNCAATourneyDetailedResults.csv")
-Tourney_Compact <- read.csv("MNCAATourneyCompactResults.csv")
-Tourney_Seeds <- read.csv("MNCAATourneySeeds.csv")
-Tourney_Slots = read.csv("MNCAATourneySlots.csv")
-Submission <- read.csv("MSampleSubmissionStage2.csv")
-Teams_Location = read.csv("Teams_Location.csv")
-Tourney_Hosts = read.csv("TourneyHosts.csv")
+Seasons <- read.csv("WSeasons.csv")
+Reg_Season_Detailed <- read.csv("WRegularSeasonDetailedResults.csv")
+Reg_Season_Compact <- read.csv("WRegularSeasonCompactResults.csv")
+Teams <- read.csv("WTeams.csv")
+Tourney_Detailed <- read.csv("WNCAATourneyDetailedResults.csv")
+Tourney_Compact <- read.csv("WNCAATourneyCompactResults.csv")
+Tourney_Seeds <- read.csv("WNCAATourneySeeds.csv")
+Tourney_Slots = read.csv("WNCAATourneySlots.csv")
+Submission <- read.csv("SampleSubmission2023.csv")
+#Teams_Location = read.csv("MTeamLocations.csv") # Not available for womens
+#Tourney_Hosts = read.csv("WTourneyHosts.csv") # Not available for womens
+
 #Pomeroy = read.csv("KenPom.csv")
-Coaches = read.csv("MTeamCoaches.csv")
-Standings <- loadWorkbook('Teams_03_22_Rankings.xlsx')
-Game_Cities = read.csv("MGameCities.csv")
+
+#Coaches = read.csv("WTeamCoaches.csv") # Not available for womens
+#Standings <- loadWorkbook('Teams_03_22_Rankings.xlsx') # Not available for womens
+Game_Cities = read.csv("WGameCities.csv")
 Cities_Enriched = read.csv("CitiesEnriched.csv")
-ConfTournament = read.csv("MConferenceTourneyGames.csv")
-ConfNames = read.csv("MTeamConferences.csv")
-Tourney_Seed_Round_Slots <- read.csv('MNCAATourneySeedRoundSlots.csv')
-Tourney_Seed_Round_Slots <- Tourney_Seed_Round_Slots %>%
-  rename('RegionSeed' = Seed, 'Round' = 'GameRound',
-         'EarlyDaynum' = EarlyDayNum, 'LateDaynum' = LateDayNum) %>%
-  mutate(Region = as.character(substr(RegionSeed, 1, 1)),
-         Seed = as.character(substr(RegionSeed, 2, 3)),
-         GameSlot = as.character(GameSlot))
+#ConfTournament = read.csv("WConferenceTourneyGames.csv") # Not available for womens
+ConfNames = read.csv("WTeamConferences.csv")
+#Tourney_Seed_Round_Slots <- read.csv('WNCAATourneySeedRoundSlots.csv') # Not available for womens
+#Tourney_Seed_Round_Slots <- Tourney_Seed_Round_Slots %>%
+  #rename('RegionSeed' = Seed, 'Round' = 'GameRound',
+         #'EarlyDaynum' = EarlyDayNum, 'LateDaynum' = LateDayNum) %>%
+  #mutate(Region = as.character(substr(RegionSeed, 1, 1)),
+         #Seed = as.character(substr(RegionSeed, 2, 3)),
+         #GameSlot = as.character(GameSlot))
 
 # Calculate adjusted wins, adjusted losses, adjusted win %
 Reg_Season_Compact <- Reg_Season_Compact %>% 
@@ -92,33 +94,33 @@ Adjusted_Standings <- Win %>%
   mutate(Adj_Win_Perc = Adj_Wins / (Adj_Wins + Adj_Losses))
 
 # Extract regular season rank, wins, losses, win %, read in excel worksheets
-sheetNames <- sheets(Standings)
-for(i in 1:length(sheetNames))
-{
-  assign(sheetNames[i],readWorkbook(Standings,sheet = i))
-}
-Standings <- rbind(rank03,rank04,rank05,rank06,rank07,
-                   rank08,rank09,rank10,rank11,rank12,
-                   rank13,rank14,rank15,rank16,rank17,
-                   rank18,rank19,rank21,rank22)
-Standings <- Standings %>%
-  tidyr::separate(col = 'W-L', into = c("Wins", "Losses"), sep = "-") %>%
-  mutate(Rank = as.numeric(Rank), 
-         Wins = as.numeric(Wins),
-         Losses = as.numeric(Losses),
-         PreSeason_Top25 = as.factor(PreSeason_Top25)) %>%
-  mutate(Win_Perc = Wins / (Wins + Losses)) %>%
-  rename('Mean_Rank' = Mean) %>% dplyr::select(-Team_Name)
+#sheetNames <- sheets(Standings)
+#for(i in 1:length(sheetNames))
+#{
+  #assign(sheetNames[i],readWorkbook(Standings,sheet = i))
+#}
+#Standings <- rbind(rank03,rank04,rank05,rank06,rank07,
+                   #rank08,rank09,rank10,rank11,rank12,
+                   #rank13,rank14,rank15,rank16,rank17,
+                   #rank18,rank19,rank21,rank22)
+#Standings <- Standings %>%
+  #tidyr::separate(col = 'W-L', into = c("Wins", "Losses"), sep = "-") %>%
+  #mutate(Rank = as.numeric(Rank), 
+         #Wins = as.numeric(Wins),
+         #Losses = as.numeric(Losses),
+         #PreSeason_Top25 = as.factor(PreSeason_Top25)) %>%
+  #mutate(Win_Perc = Wins / (Wins + Losses)) %>%
+  #rename('Mean_Rank' = Mean) %>% dplyr::select(-Team_Name)
 
 # Add standings, rank, win % to regular season compact
-Reg_Season_Compact <- Reg_Season_Compact %>%
-  inner_join(Standings[,c("Season","Team_Id","Win_Perc","Mean_Rank","PreSeason_Top25")], 
-             by = c("Season","Team1" = "Team_Id")) %>%
-  inner_join(Standings[,c("Season","Team_Id","Win_Perc","Mean_Rank","PreSeason_Top25")], 
-             by = c("Season","Team2" = "Team_Id")) %>%
-  rename('Team1_Win_Perc' = Win_Perc.x, 'Team2_Win_Perc' = Win_Perc.y,
-         'Team1_Rank' = Mean_Rank.x, 'Team2_Rank' = Mean_Rank.y,
-         'Team1_PreSeason_Top25' = PreSeason_Top25.x,  'Team2_PreSeason_Top25' = PreSeason_Top25.y)
+#Reg_Season_Compact <- Reg_Season_Compact %>%
+  #inner_join(Standings[,c("Season","Team_Id","Win_Perc","Mean_Rank","PreSeason_Top25")], 
+             #by = c("Season","Team1" = "Team_Id")) %>%
+  #inner_join(Standings[,c("Season","Team_Id","Win_Perc","Mean_Rank","PreSeason_Top25")], 
+             #by = c("Season","Team2" = "Team_Id")) %>%
+  #rename('Team1_Win_Perc' = Win_Perc.x, 'Team2_Win_Perc' = Win_Perc.y,
+         #'Team1_Rank' = Mean_Rank.x, 'Team2_Rank' = Mean_Rank.y,
+         #'Team1_PreSeason_Top25' = PreSeason_Top25.x,  'Team2_PreSeason_Top25' = PreSeason_Top25.y)
 
 # Create more advanced metrics for regular season detailed set
 Reg_Season_Detailed <- Reg_Season_Detailed %>%
@@ -246,8 +248,8 @@ upsets <- rbind(upsets, subset(train1, train1$Seed_Diff < 0 & train1$Team1_Victo
 accuracy = 1 - (nrow(upsets) / nrow(train1)); accuracy
 
 # Plotting seed differences vs daynum
-#ggplot(aes(x = upsets$DayNum, y = abs(upsets$Seed_Diff)), data =  upsets) +
-  #geom_jitter(aes(colour = DayNum)) + geom_smooth(method = "lm")
+ggplot(aes(x = upsets$DayNum, y = abs(upsets$Seed_Diff)), data =  upsets) +
+  geom_jitter(aes(colour = DayNum)) + geom_smooth(method = "lm")
 #######################################################################################
 ## Get Region Names
 # Team 1
@@ -323,83 +325,86 @@ train1 <- train1 %>%
   left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = c("CityID" = "CityId"))
 
 # Add host city and locations to each tournament match in training data 
-Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
-train1 <- train1 %>%
-  inner_join(Tourney_Hosts[, c("Season","Slot","Host","lat","lng","Round","Team1","Team2")],
-             by = c("Season","Round","Team1","Team2")) %>%
-  rename("Host_Lat" = lat, "Host_Lng" = lng, "slot2" = "Slot")
+#Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
+#train1 <- train1 %>%
+  #inner_join(Tourney_Hosts[, c("Season","Slot","Host","lat","lng","Round","Team1","Team2")],
+             #by = c("Season","Round","Team1","Team2")) %>%
+  #rename("Host_Lat" = lat, "Host_Lng" = lng, "slot2" = "Slot")
 
-train1 <- train1 %>%
-  mutate(City = as.character(City),
-         Host = as.character(Host)) %>%
-  mutate(Host_City = coalesce(City, Host),
-         Host_Lat2 = coalesce(LatHost,Host_Lat),
-         Host_Lng2 = coalesce(LngHost,Host_Lng)) %>%
-  dplyr::select(-City, -LatHost, -LngHost, -Host, -Host_Lat, -Host_Lng) %>%
-  rename("Host_Lat" = Host_Lat2, "Host_Lng" = Host_Lng2) %>%
+#train1 <- train1 %>%
+  #mutate(City = as.character(City),
+         #Host = as.character(Host)) %>%
+  #mutate(Host_City = coalesce(City, Host),
+         #Host_Lat2 = coalesce(LatHost,Host_Lat),
+         #Host_Lng2 = coalesce(LngHost,Host_Lng)) %>%
+  #dplyr::select(-City, -LatHost, -LngHost, -Host, -Host_Lat, -Host_Lng) %>%
+  #rename("Host_Lat" = Host_Lat2, "Host_Lng" = Host_Lng2) %>%
+train1 <- train1 %>% 
+  mutate(City = as.character(City)) %>% 
+  rename("Host_City" = "City", "Host_Lat" = "LatHost", "Host_Lng" = "LngHost") %>% 
   mutate(Host_City = tolower(Host_City),
          Host_City = gsub(" ", "_", Host_City))
 
 # Add actual team locations (lat, lng coordinates) into training data 
-train1 <- train1 %>%
-  inner_join(Teams_Location, by = c("Team1" = "Team_Id")) %>%
-  rename("Team1_Lat" = lat, "Team1_Lng" = lng) %>%
-  inner_join(Teams_Location, by = c("Team2" = "Team_Id")) %>%
-  rename("Team2_Lat" = lat, "Team2_Lng" = lng)
+#train1 <- train1 %>%
+  #inner_join(Teams_Location, by = c("Team1" = "Team_Id")) %>%
+  #rename("Team1_Lat" = lat, "Team1_Lng" = lng) %>%
+  #inner_join(Teams_Location, by = c("Team2" = "Team_Id")) %>%
+  #rename("Team2_Lat" = lat, "Team2_Lng" = lng)
 
 ## Find distances from each host city to each team using the spherical formula
 # Team1, Host
-p1 = matrix(c(train1$Team1_Lng, train1$Team1_Lat), nrow = nrow(train1), ncol = 2)
-p2 = matrix(c(train1$Host_Lng, train1$Host_Lat), nrow = nrow(train1), ncol = 2)
-train1$Team1_Dist <- distHaversine(p1,p2, r = 3963.2)
+#p1 = matrix(c(train1$Team1_Lng, train1$Team1_Lat), nrow = nrow(train1), ncol = 2)
+#p2 = matrix(c(train1$Host_Lng, train1$Host_Lat), nrow = nrow(train1), ncol = 2)
+#train1$Team1_Dist <- distHaversine(p1,p2, r = 3963.2)
 # Team2, Host
-p3 = matrix(c(train1$Team2_Lng, train1$Team2_Lat), nrow = nrow(train1), ncol = 2)
-p4 = matrix(c(train1$Host_Lng, train1$Host_Lat), nrow = nrow(train1), ncol = 2)
-train1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
+#p3 = matrix(c(train1$Team2_Lng, train1$Team2_Lat), nrow = nrow(train1), ncol = 2)
+#p4 = matrix(c(train1$Host_Lng, train1$Host_Lat), nrow = nrow(train1), ncol = 2)
+#train1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
 
 # Identify conference champions
-ConfTournament <- ConfTournament %>%
-  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
-         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
-         Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
-         Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
+#ConfTournament <- ConfTournament %>%
+  #mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         #Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         #Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
+         #Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
 
-team1 <- ConfTournament %>% 
-  group_by(Season, ConfAbbrev, Team1) %>%
-  summarise(total_wins_team1 = sum(Team1_Victory),
-            total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
-  rename("Team" = Team1)
-team2 <- ConfTournament %>% 
-  group_by(Season, ConfAbbrev, Team2) %>%
-  summarise(total_wins_team2 = sum(Team2_Victory),
-            total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
-  rename("Team" = Team2)
+#team1 <- ConfTournament %>% 
+  #group_by(Season, ConfAbbrev, Team1) %>%
+  #summarise(total_wins_team1 = sum(Team1_Victory),
+            #total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
+  #rename("Team" = Team1)
+#team2 <- ConfTournament %>% 
+  #group_by(Season, ConfAbbrev, Team2) %>%
+  #summarise(total_wins_team2 = sum(Team2_Victory),
+            #total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
+  #rename("Team" = Team2)
 
-team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
-  mutate(total_wins_team1 = tidyr::replace_na(total_wins_team1, 0),
-         total_wins_team2 = tidyr::replace_na(total_wins_team2, 0),
-         total_losses_team1 = tidyr::replace_na(total_losses_team1, 0),
-         total_losses_team2 = tidyr::replace_na(total_losses_team2, 0),
-         total_wins = total_wins_team1 + total_wins_team2,
-         total_losses = total_losses_team1 + total_losses_team2) %>% 
-  dplyr::select(Season, ConfAbbrev, Team, total_wins, total_losses)
+#team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
+  #mutate(total_wins_team1 = tidyr::replace_na(total_wins_team1, 0),
+         #total_wins_team2 = tidyr::replace_na(total_wins_team2, 0),
+         #total_losses_team1 = tidyr::replace_na(total_losses_team1, 0),
+         #total_losses_team2 = tidyr::replace_na(total_losses_team2, 0),
+         #total_wins = total_wins_team1 + total_wins_team2,
+         #total_losses = total_losses_team1 + total_losses_team2) %>% 
+  #dplyr::select(Season, ConfAbbrev, Team, total_wins, total_losses)
 
-Conf_Champs <- sqldf("SELECT DISTINCT Season, ConfAbbrev, Team, 1 AS Conf_Champ 
-               FROM team_games WHERE 
-               (Season, ConfAbbrev, total_wins, total_losses) IN  
-               (SELECT Season, ConfAbbrev, MAX(total_wins) AS total_wins, 
-               MIN(total_losses) AS total_losses FROM team_games
-               GROUP BY Season, ConfAbbrev)") %>%
-  mutate(ConfAbbrev = as.factor(ConfAbbrev))
+#Conf_Champs <- sqldf("SELECT DISTINCT Season, ConfAbbrev, Team, 1 AS Conf_Champ 
+               #FROM team_games WHERE 
+               #(Season, ConfAbbrev, total_wins, total_losses) IN  
+               #(SELECT Season, ConfAbbrev, MAX(total_wins) AS total_wins, 
+               #MIN(total_losses) AS total_losses FROM team_games
+               #GROUP BY Season, ConfAbbrev)") %>%
+  #mutate(ConfAbbrev = as.factor(ConfAbbrev))
 
-train1 <- train1 %>% 
-  left_join(Conf_Champs, by = c("Season","Team1_Conf" = "ConfAbbrev","Team1" = "Team")) %>%
-  left_join(Conf_Champs, by = c("Season","Team2_Conf" = "ConfAbbrev","Team2" = "Team")) %>%
-  rename(Team1_ConfChamp = "Conf_Champ.x",
-         Team2_ConfChamp = "Conf_Champ.y") %>%
-  tidyr::replace_na(list(Team1_ConfChamp = 0, Team2_ConfChamp = 0)) %>%
-  mutate(Team1_Conf = as.factor(Team1_Conf), Team2_Conf = as.factor(Team2_Conf),
-         Team1_ConfChamp = as.factor(Team1_ConfChamp),Team2_ConfChamp = as.factor(Team2_ConfChamp))
+#train1 <- train1 %>% 
+  #left_join(Conf_Champs, by = c("Season","Team1_Conf" = "ConfAbbrev","Team1" = "Team")) %>%
+  #left_join(Conf_Champs, by = c("Season","Team2_Conf" = "ConfAbbrev","Team2" = "Team")) %>%
+  #rename(Team1_ConfChamp = "Conf_Champ.x",
+         #Team2_ConfChamp = "Conf_Champ.y") %>%
+  #tidyr::replace_na(list(Team1_ConfChamp = 0, Team2_ConfChamp = 0)) %>%
+  #mutate(Team1_Conf = as.factor(Team1_Conf), Team2_Conf = as.factor(Team2_Conf),
+         #Team1_ConfChamp = as.factor(Team1_ConfChamp),Team2_ConfChamp = as.factor(Team2_ConfChamp))
 
 # Penalize for being double digit seed
 train1$Team1_Penalize = as.factor(ifelse(train1$Seed_Team1 >= 10, 1, 0))
@@ -437,14 +442,14 @@ train1 <- train1 %>%
          "Team2_Num_Games" = num_games_since_1985.y)
 
 # Pull in reg. season win/loss, win%, and team rankings
-train1 <- train1 %>% 
-  inner_join(Standings, by = c("Season","Team1" = "Team_Id")) %>%
-  inner_join(Standings, by = c("Season","Team2" = "Team_Id")) %>%
-  rename('Team1_Wins' = Wins.x,'Team1_Losses' = Losses.x,'Team1_Rank' = Rank.x,
-         'Team1_Mean_Rank' = Mean_Rank.x,'Team1_Win_Perc' = Win_Perc.x,
-         'Team2_Wins' = Wins.y,'Team2_Losses' = Losses.y,'Team2_Rank' = Rank.y,
-         'Team2_Mean_Rank' = Mean_Rank.y,'Team2_Win_Perc' = Win_Perc.y,
-         'Team1_PreSeason_Top25' = PreSeason_Top25.x, 'Team2_PreSeason_Top25' = PreSeason_Top25.y)
+#train1 <- train1 %>% 
+  #inner_join(Standings, by = c("Season","Team1" = "Team_Id")) %>%
+  #inner_join(Standings, by = c("Season","Team2" = "Team_Id")) %>%
+  #rename('Team1_Wins' = Wins.x,'Team1_Losses' = Losses.x,'Team1_Rank' = Rank.x,
+         #'Team1_Mean_Rank' = Mean_Rank.x,'Team1_Win_Perc' = Win_Perc.x,
+         #'Team2_Wins' = Wins.y,'Team2_Losses' = Losses.y,'Team2_Rank' = Rank.y,
+         #'Team2_Mean_Rank' = Mean_Rank.y,'Team2_Win_Perc' = Win_Perc.y,
+         #'Team1_PreSeason_Top25' = PreSeason_Top25.x, 'Team2_PreSeason_Top25' = PreSeason_Top25.y)
 
 # Pull in adjusted win %
 train1 <- train1 %>%
@@ -456,114 +461,117 @@ train1 <- train1 %>%
          'Team2_Adj_Win_Perc' = Adj_Win_Perc.y)
 
 # Create SOS (strength of schedule)
-Team1_SOS <- Reg_Season_Compact %>%
-  group_by(Season, Team1) %>%
-  summarise(Team1_Num_Games = n(), 
-            Team1_SOS = mean(Team2_Win_Perc, na.rm = T), .groups = "drop") %>%
-  rename('Team' = 'Team1')
-Team2_SOS <- Reg_Season_Compact %>%
-  group_by(Season, Team2) %>%
-  summarise(Team2_Num_Games = n(), 
-            Team2_SOS = mean(Team1_Win_Perc, na.rm = T), .groups = "drop") %>%
-  rename('Team' = 'Team2')
-SOS <- Team1_SOS %>% 
-  full_join(Team2_SOS, by = c("Season","Team")) %>%
-  tidyr::replace_na(list(Team1_Num_Games = 0, Team2_Num_Games = 0,
-                         Team1_SOS = 0, Team2_SOS = 0)) %>%
-  mutate(SOS = ((Team1_Num_Games / (Team1_Num_Games + Team2_Num_Games)) * Team1_SOS) + 
-           ((Team2_Num_Games / (Team1_Num_Games + Team2_Num_Games)) * Team2_SOS)) %>%
-  dplyr::select(Season, Team, SOS)
+#Team1_SOS <- Reg_Season_Compact %>%
+  #group_by(Season, Team1) %>%
+  #summarise(Team1_Num_Games = n(), 
+            #Team1_SOS = mean(Team2_Win_Perc, na.rm = T), .groups = "drop") %>%
+  #rename('Team' = 'Team1')
+#Team2_SOS <- Reg_Season_Compact %>%
+  #group_by(Season, Team2) %>%
+  #summarise(Team2_Num_Games = n(), 
+            #Team2_SOS = mean(Team1_Win_Perc, na.rm = T), .groups = "drop") %>%
+  #rename('Team' = 'Team2')
+#SOS <- Team1_SOS %>% 
+  #full_join(Team2_SOS, by = c("Season","Team")) %>%
+  #tidyr::replace_na(list(Team1_Num_Games = 0, Team2_Num_Games = 0,
+                         #Team1_SOS = 0, Team2_SOS = 0)) %>%
+  #mutate(SOS = ((Team1_Num_Games / (Team1_Num_Games + Team2_Num_Games)) * Team1_SOS) + 
+           #((Team2_Num_Games / (Team1_Num_Games + Team2_Num_Games)) * Team2_SOS)) %>%
+  #dplyr::select(Season, Team, SOS)
 
-train1 <- train1 %>% 
-  inner_join(SOS, by = c("Season","Team1" = "Team")) %>%
-  inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_SOS' = SOS.x, 'Team2_SOS' = SOS.y)
+#train1 <- train1 %>% 
+  #inner_join(SOS, by = c("Season","Team1" = "Team")) %>%
+  #inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_SOS' = SOS.x, 'Team2_SOS' = SOS.y)
 
 # Create Number of Top 50 Wins Variable
-Team1_Top_Wins <- Reg_Season_Compact %>%
-  filter(Team2_Rank <= 50 & Team1_Victory == 1) %>%
-  group_by(Season, Team1) %>%
-  summarise(Team1_Top_50_Wins = n(),.groups = "drop") %>%
-  rename('Team' = Team1)
-Team2_Top_Wins <- Reg_Season_Compact %>%
-  filter(Team1_Rank <= 50 & Team1_Victory == 0) %>%
-  group_by(Season, Team2) %>%
-  summarise(Team2_Top_50_Wins = n(), .groups = "drop") %>%
-  rename('Team' = Team2)
-Top_50_Wins <- Team1_Top_Wins %>% 
-  full_join(Team2_Top_Wins, by = c("Season","Team")) %>% 
-  tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0)) %>%
-  mutate(Top_50_Wins = Team1_Top_50_Wins + Team2_Top_50_Wins) %>%
-  dplyr::select(Season, Team, Top_50_Wins)
+#Team1_Top_Wins <- Reg_Season_Compact %>%
+  #filter(Team2_Rank <= 50 & Team1_Victory == 1) %>%
+  #group_by(Season, Team1) %>%
+  #summarise(Team1_Top_50_Wins = n(),.groups = "drop") %>%
+  #rename('Team' = Team1)
+#Team2_Top_Wins <- Reg_Season_Compact %>%
+  #filter(Team1_Rank <= 50 & Team1_Victory == 0) %>%
+  #group_by(Season, Team2) %>%
+  #summarise(Team2_Top_50_Wins = n(), .groups = "drop") %>%
+  #rename('Team' = Team2)
+#Top_50_Wins <- Team1_Top_Wins %>% 
+  #full_join(Team2_Top_Wins, by = c("Season","Team")) %>% 
+  #tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0)) %>%
+  #mutate(Top_50_Wins = Team1_Top_50_Wins + Team2_Top_50_Wins) %>%
+  #dplyr::select(Season, Team, Top_50_Wins)
 
-train1 <- train1 %>% 
-  left_join(Top_50_Wins, by = c("Season","Team1" = "Team")) %>%
-  left_join(Top_50_Wins, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
-  tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
+#train1 <- train1 %>% 
+  #left_join(Top_50_Wins, by = c("Season","Team1" = "Team")) %>%
+  #left_join(Top_50_Wins, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
+  #tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
 
 # Identify number of Bad Losses for teams that to lower ranked teams 
-Team1_Bad_Losses <- Reg_Season_Compact %>%
-  filter(Team2_Rank - Team1_Rank > 1, 
-         Team1_Victory == 0) %>%
-  group_by(Season, Team1) %>%
-  summarise(Team1_Bad_Losses = n(), .groups = "drop") %>%
-  rename('Team' = Team1)
-Team2_Bad_Losses <- Reg_Season_Compact %>%
-  filter(Team1_Rank - Team2_Rank > 1, 
-         Team1_Victory == 1) %>%
-  group_by(Season, Team2) %>%
-  summarise(Team2_Bad_Losses = n(), .groups = "drop") %>%
-  rename('Team' = Team2)
-Bad_Losses <- Team1_Bad_Losses %>% 
-  full_join(Team2_Bad_Losses, by = c("Season","Team")) %>% 
-  tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0)) %>%
-  mutate(Bad_Losses = Team1_Bad_Losses + Team2_Bad_Losses) %>%
-  dplyr::select(Season, Team, Bad_Losses)
+#Team1_Bad_Losses <- Reg_Season_Compact %>%
+  #filter(Team2_Rank - Team1_Rank > 1, 
+         #Team1_Victory == 0) %>%
+  #group_by(Season, Team1) %>%
+  #summarise(Team1_Bad_Losses = n(), .groups = "drop") %>%
+  #rename('Team' = Team1)
+#Team2_Bad_Losses <- Reg_Season_Compact %>%
+  #filter(Team1_Rank - Team2_Rank > 1, 
+         #Team1_Victory == 1) %>%
+  #group_by(Season, Team2) %>%
+  #summarise(Team2_Bad_Losses = n(), .groups = "drop") %>%
+  #rename('Team' = Team2)
+#Bad_Losses <- Team1_Bad_Losses %>% 
+  #full_join(Team2_Bad_Losses, by = c("Season","Team")) %>% 
+  #tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0)) %>%
+  #mutate(Bad_Losses = Team1_Bad_Losses + Team2_Bad_Losses) %>%
+  #dplyr::select(Season, Team, Bad_Losses)
 
-train1 <- train1 %>% 
-  left_join(Bad_Losses, by = c("Season","Team1" = "Team")) %>%
-  left_join(Bad_Losses, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
-  tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
+#train1 <- train1 %>% 
+  #left_join(Bad_Losses, by = c("Season","Team1" = "Team")) %>%
+  #left_join(Bad_Losses, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
+  #tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
 
 # Power Conference (1/0) dummy variable for whether or not team is a power conference team
 train1 <- train1 %>%
-  mutate(Team1_Power = case_when(Team1_Conf %in% c('big_twelve','big_ten','acc','sec','big_east') ~ 1,
+  mutate(Team1_Power = case_when(Team1_Conf %in% c('big_twelve','big_ten','acc','sec','pac_twelve') ~ 1,
                                  TRUE ~ 0),
-         Team2_Power = case_when(Team2_Conf %in% c('big_twelve','big_ten','acc','sec','big_east') ~ 1,
+         Team2_Power = case_when(Team2_Conf %in% c('big_twelve','big_ten','acc','sec','pac_twelve') ~ 1,
                                  TRUE ~ 0),
          Team1_Power = as.factor(Team1_Power), Team2_Power = as.factor(Team2_Power))
 # Create differences of all averaged stats between both teams
 # (team1 - team2)
 for (i in (seq(6, 40, 1)))
 {
-  train1[,128 + i] <- train1[i] - train1[i+35]
-  colnames(train1)[128 + i] = paste0(gsub("Team.*$", "", colnames(train1)[128 + i]),"diff")
+  train1[,101 + i] <- train1[i] - train1[i+35]
+  colnames(train1)[101 + i] = paste0(gsub("Team.*$", "", colnames(train1)[101 + i]),"diff")
 }
 train1$Team1_Name <- as.character(train1$Team1_Name)
 train1$Team2_Name <- as.character(train1$Team2_Name)
 train1 <- train1 %>%
-  mutate(dist_diff = Team1_Dist - Team2_Dist,
-         rank_diff = Team1_Mean_Rank - Team2_Mean_Rank,
-         sos_diff = Team1_SOS - Team2_SOS,
-         top_50_diff = Team1_Top_50_Wins - Team2_Top_50_Wins,
-         win_perc_diff = Team1_Win_Perc - Team2_Win_Perc,
+  mutate(#dist_diff = Team1_Dist - Team2_Dist,
+         #rank_diff = Team1_Mean_Rank - Team2_Mean_Rank,
+         #sos_diff = Team1_SOS - Team2_SOS,
+         #top_50_diff = Team1_Top_50_Wins - Team2_Top_50_Wins,
+         #win_perc_diff = Team1_Win_Perc - Team2_Win_Perc,
          adj_win_perc_diff = Team1_Adj_Win_Perc - Team2_Adj_Win_Perc,
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
-         win_diff = Team1_Wins - Team2_Wins,
-         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
-         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)),
-         preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
-           as.numeric(as.character(Team1_PreSeason_Top25)))
+         #win_diff = Team1_Wins - Team2_Wins,
+         #bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)))
+         #preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
+           #as.numeric(as.character(Team1_PreSeason_Top25)))
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
-all_years_submission <- get_all_pairwise_matchups(2003, 2022)
+all_years_submission <- get_all_pairwise_matchups(2010, 2023)
 kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
              suffix = c("_Team1_Avg","_Team2_Avg")) %>%
   dplyr::select(-victory_Team1_Avg, -victory_Team2_Avg)
+
+kaggle_womens_submission_2023 <- kaggle1 %>% filter(Season == 2023) %>% 
+  dplyr::select(id) %>% rename("ID" = "id")
 
 # Merge seed information for each team1, team2 per season
 kaggle1 <- kaggle1 %>%
@@ -628,12 +636,12 @@ for (i in 1:dim(kaggle1)[1])
 kaggle1$slot <- creating_slots_kaggle()
 
 # Add Created Daynum
-daynum <- Tourney_Seed_Round_Slots[, c('Round','GameSlot','EarlyDaynum','LateDaynum')]
-daynum <- daynum %>% distinct()
-kaggle1 <- kaggle1 %>%
-  left_join(daynum, by = c('Round','slot' = 'GameSlot'))
-kaggle1$EarlyDaynum[is.na(kaggle1$EarlyDaynum)] <- 134
-kaggle1$LateDaynum[is.na(kaggle1$LateDaynum)] <- 135
+#daynum <- Tourney_Seed_Round_Slots[, c('Round','GameSlot','EarlyDaynum','LateDaynum')]
+#daynum <- daynum %>% distinct()
+#kaggle1 <- kaggle1 %>%
+  #left_join(daynum, by = c('Round','slot' = 'GameSlot'))
+#kaggle1$EarlyDaynum[is.na(kaggle1$EarlyDaynum)] <- 134
+#kaggle1$LateDaynum[is.na(kaggle1$LateDaynum)] <- 135
 #################################################################################
 # Add team1, team2 official school names
 kaggle1 <- kaggle1 %>%
@@ -656,83 +664,77 @@ kaggle1 <- kaggle1 %>%
   left_join(Cities_Enriched[, c("CityId","City","LatHost","LngHost")], by = c("CityID" = "CityId"))
 
 # Add host city and locations to each tournament match in training data 
-Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
-Tourney_Hosts$Slot[Tourney_Hosts$Round == 0] = "Play_In"
-kaggle1 <- kaggle1 %>%
-  inner_join(Tourney_Hosts[, c("Season","Slot","Host","lat","lng")],
-             by = c("Season","slot" = "Slot")) %>%
-  rename("Host_Lat" = lat, "Host_Lng" = lng) %>% distinct()
+#Tourney_Hosts$Slot <- as.character(Tourney_Hosts$Slot)
+#Tourney_Hosts$Slot[Tourney_Hosts$Round == 0] = "Play_In"
+#kaggle1 <- kaggle1 %>%
+  #inner_join(Tourney_Hosts[, c("Season","Slot","Host","lat","lng")],
+             #by = c("Season","slot" = "Slot")) %>%
+  #rename("Host_Lat" = lat, "Host_Lng" = lng) %>% distinct()
 
-kaggle1 <- kaggle1 %>%
-  mutate(City = as.character(City),
-         Host = as.character(Host)) %>%
-  mutate(Host_City = coalesce(City, Host),
-         Host_Lat2 = coalesce(LatHost,Host_Lat),
-         Host_Lng2 = coalesce(LngHost,Host_Lng)) %>%
-  dplyr::select(-City, -LatHost, -LngHost, -Host, -Host_Lat, -Host_Lng) %>%
-  rename("Host_Lat" = Host_Lat2, "Host_Lng" = Host_Lng2) %>%
+kaggle1 <- kaggle1 %>% 
+  mutate(City = as.character(City)) %>% 
+  rename("Host_City" = "City", "Host_Lat" = "LatHost", "Host_Lng" = "LngHost") %>% 
   mutate(Host_City = tolower(Host_City),
          Host_City = gsub(" ", "_", Host_City))
-
 # Add actual team locations (lat, lng coordinates) into training data 
-kaggle1 <- kaggle1 %>%
-  inner_join(Teams_Location, by = c("Team1" = "Team_Id")) %>%
-  rename("Team1_Lat" = lat, "Team1_Lng" = lng) %>%
-  inner_join(Teams_Location, by = c("Team2" = "Team_Id")) %>%
-  rename("Team2_Lat" = lat, "Team2_Lng" = lng)
+#kaggle1 <- kaggle1 %>%
+  #inner_join(Teams_Location, by = c("Team1" = "Team_Id")) %>%
+  #rename("Team1_Lat" = lat, "Team1_Lng" = lng) %>%
+  #inner_join(Teams_Location, by = c("Team2" = "Team_Id")) %>%
+  #rename("Team2_Lat" = lat, "Team2_Lng" = lng)
 
 ## Find distances from each host city to each team using the spherical formula
 # Team1, Host
-p1 = matrix(c(kaggle1$Team1_Lng, kaggle1$Team1_Lat), nrow = nrow(kaggle1), ncol = 2)
-p2 = matrix(c(kaggle1$Host_Lng, kaggle1$Host_Lat), nrow = nrow(kaggle1), ncol = 2)
-kaggle1$Team1_Dist <- distHaversine(p1,p2, r = 3963.2)
+#p1 = matrix(c(kaggle1$Team1_Lng, kaggle1$Team1_Lat), nrow = nrow(kaggle1), ncol = 2)
+#p2 = matrix(c(kaggle1$Host_Lng, kaggle1$Host_Lat), nrow = nrow(kaggle1), ncol = 2)
+#kaggle1$Team1_Dist <- distHaversine(p1,p2, r = 3963.2)
 # Team2, Host
-p3 = matrix(c(kaggle1$Team2_Lng, kaggle1$Team2_Lat), nrow = nrow(kaggle1), ncol = 2)
-p4 = matrix(c(kaggle1$Host_Lng, kaggle1$Host_Lat), nrow = nrow(kaggle1), ncol = 2)
-kaggle1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
+#p3 = matrix(c(kaggle1$Team2_Lng, kaggle1$Team2_Lat), nrow = nrow(kaggle1), ncol = 2)
+#p4 = matrix(c(kaggle1$Host_Lng, kaggle1$Host_Lat), nrow = nrow(kaggle1), ncol = 2)
+#kaggle1$Team2_Dist <- distHaversine(p3,p4, r = 3963.2)
 
 # Identify conference champions
-ConfTournament <- ConfTournament %>%
-  mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
-         Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
-         Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
-         Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
+#ConfTournament <- ConfTournament %>%
+  #mutate(Team1 = pmax(as.numeric(WTeamID), as.numeric(LTeamID)),
+         #Team2 = pmin(as.numeric(WTeamID), as.numeric(LTeamID)),
+         #Team1_Victory = case_when(Team1 == WTeamID ~ 1, TRUE ~ 0),
+         #Team2_Victory = case_when(Team2 == WTeamID ~ 1, TRUE ~ 0)) 
 
-team1 <- ConfTournament %>% 
-  group_by(Season, ConfAbbrev, Team1) %>%
-  summarise(total_wins_team1 = sum(Team1_Victory),
-            total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
-  rename("Team" = Team1)
-team2 <- ConfTournament %>% 
-  group_by(Season, ConfAbbrev, Team2) %>%
-  summarise(total_wins_team2 = sum(Team2_Victory),
-            total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
-  rename("Team" = Team2)
+#team1 <- ConfTournament %>% 
+  #group_by(Season, ConfAbbrev, Team1) %>%
+  #summarise(total_wins_team1 = sum(Team1_Victory),
+            #total_losses_team1 = sum(Team2_Victory), .groups = "drop")  %>%
+  #rename("Team" = Team1)
+#team2 <- ConfTournament %>% 
+  #group_by(Season, ConfAbbrev, Team2) %>%
+  #summarise(total_wins_team2 = sum(Team2_Victory),
+            #total_losses_team2 = sum(Team1_Victory), .groups = "drop")  %>%
+  #rename("Team" = Team2)
 
-team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
-  mutate(total_wins_team1 = tidyr::replace_na(total_wins_team1, 0),
-         total_wins_team2 = tidyr::replace_na(total_wins_team2, 0),
-         total_losses_team1 = tidyr::replace_na(total_losses_team1, 0),
-         total_losses_team2 = tidyr::replace_na(total_losses_team2, 0),
-         total_wins = total_wins_team1 + total_wins_team2,
-         total_losses = total_losses_team1 + total_losses_team2) %>% 
-  dplyr::select(Season, ConfAbbrev, Team, total_wins, total_losses)
+#team_games <- team1 %>% full_join(team2, by = c("Season","Team","ConfAbbrev")) %>% 
+  #mutate(total_wins_team1 = tidyr::replace_na(total_wins_team1, 0),
+         #total_wins_team2 = tidyr::replace_na(total_wins_team2, 0),
+         #total_losses_team1 = tidyr::replace_na(total_losses_team1, 0),
+         #total_losses_team2 = tidyr::replace_na(total_losses_team2, 0),
+         #total_wins = total_wins_team1 + total_wins_team2,
+         #total_losses = total_losses_team1 + total_losses_team2) %>% 
+  #dplyr::select(Season, ConfAbbrev, Team, total_wins, total_losses)
 
-Conf_Champs <- sqldf("SELECT DISTINCT Season, ConfAbbrev, Team, 1 AS Conf_Champ 
-               FROM team_games WHERE 
-               (Season, ConfAbbrev, total_wins, total_losses) IN  
-               (SELECT Season, ConfAbbrev, MAX(total_wins) AS total_wins, 
-               MIN(total_losses) AS total_losses FROM team_games
-               GROUP BY Season, ConfAbbrev)") %>%
-  mutate(ConfAbbrev = as.factor(ConfAbbrev))
+#Conf_Champs <- sqldf("SELECT DISTINCT Season, ConfAbbrev, Team, 1 AS Conf_Champ 
+               #FROM team_games WHERE 
+               #(Season, ConfAbbrev, total_wins, total_losses) IN  
+               #(SELECT Season, ConfAbbrev, MAX(total_wins) AS total_wins, 
+               #MIN(total_losses) AS total_losses FROM team_games
+               #GROUP BY Season, ConfAbbrev)") %>%
+  #mutate(ConfAbbrev = as.factor(ConfAbbrev))
 
-kaggle1 <- kaggle1 %>% 
-  left_join(Conf_Champs, by = c("Season","Team1_Conf" = "ConfAbbrev","Team1" = "Team")) %>%
-  left_join(Conf_Champs, by = c("Season","Team2_Conf" = "ConfAbbrev","Team2" = "Team")) %>%
-  rename(Team1_ConfChamp = "Conf_Champ.x", Team2_ConfChamp = "Conf_Champ.y",) %>%
-  tidyr::replace_na(list(Team1_ConfChamp = 0, Team2_ConfChamp = 0)) %>%
-  mutate(Team1_ConfChamp = as.factor(Team1_ConfChamp),
-         Team2_ConfChamp = as.factor(Team2_ConfChamp))
+#kaggle1 <- kaggle1 %>% 
+  #left_join(Conf_Champs, by = c("Season","Team1_Conf" = "ConfAbbrev","Team1" = "Team")) %>%
+  #left_join(Conf_Champs, by = c("Season","Team2_Conf" = "ConfAbbrev","Team2" = "Team")) %>%
+  #rename(Team1_ConfChamp = "Conf_Champ.x", Team2_ConfChamp = "Conf_Champ.y",) %>%
+  #tidyr::replace_na(list(Team1_ConfChamp = 0, Team2_ConfChamp = 0)) %>%
+  #mutate(Team1_ConfChamp = as.factor(Team1_ConfChamp),
+         #Team2_ConfChamp = as.factor(Team2_ConfChamp))
 
 # Penalize for being double digit seed
 kaggle1$Team1_Penalize = as.factor(ifelse(kaggle1$Seed_Team1 >= 10, 1, 0))
@@ -770,14 +772,14 @@ kaggle1 <- kaggle1 %>%
          "Team2_Num_Games" = num_games_since_1985.y)
 
 # Pull in reg. season win/loss, win%, and team rankings
-kaggle1 <- kaggle1 %>% 
-  inner_join(Standings, by = c("Season","Team1" = "Team_Id")) %>%
-  inner_join(Standings, by = c("Season","Team2" = "Team_Id")) %>%
-  rename('Team1_Wins' = Wins.x,'Team1_Losses' = Losses.x,'Team1_Rank' = Rank.x,
-         'Team1_Mean_Rank' = Mean_Rank.x,'Team1_Win_Perc' = Win_Perc.x,
-         'Team2_Wins' = Wins.y,'Team2_Losses' = Losses.y,'Team2_Rank' = Rank.y,
-         'Team2_Mean_Rank' = Mean_Rank.y,'Team2_Win_Perc' = Win_Perc.y,
-         'Team1_PreSeason_Top25' = PreSeason_Top25.x, 'Team2_PreSeason_Top25' = PreSeason_Top25.y)
+#kaggle1 <- kaggle1 %>% 
+  #inner_join(Standings, by = c("Season","Team1" = "Team_Id")) %>%
+  #inner_join(Standings, by = c("Season","Team2" = "Team_Id")) %>%
+  #rename('Team1_Wins' = Wins.x,'Team1_Losses' = Losses.x,'Team1_Rank' = Rank.x,
+         #'Team1_Mean_Rank' = Mean_Rank.x,'Team1_Win_Perc' = Win_Perc.x,
+         #'Team2_Wins' = Wins.y,'Team2_Losses' = Losses.y,'Team2_Rank' = Rank.y,
+         #'Team2_Mean_Rank' = Mean_Rank.y,'Team2_Win_Perc' = Win_Perc.y,
+         #'Team1_PreSeason_Top25' = PreSeason_Top25.x, 'Team2_PreSeason_Top25' = PreSeason_Top25.y)
 
 # Pull in adjusted win %
 kaggle1 <- kaggle1 %>%
@@ -789,24 +791,24 @@ kaggle1 <- kaggle1 %>%
          'Team2_Adj_Win_Perc' = Adj_Win_Perc.y)
 
 # Create SOS (strength of schedule)
-kaggle1 <- kaggle1 %>% 
-  inner_join(SOS, by = c("Season","Team1" = "Team")) %>%
-  inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_SOS' = SOS.x, 'Team2_SOS' = SOS.y)
+#kaggle1 <- kaggle1 %>% 
+  #inner_join(SOS, by = c("Season","Team1" = "Team")) %>%
+  #inner_join(SOS, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_SOS' = SOS.x, 'Team2_SOS' = SOS.y)
 
 # Top 50 Wins
-kaggle1 <- kaggle1 %>% 
-  left_join(Top_50_Wins, by = c("Season","Team1" = "Team")) %>%
-  left_join(Top_50_Wins, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
-  tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
+#kaggle1 <- kaggle1 %>% 
+  #left_join(Top_50_Wins, by = c("Season","Team1" = "Team")) %>%
+  #left_join(Top_50_Wins, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_Top_50_Wins' = Top_50_Wins.x, 'Team2_Top_50_Wins' = Top_50_Wins.y) %>%
+  #tidyr::replace_na(list(Team1_Top_50_Wins = 0, Team2_Top_50_Wins = 0))
 
 # Create Number of Bad Losses where a team lost to a lower ranked team
-kaggle1 <- kaggle1 %>% 
-  left_join(Bad_Losses, by = c("Season","Team1" = "Team")) %>%
-  left_join(Bad_Losses, by = c("Season","Team2" = "Team")) %>%
-  rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
-  tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
+#kaggle1 <- kaggle1 %>% 
+  #left_join(Bad_Losses, by = c("Season","Team1" = "Team")) %>%
+  #left_join(Bad_Losses, by = c("Season","Team2" = "Team")) %>%
+  #rename('Team1_Bad_Losses' = Bad_Losses.x, 'Team2_Bad_Losses' = Bad_Losses.y) %>%
+  #tidyr::replace_na(list(Team1_Bad_Losses = 0, Team2_Bad_Losses = 0))
 
 # Power Conference (0/1) dummy variable for whether team is from power conference
 kaggle1 <- kaggle1 %>%
@@ -836,23 +838,23 @@ kaggle1$Team2_Name <- as.character(kaggle1$Team2_Name)
 # Create differences of all averaged stats between both teams (team1 - team2)
 for (i in (seq(5, 39, 1)))
 {
-  kaggle1[,130 + i] <- kaggle1[i] - kaggle1[i+35]
-  colnames(kaggle1)[130 + i] = paste0(gsub("Team.*$", "", colnames(kaggle1)[130 + i]),"diff")
+  kaggle1[,102 + i] <- kaggle1[i] - kaggle1[i+35]
+  colnames(kaggle1)[102 + i] = paste0(gsub("Team.*$", "", colnames(kaggle1)[102 + i]),"diff")
 }
 
 kaggle1 <- kaggle1 %>%
-  mutate(dist_diff = Team1_Dist - Team2_Dist,
-         rank_diff = Team1_Mean_Rank - Team2_Mean_Rank,
-         sos_diff = Team1_SOS - Team2_SOS,
-         top_50_diff = Team1_Top_50_Wins - Team2_Top_50_Wins,
-         win_perc_diff = Team1_Win_Perc - Team2_Win_Perc,
+  mutate(#dist_diff = Team1_Dist - Team2_Dist,
+         #rank_diff = Team1_Mean_Rank - Team2_Mean_Rank,
+         #sos_diff = Team1_SOS - Team2_SOS,
+         #top_50_diff = Team1_Top_50_Wins - Team2_Top_50_Wins,
+         #win_perc_diff = Team1_Win_Perc - Team2_Win_Perc,
          adj_win_perc_diff = Team1_Adj_Win_Perc - Team2_Adj_Win_Perc,
          adj_win_diff = Team1_Adj_Wins - Team2_Adj_Wins,
-         win_diff = Team1_Wins - Team2_Wins,
-         bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
-         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)),
-         preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
-           as.numeric(as.character(Team1_PreSeason_Top25)))
+         #win_diff = Team1_Wins - Team2_Wins,
+         #bad_losses_diff = Team1_Bad_Losses - Team2_Bad_Losses,
+         team_power_diff = as.numeric(as.character(Team1_Power)) - as.numeric(as.character(Team2_Power)))
+         #preseason_top_25_diff = as.numeric(as.character(Team1_PreSeason_Top25)) - 
+           #as.numeric(as.character(Team1_PreSeason_Top25)))
 ##############################################################################################
 ####################################################################################
 # Visualization, Correlations
@@ -939,11 +941,10 @@ correlation_plot(data = train1, x_var = "fga_three_diff", y_var = "Team1_Victory
 ########################################################################################
 # Set variable names used in modeling into a variable
 
-vars <- c("sos_diff","pie_diff","bad_losses_diff","pfouls_diff","fga_three_diff",
-          "dist_diff","ft_perc_diff","top_50_diff","adj_win_diff","four_factor_diff",
+vars <- c("pie_diff","pfouls_diff","fga_three_diff",
+          "ft_perc_diff","adj_win_diff","four_factor_diff",
           "blocks_diff","turnovers_diff","Score_diff","Team1_Power","Team2_Power",
-          "reb_perc_diff","ast_ratio_diff","steals_diff","offreb_perc_diff",
-          "rank_diff","Seed_Diff","Team1_ConfChamp","Team2_ConfChamp")
+          "reb_perc_diff","ast_ratio_diff","steals_diff","offreb_perc_diff","Seed_Diff")
 
 # Modeling
 # Fix for Round 0
@@ -963,8 +964,8 @@ diff_cols2 = colnames(train1)[endsWith(x = colnames(train1), suffix = "diff")]
 team1_cols_1 = colnames(train1)[endsWith(x = colnames(train1), suffix = "Team1_Avg")]
 team1_cols_2 = colnames(train1)[startsWith(x = colnames(train1), prefix = "Team1_")]
 team1_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
-               "Team1","Team2","Team1_Name","Team2_Name","Team1_Dist","Team2_Dist",
-               "Seed_Team1", team1_cols_1,team1_cols_2,diff_cols1,diff_cols2,"Team1_PreSeason_Top25")
+               "Team1","Team2","Team1_Name","Team2_Name",
+               "Seed_Team1", team1_cols_1,team1_cols_2,diff_cols1,diff_cols2)
 # Remove Team1_Victory
 team1_cols = team1_cols[team1_cols != 'Team1_Victory']
 
@@ -972,20 +973,20 @@ team1_cols = team1_cols[team1_cols != 'Team1_Victory']
 team2_cols_1 = colnames(train1)[endsWith(x = colnames(train1), suffix = "Team2_Avg")]
 team2_cols_2 = colnames(train1)[startsWith(x = colnames(train1), prefix = "Team2_")]
 team2_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
-               "Team1","Team2","Team1_Name","Team2_Name","Team1_Dist","Team2_Dist",
-               "Seed_Team2", team2_cols_1,team2_cols_2,diff_cols1,diff_cols2,"Team2_PreSeason_Top25")
+               "Team1","Team2","Team1_Name","Team2_Name",
+               "Seed_Team2", team2_cols_1,team2_cols_2,diff_cols1,diff_cols2)
 #############################################################################
 # Machine Learning
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2021)),] 
+training_data <- train1[train1$Season %in% c(seq(2010,2022)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
-testing_data <- train1[train1$Season %in% c(2021) & train1$Round > 0,] 
+testing_data <- train1[train1$Season %in% c(2022) & train1$Round > 0,] 
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "glmnet", tuneLength = 6, k_fold = 3, TRUE)
+mod <- run_model(vars, "xgbTree", tuneLength = 3, k_fold = 3, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -999,8 +1000,8 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_XGBoost(2022, 1000)
-bracket <- Normalize_Sim(test2, 1000)
+test2 <- Bracket_Sim_XGBoost(2023, 50)
+bracket <- Normalize_Sim(test2, 50)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
@@ -1021,7 +1022,7 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
   dplyr::select(ID, Pred)
 
 ################################################################################
-kaggle_preds <- kaggle_predictions(mod, 'glmnet', 2022, 2022, vars, names = T)
+kaggle_preds <- kaggle_predictions(mod, 'xgbTree', 2023, 2023, vars, names = T)
 write.csv(kaggle_preds, "glmnet_2022_preds.csv", row.names = F)
 
 ######################################################################################

@@ -9,7 +9,7 @@
 
 #MTeamLocations.csv (edit)
 #MTourneyHosts.csv (edit)
-#Teams_03_22_Rankings.xlsx (edit)
+#Teams_03_23_Rankings.xlsx (edit)
 #CitiesEnriched.csv (edit)
 
 # Format options
@@ -100,7 +100,7 @@ for(i in 1:length(sheetNames))
 Standings <- rbind(rank03,rank04,rank05,rank06,rank07,
                    rank08,rank09,rank10,rank11,rank12,
                    rank13,rank14,rank15,rank16,rank17,
-                   rank18,rank19,rank21,rank22)
+                   rank18,rank19,rank21,rank22, rank23 %>% dplyr::select(-SOS) )
 Standings <- Standings %>%
   tidyr::separate(col = 'W-L', into = c("Wins", "Losses"), sep = "-") %>%
   mutate(Rank = as.numeric(Rank), 
@@ -560,11 +560,15 @@ train1 <- train1 %>%
 ###############################################################################################
 # Creat all pairwise matchups data set for bracket simulation
 all_years_submission <- get_all_pairwise_matchups(2003, 2023)
+
 kaggle1 <- all_years_submission %>% dplyr::select(-pred) %>%
   inner_join(Team_Avgs, by = c("Season","Team1" = "Team")) %>%
   inner_join(Team_Avgs, by = c("Season","Team2" = "Team"),
              suffix = c("_Team1_Avg","_Team2_Avg")) %>%
   dplyr::select(-victory_Team1_Avg, -victory_Team2_Avg)
+
+kaggle_mens_submission_2023 <- kaggle1 %>% filter(Season == 2023) %>% 
+  dplyr::select(id) %>% rename("ID" = "id")
 
 # Merge seed information for each team1, team2 per season
 kaggle1 <- kaggle1 %>%
@@ -978,15 +982,15 @@ team2_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
 #############################################################################
 # Machine Learning
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2003,2021)),] 
+training_data <- train1[train1$Season %in% c(seq(2003,2022)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
-testing_data <- train1[train1$Season %in% c(2021) & train1$Round > 0,] 
+testing_data <- train1[train1$Season %in% c(2022) & train1$Round > 0,] 
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "glmnet", tuneLength = 6, k_fold = 3, TRUE)
+mod <- run_model(vars, "xgbTree", tuneLength = 3, k_fold = 3, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -1000,8 +1004,8 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_XGBoost(2022, 10)
-bracket <- Normalize_Sim(test2, 10)
+test2 <- Bracket_Sim_XGBoost(2023, 100)
+bracket <- Normalize_Sim(test2, 100)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
@@ -1022,8 +1026,8 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
   dplyr::select(ID, Pred)
 
 ################################################################################
-kaggle_preds <- kaggle_predictions(mod, 'glmnet', 2022, 2022, vars, names = T)
-write.csv(kaggle_preds, "glmnet_2022_preds.csv", row.names = F)
+kaggle_preds_mens <- kaggle_predictions(mod, 'xgboost', 2023, 2023, vars, names = T)
+write.csv(kaggle_preds_mens, "glmnet_2022_preds.csv", row.names = F)
 
 ######################################################################################
 kaggle_preds %>% filter(Team1_Name %in% c('Gonzaga','Texas Tech'), #Tech, Gonzaga, Tech, Gonzaga
