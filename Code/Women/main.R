@@ -978,7 +978,7 @@ team2_cols = c("Season","slot","Round","Host_City","Host_Lat","Host_Lng",
 #############################################################################
 # Machine Learning
 vars2 <- c(vars, "Team1_Victory")
-training_data <- train1[train1$Season %in% c(seq(2010,2022)),] 
+training_data <- train1[train1$Season %in% c(seq(2010,2021)),] 
 training_response <- training_data[, c("Team1_Victory","Season")]
 training_continuous <- training_data[, vars2]
 
@@ -1006,9 +1006,9 @@ colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  footnote(symbol = "Based on 500 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2022_XGBoost_Bracket_Simulation.html"))
+  save_kable(file = paste0("2023_XGBoost_Women_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_preds_16 <- kaggle_predictions(mod, 'xgbTree', 2016, 2016, vars, names = T)
@@ -1022,7 +1022,7 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
   dplyr::select(ID, Pred)
 
 ################################################################################
-kaggle_preds_womens_glmnet <- kaggle_predictions(mod, 'glmnet', 2023, 2023, vars, names = T)
+kaggle_preds_womens_gbm <- kaggle_predictions(mod, 'gbm', 2023, 2023, vars, names = T)
 
 write.csv(kaggle_preds, "glmnet_2022_preds.csv", row.names = F)
 

@@ -992,7 +992,7 @@ testing_data <- train1[train1$Season %in% c(2022) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "gbm", tuneLength = 4, k_fold = 5, TRUE)
+mod <- run_model(vars, "glmnet", tuneLength = 10, k_fold = 5, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -1006,7 +1006,7 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_GBM(2023, 500)
+test2 <- Bracket_Sim_GLMNET(2023, 500)
 bracket <- Normalize_Sim(test2, 500)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
@@ -1014,7 +1014,7 @@ kable(bracket, row.names = F) %>%
                 full_width = F, position = "left", fixed_thead = T) %>%
   footnote(symbol = "Based on 500 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2023_GBM_Bracket_Simulation.html"))
+  save_kable(file = paste0("2023_GLMNET_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_preds_16 <- kaggle_predictions(mod, 'xgbTree', 2016, 2016, vars, names = T)
