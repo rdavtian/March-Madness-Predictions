@@ -53,3 +53,14 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 -----------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
+2023 Extreme Gradient Boosting Men's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_XGBOOST_Bracket_Simulation.html
+
+2023 Gradient Boosting Machine Men's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GBM_Bracket_Simulation.html
+
+2023 Random Forest Bracket Men's Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_RF_Bracket_Simulation.html
+
+2023 Regularized General Linear Model Men's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GLMNET_Bracket_Simulation.html
