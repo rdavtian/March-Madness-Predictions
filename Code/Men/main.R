@@ -5,7 +5,7 @@
 #https://www.nbastuffer.com/nba-moneyball/
 #https://statathlon.com/four-factors-basketball-success/
 #https://www.teamrankings.com/ncaa-basketball/ranking/predictive-by-other?date=2021-03-14
-#adrian@swishanalytics.com
+#https://masseyratings.com/cb/ncaa-d1/ratings
 
 #MTeamLocations.csv (edit)
 #MTourneyHosts.csv (edit)
@@ -948,7 +948,9 @@ vars <- c("sos_diff","pie_diff","bad_losses_diff","pfouls_diff","fga_three_diff"
           "dist_diff","ft_perc_diff","top_50_diff","adj_win_diff","four_factor_diff",
           "blocks_diff","turnovers_diff","Score_diff","Team1_Power","Team2_Power",
           "reb_perc_diff","ast_ratio_diff","steals_diff","offreb_perc_diff",
-          "rank_diff","Seed_Diff","Team1_ConfChamp","Team2_ConfChamp")
+          #"rank_diff",
+          "Seed_Diff",
+          "Team1_ConfChamp","Team2_ConfChamp")
 
 # Modeling
 # Fix for Round 0
@@ -990,7 +992,7 @@ testing_data <- train1[train1$Season %in% c(2022) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "xgbTree", tuneLength = 3, k_fold = 3, TRUE)
+mod <- run_model(vars, "gbm", tuneLength = 4, k_fold = 5, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -1004,15 +1006,15 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_XGBoost(2023, 100)
-bracket <- Normalize_Sim(test2, 100)
+test2 <- Bracket_Sim_GBM(2023, 500)
+bracket <- Normalize_Sim(test2, 500)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
                 full_width = F, position = "left", fixed_thead = T) %>%
-  footnote(symbol = "Based on 1000 Tournament Simulations") %>%
+  footnote(symbol = "Based on 500 Tournament Simulations") %>%
   scroll_box(width = "100%", height = "520px") %>%
-  save_kable(file = paste0("2022_XGBoost_Bracket_Simulation.html"))
+  save_kable(file = paste0("2023_GBM_Bracket_Simulation.html"))
 
 # Make Kaggle Predictions, trained with unstandardized data only
 kaggle_preds_16 <- kaggle_predictions(mod, 'xgbTree', 2016, 2016, vars, names = T)
@@ -1026,7 +1028,7 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
   dplyr::select(ID, Pred)
 
 ################################################################################
-kaggle_preds_mens <- kaggle_predictions(mod, 'xgboost', 2023, 2023, vars, names = T)
+kaggle_preds_mens_gbm<- kaggle_predictions(mod, 'gbm', 2023, 2023, vars, names = T)
 write.csv(kaggle_preds_mens, "glmnet_2022_preds.csv", row.names = F)
 
 ######################################################################################

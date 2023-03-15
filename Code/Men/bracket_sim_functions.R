@@ -14,10 +14,10 @@ Bracket_Sim_Penalized = function(year, N, lambda)
     # Use below for unknown predictions
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
     bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
@@ -291,11 +291,11 @@ Bracket_Sim_GLMNET = function(year, N)
     # Use below for unknown predictions
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
-    
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
+
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
     bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
@@ -577,10 +577,10 @@ Bracket_Sim_RF = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
     bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
@@ -862,10 +862,10 @@ Bracket_Sim_GBM = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
     bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
@@ -1147,10 +1147,10 @@ Bracket_Sim_XGBoost = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Wake Forest" & bracket$Team2_Name != "Wake Forest",]
-    bracket = bracket[bracket$Team1_Name != "Wisconsin" & bracket$Team2_Name != "Wisconsin",]
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
+    bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
     bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
-    bracket = bracket[bracket$Team1_Name != "Utah" & bracket$Team2_Name != "Utahi",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
@@ -1432,10 +1432,10 @@ Bracket_Sim_NN = function(year, N)
     # Remove teams that lost play in game in current tournament
     bracket = kaggle1[kaggle1$Season == year,]
     
-    bracket = bracket[bracket$Team1_Name != "Rutgers" & bracket$Team2_Name != "Rutgers",]
-    bracket = bracket[bracket$Team1_Name != "Wyoming" & bracket$Team2_Name != "Wyoming",]
-    bracket = bracket[bracket$Team1_Name != "Bryant" & bracket$Team2_Name != "Bryant",]
+    bracket = bracket[bracket$Team1_Name != "Mississippi St" & bracket$Team2_Name != "Mississippi St",]
     bracket = bracket[bracket$Team1_Name != "TAM C. Christi" & bracket$Team2_Name != "TAM C. Christi",]
+    bracket = bracket[bracket$Team1_Name != "Nevada" & bracket$Team2_Name != "Nevada",]
+    bracket = bracket[bracket$Team1_Name != "F Dickinson" & bracket$Team2_Name != "F Dickinson",]
   }  
   
   # Add seed and region 
