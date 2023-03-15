@@ -21,5 +21,8 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 ## Women's
-2023 Extreme Gradient Boosting Men's Bracket Simulation Results
+2023 Extreme Gradient Boosting Women's Bracket Simulation Results
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_XGBoost_Women_Bracket_Simulation.html
+
+2023 Gradient Boosting Machine Women's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GBM_Women_Bracket_Simulation.html
