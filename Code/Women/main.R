@@ -986,7 +986,7 @@ testing_data <- train1[train1$Season %in% c(2022) & train1$Round > 0,]
 testing_response <- testing_data[, c("Team1_Victory","Season")]
 testing_continuous <- testing_data[, vars2]
 
-mod <- run_model(vars, "xgbTree", tuneLength = 3, k_fold = 3, TRUE)
+mod <- run_model(vars, "xgbTree", tuneLength = 5, k_fold = 5, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -1000,8 +1000,8 @@ d <- answer[answer$True != answer$Pred_Outcome,]
 cbind(wrong, d$Pred_Outcome, d$Pred_Prob)
 dim(wrong)[1]
 
-test2 <- Bracket_Sim_XGBoost(2023, 50)
-bracket <- Normalize_Sim(test2, 50)
+test2 <- Bracket_Sim_XGBoost(2023, 500)
+bracket <- Normalize_Sim(test2, 500)
 colnames(bracket)[1:4] = c("Season","Region","Seed","Team"); bracket
 kable(bracket, row.names = F) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"),
@@ -1022,7 +1022,8 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
   dplyr::select(ID, Pred)
 
 ################################################################################
-kaggle_preds <- kaggle_predictions(mod, 'xgbTree', 2023, 2023, vars, names = T)
+kaggle_preds_womens_glmnet <- kaggle_predictions(mod, 'glmnet', 2023, 2023, vars, names = T)
+
 write.csv(kaggle_preds, "glmnet_2022_preds.csv", row.names = F)
 
 ######################################################################################
