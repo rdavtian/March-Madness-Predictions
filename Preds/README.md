@@ -11,7 +11,7 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 2023 Gradient Boosting Machine Men's Bracket Simulation Results
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GBM_Bracket_Simulation.html
 
-2023 Random Forest Bracket Men's Simulation Results
+2023 Random Forest Men's Bracket Simulation Results
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_RF_Bracket_Simulation.html
 
 2023 Regularized General Linear Model Men's Bracket Simulation Results
@@ -26,3 +26,9 @@ http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predicti
 
 2023 Gradient Boosting Machine Women's Bracket Simulation Results
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GBM_Women_Bracket_Simulation.html
+
+2023 Random Forest Women's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GBM_Women_Bracket_Simulation.html
+
+2023 Regularized General Linear Model Women's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_GLMNET_Women_Bracket_Simulation.html
