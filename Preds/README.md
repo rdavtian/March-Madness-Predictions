@@ -5,6 +5,9 @@ in front of url of the html file on github
 ## March Madness Tournament Simulation Results
 
 ## Men's
+2024 Random Forest Men's Bracket Simulation Results
+http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds24/2024_March_Madness_Mens_Bracket_Sim_Results_RF.html
+
 2023 Extreme Gradient Boosting Men's Bracket Simulation Results
 http://htmlpreview.github.io/?https://github.com/rdavtian/March-Madness-Predictions/blob/master/Preds/Preds23/2023_XGBoost_Bracket_Simulation.html
 
