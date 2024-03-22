@@ -254,6 +254,9 @@ kaggle_preds <- rbind(kaggle_preds_16, kaggle_preds_17, kaggle_preds_18,
 ################################################################################
 kaggle_preds_mens_rf <- kaggle_predictions(mod, 'rf', 2024, 2024, vars, names = T)
 
+kaggle_preds_mens_rf %>% 
+  filter(Team1_Name == "North Carolina")
+
 write.csv(kaggle_preds_mens_rf, "kaggle_preds_mens_rf.csv", row.names = F)
 
 ######################################################################################
