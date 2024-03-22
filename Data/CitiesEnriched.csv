@@ -420,6 +420,7 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4441,Niagara University,NY,43.1365152,-79.0353197,180.5630493,Eastern Daylight Time,-4
 4442,Toronto,ON,43.653226,-79.3831843,91.72267914,Eastern Daylight Time,-4
 4443,West Palm Beach,FL,26.7153424,-80.0533746,3.819226027,Eastern Daylight Time,-4
+4444,Florence,AL,34.79981,-87.67725,180,Central Daylight Time,-5
 4445,Georgetown,KY,38.2098,-84.5588,258,Eastern Daylight Time,-4
 4446,Seaside,CA,36.6149,-121.8221,10,Pacific Daylight Time,-7
 4447,Kissimmee,FL,28.292,-81.4076,15,Eastern Daylight Time,-4
@@ -470,3 +471,15 @@ CityId,City,State,LatHost,LngHost,ElevationMetersHost,TimezoneName,UTCOffsetHour
 4492,London,GB,51.5072178,-0.1275862,7.32265377,Greenwich Mean Time,0
 4493,Union,NJ,40.6975898,-74.2631635,28.86938858,Eastern Daylight Time,-4
 4494,Kihei,HI,20.7399409,-156.4541873,10.25002289,Hawaii-Aleutian Standard Time,-10
+4495,DeWitt,NY,43.0426633,-76.067849,134,Eastern Daylight Time,-4
+4496,Moncton,NB,46.09454,-64.7965,52,Atlantic Standard Time,-4
+4497,Palm Desert,CA,33.72255,-116.37697,67,Pacific Daylight Time,-7
+4498,St. Augustine,FL,29.88982977,-81.30799877,2,Eastern Daylight Time,-4
+4499,Trenton,NJ,40.215308,-74.761555,20,Eastern Daylight Time,-4
+4500,Hickory,NC,35.73599706,-81.32366537,317,Eastern Daylight Time,-4
+4501,Destin,FL,30.39353,-86.49578,8,Eastern Daylight Time,-4
+4502,South Easton,MA,42.0468,-71.0807,35,Eastern Daylight Time,-4
+4503,Cherokee,NC,35.47283144,-83.31899872,750,Eastern Daylight Time,-4
+4504,St. Joseph,MO,39.75483031,-94.83532999,281,Central Daylight Time,-5
+4505,Paris,FR,48.85341,2.3488,35,Central European Standard Time,1
+4506,Glen Allen,VA,37.66598,-77.50637,63,Eastern Daylight Time,-4
