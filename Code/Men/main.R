@@ -196,7 +196,7 @@ team2_cols <- c("Season","Slot","Round","Host","Host_Lat","Host_Lng",
 # Machine Learning
 vars <- diff_cols
 vars2 <- c(vars, "Team1_Victory")
-train <- training_df[training_df$Season %in% c(seq(2003,2023)),] 
+train <- training_df[training_df$Season %in% c(seq(2003,2022)),] 
 train_response <- train[, c("Team1_Victory","Season")]
 train_continuous <- train[, vars2]
 
@@ -204,7 +204,7 @@ test <- training_df[training_df$Season %in% c(2023) & training_df$Round > 0,]
 test_response <- test[, c("Team1_Victory","Season")]
 test_continuous <- test[, vars2]
 
-mod <- run_model(vars, "rf", tuneLength = 15, k_fold = 5, TRUE)
+mod <- run_model(vars, "glmnet", tuneLength = 15, k_fold = 5, TRUE)
 
 answer <- mod[[2]]
 hist(answer$Pred_Prob)
@@ -226,8 +226,8 @@ d <- answer[answer$True == answer$Pred_Outcome,]
 cbind(right, d$Pred_Outcome, d$Pred_Prob) %>% View()
 dim(right)[1]
 
-result_mens <- Bracket_Sim(2024, 10000, "RF")
-bracket <- Normalize_Sim(result_mens[[1]], 10000)
+result_mens <- Bracket_Sim(2024, 200, "GLMNET")
+bracket <- Normalize_Sim(result_mens[[1]], 200)
 
 #kaggle_mens <- do.call("rbind", result_mens[[2]])
 kaggle_mens <- bind_rows(result_mens[[2]])
